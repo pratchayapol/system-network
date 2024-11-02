@@ -60,6 +60,13 @@ if (isset($_GET['code']) && isset($_GET['state'])) {
         echo '<pre>';
         print_r($user_profile);
         echo '</pre>';
+
+        // ตรวจสอบว่า email มีอยู่ใน $user_profile หรือไม่
+        if (isset($user_profile['email'])) {
+            echo 'Email: ' . htmlspecialchars($user_profile['email']);
+        } else {
+            echo 'Email not available.';
+        }
     } else {
         echo 'Failed to obtain access token.';
     }
