@@ -1,0 +1,74 @@
+version: '3.9'
+services:
+  web:
+    build:
+      context: .
+      dockerfile: ./web/Dockerfile
+    restart: unless-stopped
+    ports:
+      - "8097:80"
+    volumes:
+      - web_data:/var/www/html
+      - ./src:/var/www/html
+      - ./default.conf/default.conf:/etc/nginx/conf.d/default.conf
+      - ./default.conf/nginx.conf:/etc/nginx/nginx.conf
+      - /etc/localtime:/etc/localtime:ro
+    networks:
+      - system_network
+
+  php:
+    build:
+      context: .
+      dockerfile: ./php/Dockerfile
+    restart: unless-stopped
+    volumes:
+      - ./src:/var/www/html
+      - /etc/localtime:/etc/localtime:ro
+    networks:
+      - system_network
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    restart: unless-stopped
+    container_name: phpmyadmin-project
+    environment:
+      PMA_HOST: mariadb-project
+    depends_on:
+      - mariadb
+    ports:
+      - "8098:80"
+    networks:
+      - system_network
+
+  mariadb:
+    image: mariadb:latest
+    restart: unless-stopped
+    container_name: mariadb-project
+    environment:
+      MYSQL_ROOT_PASSWORD: adminkku
+      MYSQL_DATABASE: nu_project
+      MYSQL_USER: kku
+      MYSQL_PASSWORD: kku
+    ports:
+      - "3341:3306"
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./mysql_backup:/backup
+      - /etc/localtime:/etc/localtime:ro
+    command: --default-authentication-plugin=mysql_native_password
+    networks:
+      - system_network
+
+networks:
+  system_network:
+    driver: bridge
+
+volumes:
+  web_data:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '/var/www/html'
+  mysql_backup:
+    driver: local
