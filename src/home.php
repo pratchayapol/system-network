@@ -1,11 +1,11 @@
 <?php
 session_start();
 
-// ล้าง session หากผู้ใช้เลือก "ออกจากระบบ"
-if (isset($_POST['logout'])) {
+// ตรวจสอบการออกจากระบบ
+if (isset($_GET['logout'])) {
     session_destroy();
-    header("Location: login.php"); // เปลี่ยนไปยังหน้า login หลังจากออกจากระบบ
-    exit();
+    header("Location: home.php");
+    exit;
 }
 ?>
 
@@ -15,31 +15,33 @@ if (isset($_POST['logout'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>หน้าแรก</title>
-    <link href="https://cdn.jsdelivr.net/npm/twin.macro@latest/dist/twin.macro.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body class="bg-gray-100 font-sans">
+<body class="bg-gray-100">
 
-    <!-- เมนู -->
-    <nav class="bg-white shadow">
-        <div class="max-w-7xl mx-auto px-4 py-6">
-            <div class="flex items-center justify-between">
-                <div class="flex space-x-4">
-                    <a href="home.php" class="text-gray-700 hover:text-blue-500">Home</a>
-                    <a href="account.php" class="text-gray-700 hover:text-blue-500">สมาชิก</a>
-                    <a href="setting.php" class="text-gray-700 hover:text-blue-500">จัดการยอดชำระค่าอินเตอร์เน็ต</a>
-                </div>
-                <form method="post">
-                    <button type="submit" name="logout" class="text-gray-700 hover:text-red-500">ออกจากระบบ</button>
-                </form>
+    <header class="bg-blue-600 p-4">
+        <nav class="flex justify-between items-center">
+            <div>
+                <h1 class="text-white text-2xl font-bold">ระบบจัดการอินเตอร์เน็ต</h1>
             </div>
-        </div>
-    </nav>
+            <ul class="flex space-x-4">
+                <li><a href="home.php" class="text-white hover:text-blue-300">Home</a></li>
+                <li><a href="account.php" class="text-white hover:text-blue-300">สมาชิก</a></li>
+                <li><a href="setting.php" class="text-white hover:text-blue-300">จัดการยอดชำระค่าอินเตอร์เน็ต</a></li>
+                <li><a href="?logout=true" class="text-white hover:text-blue-300">ออกจากระบบ</a></li>
+            </ul>
+        </nav>
+    </header>
 
-    <!-- เนื้อหาหลัก -->
-    <div class="max-w-7xl mx-auto px-4 py-6">
-        <h1 class="text-2xl font-bold mb-4">ยินดีต้อนรับสู่หน้าแรก</h1>
-        <p>นี่คือเนื้อหาหลักของคุณในหน้า home.php</p>
-    </div>
+    <main class="container mx-auto mt-8 p-4">
+        <h2 class="text-xl font-bold mb-4">ยินดีต้อนรับสู่หน้าแรก</h2>
+        <p class="text-gray-700">ที่นี่คือเนื้อหาหลักของระบบจัดการอินเตอร์เน็ต...</p>
+        <!-- เพิ่มเนื้อหาเพิ่มเติมที่นี่ -->
+    </main>
+
+    <footer class="bg-gray-800 text-white p-4 mt-8 text-center">
+        <p>&copy; <?php echo date("Y"); ?> ระบบจัดการอินเตอร์เน็ต. สงวนลิขสิทธิ์.</p>
+    </footer>
 
 </body>
 </html>
