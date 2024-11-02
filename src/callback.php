@@ -18,6 +18,20 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
+?>
+<html>
+
+<head>
+    <!-- SweetAlert CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/sweetalert/dist/sweetalert.css">
+    <!-- SweetAlert JavaScript -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</head>
+
+</html>
+
+<?php
+
 // ตรวจสอบว่า 'code' และ 'state' มีใน URL หรือไม่
 if (isset($_GET['code']) && isset($_GET['state'])) {
     $code = $_GET['code'];
@@ -70,9 +84,9 @@ if (isset($_GET['code']) && isset($_GET['state'])) {
         $user_profile = json_decode($user_profile_response, true);
 
         // แสดงข้อมูลผู้ใช้
-        echo '<pre>';
-        print_r($user_profile);
-        echo '</pre>';
+        // echo '<pre>';
+        // print_r($user_profile);
+        // echo '</pre>';
 
         // แทรกข้อมูลลงในฐานข้อมูล
         $user_id = $user_profile['userId'];
@@ -85,11 +99,20 @@ if (isset($_GET['code']) && isset($_GET['state'])) {
         $stmt->bind_param("ssss", $user_id, $display_name, $status_message, $picture_url);
 
         if ($stmt->execute()) {
-            echo "New record created successfully.";
+            // ถ้าสำเร็จ ให้แสดง popup และนำไปยัง /home.php
+            echo '<script>
+                    swal({
+                        title: "เข้าสู่ระบบแล้ว!",
+                        text: "ยินดีต้อนรับ, ' . htmlspecialchars($display_name) . '!",
+                        icon: "success",
+                        button: "ตกลง",
+                    }).then(function() {
+                        window.location = "/home.php";
+                    });
+                  </script>';
         } else {
             echo "Error: " . $stmt->error;
         }
-
         $stmt->close();
     } else {
         echo 'Failed to obtain access token.';
