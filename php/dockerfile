@@ -10,7 +10,8 @@ RUN apt-get update && apt-get install -y \
     libzip-dev \
     zip \
     git \
-    && docker-php-ext-install curl sockets zip
+    && docker-php-ext-install curl sockets zip \
+    && docker-php-ext-install mysqli pdo pdo_mysql
 
 # คัดลอก Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
