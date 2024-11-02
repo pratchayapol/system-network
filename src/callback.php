@@ -87,7 +87,7 @@ if (isset($_GET['code']) && isset($_GET['state'])) {
         if ($stmt->execute()) {
             echo "New record created successfully.";
         } else {
-            echo "Error: " . $sql . "<br>" . $conn->error;
+            echo "Error: " . $stmt->error;
         }
 
         $stmt->close();
