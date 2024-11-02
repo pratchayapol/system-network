@@ -94,24 +94,50 @@ if (isset($_GET['code']) && isset($_GET['state'])) {
         $status_message = $user_profile['statusMessage'];
         $picture_url = $user_profile['pictureUrl'];
 
-        $sql = "INSERT INTO account (user_id, display_name, status_message, picture_url) VALUES (?, ?, ?, ?)";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("ssss", $user_id, $display_name, $status_message, $picture_url);
+        // ตรวจสอบว่า user_id มีอยู่ในฐานข้อมูลหรือไม่
+        $check_sql = "SELECT COUNT(*) FROM account WHERE user_id = ?";
+        $check_stmt = $conn->prepare($check_sql);
+        $check_stmt->bind_param("s", $user_id);
+        $check_stmt->execute();
+        $check_stmt->bind_result($count);
+        $check_stmt->fetch();
+        $check_stmt->close();
 
-        if ($stmt->execute()) {
-            // ถ้าสำเร็จ ให้แสดง popup และนำไปยัง /home.php
+        if ($count > 0) {
+            // ถ้ามี user_id อยู่แล้ว
             echo '<script>
-                    swal({
-                        title: "เข้าสู่ระบบแล้ว!",
-                        text: "ยินดีต้อนรับ, ' . htmlspecialchars($display_name) . '!",
-                        icon: "success",
-                        button: "ตกลง",
-                    }).then(function() {
-                        window.location = "/home.php";
-                    });
-                  </script>';
+            swal({
+                title: "ผู้ใช้มีอยู่แล้ว!",
+                text: "คุณได้เข้าสู่ระบบแล้ว, ' . htmlspecialchars($display_name) . '!",
+                icon: "info",
+                button: "ตกลง",
+            }).then(function() {
+                window.location = "/home";
+            });
+          </script>';
         } else {
-            echo "Error: " . $stmt->error;
+            // ถ้าไม่มี user_id ให้ทำการ insert
+            $sql = "INSERT INTO account (user_id, display_name, status_message, picture_url) VALUES (?, ?, ?, ?)";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("ssss", $user_id, $display_name, $status_message, $picture_url);
+
+            if ($stmt->execute()) {
+                // ถ้าสำเร็จ ให้แสดง popup และนำไปยัง /home.php
+                echo '<script>
+                swal({
+                    title: "เข้าสู่ระบบแล้ว!",
+                    text: "ยินดีต้อนรับ, ' . htmlspecialchars($display_name) . '!",
+                    icon: "success",
+                    button: "ตกลง",
+                }).then(function() {
+                    window.location = "/home";
+                });
+              </script>';
+            } else {
+                echo "Error: " . $stmt->error;
+            }
+
+            $stmt->close();
         }
         $stmt->close();
     } else {
