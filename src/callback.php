@@ -41,8 +41,8 @@ if (isset($_GET['code']) && isset($_GET['state'])) {
         $access_token = $result['access_token'];
         
         // สามารถใช้ access token ในการทำงานต่อไป เช่น เรียกข้อมูลผู้ใช้
-        // ตัวอย่างการดึงข้อมูลผู้ใช้
-        $user_profile_url = 'https://api.line.me/v2/profile';
+        // ดึงข้อมูลผู้ใช้รวมทั้งอีเมล
+        $user_profile_url = 'https://api.line.me/v2/me';
         $headers = [
             'Authorization: Bearer ' . $access_token,
         ];
@@ -61,7 +61,7 @@ if (isset($_GET['code']) && isset($_GET['state'])) {
         print_r($user_profile);
         echo '</pre>';
 
-        // ตรวจสอบว่า email มีอยู่ใน $user_profile หรือไม่
+        // แสดงอีเมลถ้ามี
         if (isset($user_profile['email'])) {
             echo 'Email: ' . htmlspecialchars($user_profile['email']);
         } else {
