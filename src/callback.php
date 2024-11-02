@@ -6,7 +6,7 @@ $redirect_uri = 'https://system-network.pcnone.com/callback.php'; // URL ที�
 
 // Database connection
 $servername = "localhost"; // ชื่อโฮสต์ของฐานข้อมูล
-$username = "adminpcn"; // ชื่อผู้ใช้ฐานข้อมูล
+$username = "pcnone"; // ชื่อผู้ใช้ฐานข้อมูล
 $password = "pcnone"; // รหัสผ่านฐานข้อมูล
 $dbname = "system-network"; // ชื่อฐานข้อมูล
 
