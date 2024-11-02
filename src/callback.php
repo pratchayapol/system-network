@@ -139,7 +139,6 @@ if (isset($_GET['code']) && isset($_GET['state'])) {
 
             $stmt->close();
         }
-        $stmt->close();
     } else {
         echo 'Failed to obtain access token.';
     }
