@@ -40,9 +40,8 @@ if (isset($_GET['code']) && isset($_GET['state'])) {
     if (isset($result['access_token'])) {
         $access_token = $result['access_token'];
         
-        // สามารถใช้ access token ในการทำงานต่อไป เช่น เรียกข้อมูลผู้ใช้
-        // ดึงข้อมูลผู้ใช้รวมทั้งอีเมล
-        $user_profile_url = 'https://api.line.me/v2/me';
+        // ดึงข้อมูลโปรไฟล์ผู้ใช้
+        $user_profile_url = 'https://api.line.me/v2/profile';
         $headers = [
             'Authorization: Bearer ' . $access_token,
         ];
