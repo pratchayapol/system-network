@@ -5,7 +5,7 @@ $client_secret = '92117e1146f3aed0d034e4f26c0b5ab9'; // ใส่ Client Secret 
 $redirect_uri = 'https://system-network.pcnone.com/callback.php'; // URL ที่ LINE จะเรียกกลับ
 
 // Database connection
-$servername = "db"; // ชื่อโฮสต์ของฐานข้อมูล
+$servername = "192.168.1.202:3341"; // ชื่อโฮสต์ของฐานข้อมูล
 $username = "pcnone"; // ชื่อผู้ใช้ฐานข้อมูล
 $password = "pcnone"; // รหัสผ่านฐานข้อมูล
 $dbname = "system-network"; // ชื่อฐานข้อมูล
