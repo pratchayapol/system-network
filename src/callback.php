@@ -29,23 +29,23 @@ if (isset($_GET['code']) && isset($_GET['state'])) {
     ];
     $context = stream_context_create($options);
     $response = file_get_contents($url, false, $context);
-    
+
     if ($response === FALSE) {
         die('Error occurred while requesting access token.');
     }
 
     $result = json_decode($response, true);
-    
+
     // ตรวจสอบว่า access token ได้รับหรือไม่
     if (isset($result['access_token'])) {
         $access_token = $result['access_token'];
-        
+
         // ดึงข้อมูลโปรไฟล์ผู้ใช้
         $user_profile_url = 'https://api.line.me/v2/profile';
         $headers = [
             'Authorization: Bearer ' . $access_token,
         ];
-        
+
         $user_profile_context = stream_context_create([
             'http' => [
                 'header' => $headers,
@@ -60,11 +60,11 @@ if (isset($_GET['code']) && isset($_GET['state'])) {
         print_r($user_profile);
         echo '</pre>';
 
-        // แสดงอีเมลถ้ามี
+        // แสดงข้อมูลผู้ใช้รวมถึงอีเมล
         if (isset($user_profile['email'])) {
             echo 'Email: ' . htmlspecialchars($user_profile['email']);
         } else {
-            echo 'Email not available.';
+            echo 'Email not available. Please check your permissions.';
         }
     } else {
         echo 'Failed to obtain access token.';
@@ -72,4 +72,3 @@ if (isset($_GET['code']) && isset($_GET['state'])) {
 } else {
     echo 'Missing code or state parameter.';
 }
-?>

@@ -5,7 +5,10 @@ $redirect_uri = 'https://system-network.pcnone.com/callback.php';
 $state = bin2hex(random_bytes(16)); // สำหรับตรวจสอบ CSRF
 
 $_SESSION['state'] = $state;
-$line_login_url = "https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=$client_id&redirect_uri=$redirect_uri&state=$state&scope=profile%20openid%20email";
+
+$scope = 'openid profile email'; // ระบุ scope ที่ต้องการ
+$line_login_url = "https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=$client_id&redirect_uri=$redirect_uri&state=$state&scope=" . urlencode($scope);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
