@@ -47,7 +47,7 @@
 
                     // เชื่อมต่อกับฐานข้อมูล
                     $conn = new mysqli($servername, $username, $password, $dbname);
-                    $sql = "SELECT id, name, email, picture_url FROM account"; // ตรวจสอบให้แน่ใจว่าคุณมีฟิลด์ picture_url ในฐานข้อมูล
+                    $sql = "SELECT * FROM account"; // ตรวจสอบให้แน่ใจว่าคุณมีฟิลด์ picture_url ในฐานข้อมูล
                     $result = $conn->query($sql);
 
                     if ($result->num_rows > 0) {
