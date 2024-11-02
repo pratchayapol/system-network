@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="th">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>สมาชิก</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
+
 <body class="bg-gray-100">
     <header class="bg-white shadow">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -36,7 +38,14 @@
                 <tbody>
                     <?php
                     // ดึงข้อมูลจากฐานข้อมูลและแสดงผลที่นี่
-                    $conn = new mysqli("localhost", "username", "password", "database");
+                    // Database connection
+                    $servername = "192.168.1.202:3341"; // ชื่อโฮสต์ของฐานข้อมูล
+                    $username = "root"; // ชื่อผู้ใช้ฐานข้อมูล
+                    $password = "adminpcn"; // รหัสผ่านฐานข้อมูล
+                    $dbname = "system_network"; // ชื่อฐานข้อมูล
+
+                    // เชื่อมต่อกับฐานข้อมูล
+                    $conn = new mysqli($servername, $username, $password, $dbname);
                     $sql = "SELECT id, name, email FROM account";
                     $result = $conn->query($sql);
 
@@ -59,4 +68,5 @@
         </div>
     </main>
 </body>
+
 </html>
