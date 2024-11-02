@@ -4,6 +4,20 @@ $client_id = '2006525758'; // ใส่ Client ID ของคุณที่น
 $client_secret = '92117e1146f3aed0d034e4f26c0b5ab9'; // ใส่ Client Secret ของคุณที่นี่
 $redirect_uri = 'https://system-network.pcnone.com/callback.php'; // URL ที่ LINE จะเรียกกลับ
 
+// Database connection
+$servername = "localhost"; // ชื่อโฮสต์ของฐานข้อมูล
+$username = "adminpcn"; // ชื่อผู้ใช้ฐานข้อมูล
+$password = "pcnone"; // รหัสผ่านฐานข้อมูล
+$dbname = "system-network"; // ชื่อฐานข้อมูล
+
+// เชื่อมต่อกับฐานข้อมูล
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// ตรวจสอบการเชื่อมต่อ
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
 // ตรวจสอบว่า 'code' และ 'state' มีใน URL หรือไม่
 if (isset($_GET['code']) && isset($_GET['state'])) {
     $code = $_GET['code'];
@@ -60,15 +74,29 @@ if (isset($_GET['code']) && isset($_GET['state'])) {
         print_r($user_profile);
         echo '</pre>';
 
-        // แสดงข้อมูลผู้ใช้รวมถึงอีเมล
-        if (isset($user_profile['email'])) {
-            echo 'Email: ' . htmlspecialchars($user_profile['email']);
+        // แทรกข้อมูลลงในฐานข้อมูล
+        $user_id = $user_profile['userId'];
+        $display_name = $user_profile['displayName'];
+        $status_message = $user_profile['statusMessage'];
+        $picture_url = $user_profile['pictureUrl'];
+
+        $sql = "INSERT INTO account (user_id, display_name, status_message, picture_url) VALUES (?, ?, ?, ?)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("ssss", $user_id, $display_name, $status_message, $picture_url);
+
+        if ($stmt->execute()) {
+            echo "New record created successfully.";
         } else {
-            echo 'Email not available. Please check your permissions.';
+            echo "Error: " . $sql . "<br>" . $conn->error;
         }
+
+        $stmt->close();
     } else {
         echo 'Failed to obtain access token.';
     }
 } else {
     echo 'Missing code or state parameter.';
 }
+
+$conn->close();
+?>

@@ -45,10 +45,10 @@ services:
     restart: unless-stopped
     container_name: mariadb-project
     environment:
-      MYSQL_ROOT_PASSWORD: adminkku
-      MYSQL_DATABASE: nu_project
-      MYSQL_USER: kku
-      MYSQL_PASSWORD: kku
+      MYSQL_ROOT_PASSWORD: adminpcn
+      MYSQL_DATABASE: system_network
+      MYSQL_USER: pcnone
+      MYSQL_PASSWORD: pcnone
     ports:
       - "3341:3306"
     volumes:
