@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>สมาชิก</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <header class="bg-white shadow">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <nav class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <h1 class="text-xl font-bold text-gray-900">เว็บไซต์ของเรา</h1>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="home.php" class="text-gray-600 hover:text-gray-900">Home</a>
+                    <a href="account.php" class="text-gray-600 hover:text-gray-900">สมาชิก</a>
+                    <a href="setting.php" class="text-gray-600 hover:text-gray-900">จัดการยอดชำระค่าอินเตอร์เน็ต</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="py-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-2xl font-bold text-gray-900">รายชื่อสมาชิก</h2>
+            <table class="min-w-full mt-4 bg-white border border-gray-300">
+                <thead>
+                    <tr>
+                        <th class="py-2 px-4 border-b">ID</th>
+                        <th class="py-2 px-4 border-b">ชื่อ</th>
+                        <th class="py-2 px-4 border-b">อีเมล</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    // ดึงข้อมูลจากฐานข้อมูลและแสดงผลที่นี่
+                    $conn = new mysqli("localhost", "username", "password", "database");
+                    $sql = "SELECT id, name, email FROM account";
+                    $result = $conn->query($sql);
+
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                            echo "<tr>";
+                            echo "<td class='py-2 px-4 border-b'>" . $row['id'] . "</td>";
+                            echo "<td class='py-2 px-4 border-b'>" . $row['name'] . "</td>";
+                            echo "<td class='py-2 px-4 border-b'>" . $row['email'] . "</td>";
+                            echo "</tr>";
+                        }
+                    } else {
+                        echo "<tr><td colspan='3' class='py-2 px-4 border-b text-center'>ไม่มีสมาชิก</td></tr>";
+                    }
+
+                    $conn->close();
+                    ?>
+                </tbody>
+            </table>
+        </div>
+    </main>
+</body>
+</html>
