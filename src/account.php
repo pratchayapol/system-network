@@ -33,6 +33,7 @@
                         <th class="py-2 px-4 border-b">ID</th>
                         <th class="py-2 px-4 border-b">ชื่อ</th>
                         <th class="py-2 px-4 border-b">อีเมล</th>
+                        <th class="py-2 px-4 border-b">ภาพโปรไฟล์</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -46,19 +47,22 @@
 
                     // เชื่อมต่อกับฐานข้อมูล
                     $conn = new mysqli($servername, $username, $password, $dbname);
-                    $sql = "SELECT id, name, email FROM account";
+                    $sql = "SELECT id, name, email, picture_url FROM account"; // ตรวจสอบให้แน่ใจว่าคุณมีฟิลด์ picture_url ในฐานข้อมูล
                     $result = $conn->query($sql);
 
                     if ($result->num_rows > 0) {
                         while ($row = $result->fetch_assoc()) {
                             echo "<tr>";
                             echo "<td class='py-2 px-4 border-b'>" . $row['id'] . "</td>";
-                            echo "<td class='py-2 px-4 border-b'>" . $row['name'] . "</td>";
-                            echo "<td class='py-2 px-4 border-b'>" . $row['email'] . "</td>";
+                            echo "<td class='py-2 px-4 border-b'>" . $row['display_name'] . "</td>";
+                            echo "<td class='py-2 px-4 border-b'>" . $row['status_message'] . "</td>";
+                            echo "<td class='py-2 px-4 border-b'>";
+                            echo "<img src='" . $row['picture_url'] . "' alt='Profile Picture' class='w-10 h-10 rounded-full'>";
+                            echo "</td>";
                             echo "</tr>";
                         }
                     } else {
-                        echo "<tr><td colspan='3' class='py-2 px-4 border-b text-center'>ไม่มีสมาชิก</td></tr>";
+                        echo "<tr><td colspan='4' class='py-2 px-4 border-b text-center'>ไม่มีสมาชิก</td></tr>";
                     }
 
                     $conn->close();
