@@ -94,71 +94,73 @@ $thai_months = [
                     </tr>
                 </thead>
                 <tbody>
-                    <?php if ($result_fees->num_rows > 0): ?>
-                        <form method="POST" action="">
-                            <?php while ($row = $result_fees->fetch_assoc()): ?>
-                                <tr>
-                                    <?php
-                                    // แปลงวันที่ `m-y` เป็นรูปแบบภาษาไทย
-                                    $date_parts = explode('-', $row['m-y']); // แยกปีและเดือน
-                                    $year = $date_parts[0] + 543; // แปลงปีเป็นพุทธศักราช
-                                    $month = (int)$date_parts[1]; // เปลี่ยนเดือนเป็นตัวเลข
-                                    $month_name = $thai_months[$month]; // ใช้ชื่อเดือนภาษาไทย
-                                    ?>
-                                    <td class="border px-4 py-2 text-center"><?php echo htmlspecialchars($month_name . ' ' . $year); ?></td>
-                                    <td class="border px-4 py-2 text-center"><?php echo htmlspecialchars($row['count']); ?></td>
-                                    <td class="border px-4 py-2 text-center"><?php echo htmlspecialchars($row['status'] === 'T' ? 'ชำระแล้ว' : 'ยังไม่ชำระ'); ?></td>
-                                    <?php if ($row['slip'] === ''): ?>
-                                        <td class="border px-4 py-2 text-center">ยังไม่มีหลักฐานการชำระ</td>
-                                    <?php else: ?>
-                                        <td class="border px-4 py-2 text-center">
-                                            <center><img src="<?php echo htmlspecialchars($row['slip']); ?>" alt="" class="w-20 h-20"></center>
-                                        </td>
-                                    <?php endif; ?>
-                                    <td class="border px-4 py-2 text-center">
-                                    <input type="checkbox" name="status[<?php echo $row['user_id']; ?>][<?php echo str_replace('-', '_', $row['m-y']); ?>]" value="T" <?php echo $row['status'] === 'T' ? 'checked' : ''; ?>>
-
-                                    </td>
-                                </tr>
-                            <?php endwhile; ?>
-                            <tr>
-                                <td colspan="5" class="text-center border px-4 py-2">
-                                    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Update Status</button>
-                                </td>
-                            </tr>
-                        </form>
+    <?php if ($result_fees->num_rows > 0): ?>
+        <?php while ($row = $result_fees->fetch_assoc()): ?>
+            <tr>
+                <?php
+                // Convert `m-y` to Thai format
+                $date_parts = explode('-', $row['m-y']);
+                $year = $date_parts[0] + 543;
+                $month = (int)$date_parts[1];
+                $month_name = $thai_months[$month];
+                ?>
+                <td class="border px-4 py-2 text-center"><?php echo htmlspecialchars($month_name . ' ' . $year); ?></td>
+                <td class="border px-4 py-2 text-center"><?php echo htmlspecialchars($row['count']); ?></td>
+                <td class="border px-4 py-2 text-center"><?php echo htmlspecialchars($row['status'] === 'T' ? 'ชำระแล้ว' : 'ยังไม่ชำระ'); ?></td>
+                <td class="border px-4 py-2 text-center">
+                    <?php if ($row['slip'] === ''): ?>
+                        ยังไม่มีหลักฐานการชำระ
                     <?php else: ?>
-                        <tr>
-                            <td colspan="5" class="text-center border px-4 py-2">No data found.</td>
-                        </tr>
+                        <center><img src="<?php echo htmlspecialchars($row['slip']); ?>" alt="" class="w-20 h-20"></center>
                     <?php endif; ?>
-                </tbody>
+                </td>
+                <td class="border px-4 py-2 text-center">
+                    <input type="checkbox" class="status-checkbox" data-user-id="<?php echo htmlspecialchars($user_id); ?>" data-count-id="<?php echo htmlspecialchars($row['count']); ?>" <?php echo $row['status'] === 'T' ? 'checked' : ''; ?>>
+                </td>
+            </tr>
+        <?php endwhile; ?>
+    <?php else: ?>
+        <tr>
+            <td colspan="5" class="text-center border px-4 py-2">No data found.</td>
+        </tr>
+    <?php endif; ?>
+</tbody>
+
             </table>
         </div>
     </main>
 </body>
 
 </html>
+<script>
+    document.querySelectorAll('.status-checkbox').forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+            const userId = this.getAttribute('data-user-id');
+            const countId = this.getAttribute('data-count-id');
+            const status = this.checked ? 'T' : 'F'; // 'T' for paid, 'F' for unpaid
+
+            // Make an AJAX request to update the status
+            fetch('update_status.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ user_id: userId, count_id: countId, status: status })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    console.log('Status updated successfully');
+                } else {
+                    console.error('Error updating status');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    });
+</script>
 
 <?php
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['status'])) {
-    foreach ($_POST['status'] as $user_id => $months) {
-        foreach ($months as $month_year => $status) {
-            // Convert the underscore back to a hyphen for the database query
-            $original_month_year = str_replace('_', '-', $month_year);
-
-            // Update the status in the count_net table
-            $sql_update = "UPDATE count_net SET status = ? WHERE user_id = ? AND `m-y` = ?";
-            $stmt = $conn->prepare($sql_update);
-            $stmt->bind_param("sis", $status, $user_id, $original_month_year);
-            $stmt->execute();
-        }
-    }
-    // Optionally redirect to avoid form resubmission
-    header("Location: " . $_SERVER['PHP_SELF'] . "?user_id=" . urlencode($user_id));
-    exit();
-}
-
-
+// ปิดการเชื่อมต่อฐานข้อมูล
 $conn->close();
 ?>
