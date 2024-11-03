@@ -20,8 +20,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     
     // Set status and count_id based on POST data
-    echo $status = $_POST['status'];
-    echo $count_id = $_POST['count_id'];
+    $status = $_POST['status'];
+    $c = $_POST['id_count'];
 
     $stmt = $conn->prepare("UPDATE count_net SET `status` = ? WHERE `user_id` = ? AND `id_count` = ?");
     
@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         die("Prepare failed: " . htmlspecialchars($conn->error));
     }
 
-    $stmt->bind_param("ssi", $status, $user_id, $count_id);
+    $stmt->bind_param("ssi", $status, $user_id, $c);
 
 
     // Execute the statement and check for success
@@ -158,7 +158,7 @@ $thai_months = [
                     url: '', // Update this to the URL of your PHP script
                     type: 'POST',
                     data: {
-                        user_id: userId,
+                        id_user: userId,
                         id_count: countId,
                         status: status
                     },
