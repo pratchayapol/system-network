@@ -1,4 +1,6 @@
 <?php
+echo $user_id = $_GET['user_id'];
+
 // Database connection
 $servername = "192.168.1.202:3341"; // ชื่อโฮสต์ของฐานข้อมูล
 $username = "root"; // ชื่อผู้ใช้ฐานข้อมูล
@@ -14,22 +16,21 @@ if ($conn->connect_error) {
 }
 
 // Query ข้อมูลผู้ใช้งาน
-$sql_user = "SELECT display_name, picture_url FROM account";
-$result_user = $conn->query($sql_user);
-
-// Query ข้อมูลค่าอินเตอร์เน็ต 12 เดือน
-$sql_internet_fees = "SELECT * FROM internet_fees ORDER BY FIELD(month, 'ธันวาคม', 'พฤศจิกายน', 'ตุลาคม', 'กันยายน', 'สิงหาคม', 'กรกฎาคม', 'มิถุนายน', 'พฤษภาคม', 'เมษายน', 'มีนาคม', 'กุมภาพันธ์', 'มกราคม')";
-$result_fees = $conn->query($sql_internet_fees);
+$conn = new mysqli($servername, $username, $password, $dbname);
+$sql = "SELECT * FROM account"; // ตรวจสอบให้แน่ใจว่าคุณมีฟิลด์ picture_url ในฐานข้อมูล
+$result = $conn->query($sql);
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Settings Page</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
 </head>
+
 <body class="bg-gray-100">
     <header class="bg-white shadow">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -83,6 +84,7 @@ $result_fees = $conn->query($sql_internet_fees);
         </table>
     </div>
 </body>
+
 </html>
 
 <?php
