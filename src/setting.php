@@ -18,8 +18,8 @@ if ($conn->connect_error) {
 // Query ข้อมูลผู้ใช้งาน
 $conn = new mysqli($servername, $username, $password, $dbname);
 $sql = "SELECT * FROM account WHERE `user_id` LIKE '$user_id'"; // ตรวจสอบให้แน่ใจว่าคุณมีฟิลด์ picture_url ในฐานข้อมูล
-$result = $conn->query($sql);
-$row = $result->fetch_assoc()
+$result_user = $conn->query($sql);
+
 ?>
 
 <!DOCTYPE html>
