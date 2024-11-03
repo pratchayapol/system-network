@@ -146,37 +146,39 @@ $thai_months = [
     </main>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        $(document).ready(function() {
-            $('.status-checkbox').change(function() {
-                const userId = $(this).data('user-id');
-                const countId = $(this).data('count-id');
-                const status = this.checked ? 'T' : 'F'; // 'T' for paid, 'F' for unpaid
+    $(document).ready(function() {
+        $('.status-checkbox').change(function() {
+            const userId = $(this).data('user-id');
+            const countId = $(this).data('count-id');
+            const status = this.checked ? 'T' : 'F'; // 'T' for paid, 'F' for unpaid
 
-                // Change the checkbox state immediately
-                this.disabled = true; // Disable checkbox during the update
+            // Change the checkbox state immediately
+            this.disabled = true; // Disable checkbox during the update
 
-                $.ajax({
-                    url: '', // Update this to the URL of your PHP script
-                    type: 'POST',
-                    data: {
-                        id_user: userId,
-                        id_count: countId,
-                        status: status
-                    },
-                    success: function(response) {
-                        console.log('Update successful:', response);
-                        // Optionally show a success message
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {
-                        console.error('Update failed:', textStatus, errorThrown);
-                        // Optionally show an error message
-                    },
-                    complete: function() {
-                        $('.status-checkbox').prop('disabled', false); // Re-enable all checkboxes after the request completes
-                    }
-                });
+            $.ajax({
+                url: '', // Update this to the URL of your PHP script
+                type: 'POST',
+                data: {
+                    id_user: userId,
+                    id_count: countId,
+                    status: status
+                },
+                success: function(response) {
+                    console.log('Update successful:', response);
+                    // Refresh the page after the successful update
+                    location.reload(); // This will reload the current page
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error('Update failed:', textStatus, errorThrown);
+                    // Optionally show an error message
+                },
+                complete: function() {
+                    $('.status-checkbox').prop('disabled', false); // Re-enable all checkboxes after the request completes
+                }
             });
         });
-    </script>
+    });
+</script>
+
 </body>
 </html>
