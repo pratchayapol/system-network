@@ -22,6 +22,23 @@ $result_user = $conn->query($sql);
 // Query ค่าอินเตอร์เน็ต
 $sql_fees = "SELECT `m-y`, `count`, `status` FROM count_net WHERE `user_id` = '$user_id' ORDER BY `count_net`.`m-y` DESC ";
 $result_fees = $conn->query($sql_fees);
+
+// สร้างอาร์เรย์เพื่อแปลงเดือนเป็นชื่อภาษาไทย
+$thai_months = [
+    1 => 'มกราคม',
+    2 => 'กุมภาพันธ์',
+    3 => 'มีนาคม',
+    4 => 'เมษายน',
+    5 => 'พฤษภาคม',
+    6 => 'มิถุนายน',
+    7 => 'กรกฎาคม',
+    8 => 'สิงหาคม',
+    9 => 'กันยายน',
+    10 => 'ตุลาคม',
+    11 => 'พฤศจิกายน',
+    12 => 'ธันวาคม'
+];
+
 ?>
 
 <!DOCTYPE html>
@@ -77,7 +94,14 @@ $result_fees = $conn->query($sql_fees);
                     <?php if ($result_fees->num_rows > 0): ?>
                         <?php while ($row = $result_fees->fetch_assoc()): ?>
                             <tr>
-                                <td class="border px-4 py-2"><?php echo htmlspecialchars($row['m-y']); ?></td>
+                                <?php
+                                // แปลงวันที่ `m-y` เป็นรูปแบบภาษาไทย
+                                $date_parts = explode('-', $row['m-y']); // แยกปีและเดือน
+                                $year = $date_parts[0] + 543; // แปลงปีเป็นพุทธศักราช
+                                $month = (int)$date_parts[1]; // เปลี่ยนเดือนเป็นตัวเลข
+                                $month_name = $thai_months[$month]; // ใช้ชื่อเดือนภาษาไทย
+                                ?>
+                                <td class="border px-4 py-2"><?php echo htmlspecialchars($month_name . ' ' . $year); ?></td>
                                 <td class="border px-4 py-2"><?php echo htmlspecialchars($row['count']); ?></td>
                                 <td class="border px-4 py-2"><?php echo htmlspecialchars($row['status'] === 'T' ? 'ชำระแล้ว' : 'ยังไม่ชำระ'); ?></td>
                             </tr>
