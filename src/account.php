@@ -34,6 +34,7 @@
                         <th class="py-2 px-4 border-b">ชื่อ</th>
                         <th class="py-2 px-4 border-b">อีเมล</th>
                         <th class="py-2 px-4 border-b">ภาพโปรไฟล์</th>
+                        <th class="py-2 px-4 border-b">จัดการค่าอินเตอร์เน็ต</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -58,6 +59,9 @@
                             echo "<td class='py-2 px-4 border-b'>" . $row['status_message'] . "</td>";
                             echo "<td class='py-2 px-4 border-b'>";
                             echo "<img src='" . $row['picture_url'] . "' alt='Profile Picture' class='w-10 h-10 rounded-full'>";
+                            echo "<td class='py-2 px-4 border-b'>";
+                            echo "<a href='setting.php?user_id=" . $row['status_message'] . "' class='bg-blue-500 text-white px-3 py-1 rounded'>ตั้งค่า</a>"; // ปุ่มใหม่
+                            echo "</td>";
                             echo "</td>";
                             echo "</tr>";
                         }
