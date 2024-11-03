@@ -1,5 +1,5 @@
 <?php
-echo $user_id = $_GET['user_id'];
+$user_id = $_GET['user_id'];
 
 // Database connection
 $servername = "192.168.1.202:3341"; // ชื่อโฮสต์ของฐานข้อมูล
@@ -17,7 +17,7 @@ if ($conn->connect_error) {
 
 // Query ข้อมูลผู้ใช้งาน
 $conn = new mysqli($servername, $username, $password, $dbname);
-$sql = "SELECT * FROM account"; // ตรวจสอบให้แน่ใจว่าคุณมีฟิลด์ picture_url ในฐานข้อมูล
+$sql = "SELECT * FROM account WHERE user_id = $user_id"; // ตรวจสอบให้แน่ใจว่าคุณมีฟิลด์ picture_url ในฐานข้อมูล
 $result = $conn->query($sql);
 ?>
 
