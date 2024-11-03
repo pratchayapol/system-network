@@ -60,7 +60,7 @@
                             echo "<td class='py-2 px-4 border-b'>";
                             echo "<img src='" . $row['picture_url'] . "' alt='Profile Picture' class='w-10 h-10 rounded-full'>";
                             echo "<td class='py-2 px-4 border-b'>";
-                            echo "<a href='setting.php?user_id=" . $row['status_message'] . "' class='bg-blue-500 text-white px-3 py-1 rounded'>ตั้งค่า</a>"; // ปุ่มใหม่
+                            echo "<a href='setting.php?user_id=" . $row['user_id'] . "' class='bg-blue-500 text-white px-3 py-1 rounded'>ตั้งค่า</a>"; // ปุ่มใหม่
                             echo "</td>";
                             echo "</td>";
                             echo "</tr>";
