@@ -89,7 +89,7 @@ $thai_months = [
                         <th class="border px-4 py-2">ประจำเดือน</th>
                         <th class="border px-4 py-2">ค่าบริการอินเตอร์เน็ต</th>
                         <th class="border px-4 py-2">สถานะการชำระ</th>
-                        <th class="border px-4 py-2">ชำระเงิน</th>
+                        <th class="border px-4 py-2">หลักฐานการชำระเงิน</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -106,7 +106,7 @@ $thai_months = [
                                 <td class="border px-4 py-2 text-center"><?php echo htmlspecialchars($month_name . ' ' . $year); ?></td>
                                 <td class="border px-4 py-2 text-center"><?php echo htmlspecialchars($row['count']); ?></td>
                                 <td class="border px-4 py-2 text-center"><?php echo htmlspecialchars($row['status'] === 'T' ? 'ชำระแล้ว' : 'ยังไม่ชำระ'); ?></td>
-                                <td class="border px-4 py-2 text-center"></td>
+                                <td class="border px-4 py-2 text-center"><?php echo htmlspecialchars($row['slip'] === 'NULL' ? 'ยังไม่มีหลักฐานการชำระ' : ''); ?></td>
                             </tr>
                         <?php endwhile; ?>
                     <?php else: ?>
