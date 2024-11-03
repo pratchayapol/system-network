@@ -19,6 +19,7 @@ if ($conn->connect_error) {
 $conn = new mysqli($servername, $username, $password, $dbname);
 $sql = "SELECT * FROM account WHERE user_id = $user_id"; // ตรวจสอบให้แน่ใจว่าคุณมีฟิลด์ picture_url ในฐานข้อมูล
 $result = $conn->query($sql);
+$row = $result->fetch_assoc()
 ?>
 
 <!DOCTYPE html>
