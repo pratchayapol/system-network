@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     // Set status and count_id based on POST data
     echo $status = $_POST['status'];
-    echo $count_id = (int)$_POST['count_id']; // Ensure count_id is an integer
+    echo $count_id = $_POST['count_id'];
 
     $stmt = $conn->prepare("UPDATE count_net SET `status` = ? WHERE `user_id` = ? AND `id_count` = ?");
     
@@ -130,7 +130,7 @@ $thai_months = [
                                     <?php endif; ?>
                                 </td>
                                 <td class="border px-4 py-2 text-center">
-                                    <input type="checkbox" class="status-checkbox" data-user-id="<?php echo htmlspecialchars($user_id); ?>" data-count-id="<?php echo htmlspecialchars($row['count']); ?>" <?php echo $row['status'] === 'T' ? 'checked' : ''; ?>>
+                                    <input type="checkbox" class="status-checkbox" data-user-id="<?php echo htmlspecialchars($user_id); ?>" data-count-id="<?php echo htmlspecialchars($row['id_count']); ?>" <?php echo $row['status'] === 'T' ? 'checked' : ''; ?>>
                                 </td>
                             </tr>
                         <?php endwhile; ?>
