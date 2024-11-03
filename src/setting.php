@@ -106,7 +106,19 @@ $thai_months = [
                                 <td class="border px-4 py-2 text-center"><?php echo htmlspecialchars($month_name . ' ' . $year); ?></td>
                                 <td class="border px-4 py-2 text-center"><?php echo htmlspecialchars($row['count']); ?></td>
                                 <td class="border px-4 py-2 text-center"><?php echo htmlspecialchars($row['status'] === 'T' ? 'ชำระแล้ว' : 'ยังไม่ชำระ'); ?></td>
-                                <td class="border px-4 py-2 text-center"><?php echo htmlspecialchars($row['slip'] === 'NULL' ? 'ยังไม่มีหลักฐานการชำระ' : ''); ?></td>
+                                <?php if ($row['slip'] === 'NULL') {
+                                ?>
+                                    <td class="border px-4 py-2 text-center">ยังไม่มีหลักฐานการชำระ</td>
+                                <?php
+                                } else {
+                                    ?>
+                                    <td class="border px-4 py-2 text-center"><img src="<?php echo htmlspecialchars($row['slip']); ?>" alt="Profile Picture" class="w-10 h-10 rounded-full"></td>
+                                <?php
+
+                                }
+
+                                ?>
+
                             </tr>
                         <?php endwhile; ?>
                     <?php else: ?>
