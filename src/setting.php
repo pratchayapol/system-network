@@ -47,9 +47,10 @@ $result_user = $conn->query($sql);
         </div>
     </header>
 
-    
+
     <main class="py-10">
-        <h1 class="text-2xl font-bold mb-4">User Settings</h1>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-2xl font-bold text-gray-900">จัดการค่าอินเตอร์เน็ต รายบุคคล</h2>
 
         <?php if ($result_user->num_rows > 0): ?>
             <?php while ($row = $result_user->fetch_assoc()): ?>
@@ -85,6 +86,7 @@ $result_user = $conn->query($sql);
                 <?php endif; ?>
             </tbody>
         </table>
+        </div>
                 </main>
 </body>
 
