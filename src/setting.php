@@ -49,9 +49,7 @@ $thai_months = [
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Settings Page</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
-    <script async
-  src="https://js.stripe.com/v3/buy-button.js">
-</script>
+
 </head>
 
 <body class="bg-gray-100">
@@ -108,11 +106,7 @@ $thai_months = [
                                 <td class="border px-4 py-2 text-center"><?php echo htmlspecialchars($month_name . ' ' . $year); ?></td>
                                 <td class="border px-4 py-2 text-center"><?php echo htmlspecialchars($row['count']); ?></td>
                                 <td class="border px-4 py-2 text-center"><?php echo htmlspecialchars($row['status'] === 'T' ? 'ชำระแล้ว' : 'ยังไม่ชำระ'); ?></td>
-                                <td class="border px-4 py-2 text-center"><stripe-buy-button
-  buy-button-id="buy_btn_1QGz8xE67vv8R25ctuwsz0kq"
-  publishable-key="pk_test_51QGy06E67vv8R25cQMiaTlCKexyszwkicbPv7ABdHXbCDUuQBU4LBHvnc642kcEgAB1pfWk5Xnj0QJF22kAmWfCX00qL06XDvA"
->
-</stripe-buy-button></td>
+                                <td class="border px-4 py-2 text-center"></td>
                             </tr>
                         <?php endwhile; ?>
                     <?php else: ?>
