@@ -17,17 +17,20 @@ if ($conn->connect_error) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Prepare and bind the statement
-    $stmt = $conn->prepare("UPDATE count_net SET `status` = ? WHERE `user_id` = ? AND `count` = ?");
     
-    if ($stmt === false) {
-        die("Prepare failed: " . htmlspecialchars($conn->error));
-    }
-
-    $stmt->bind_param("ssi", $status, $user_id, $count_id);
     
     // Set status and count_id based on POST data
-    $status = $_POST['status'];
-    $count_id = (int)$_POST['count_id']; // Ensure count_id is an integer
+    echo $status = $_POST['status'];
+    echo $count_id = (int)$_POST['count_id']; // Ensure count_id is an integer
+
+    // $stmt = $conn->prepare("UPDATE count_net SET `status` = ? WHERE `user_id` = ? AND `count` = ?");
+    
+    // if ($stmt === false) {
+    //     die("Prepare failed: " . htmlspecialchars($conn->error));
+    // }
+
+    // $stmt->bind_param("ssi", $status, $user_id, $count_id);
+
 
     // Execute the statement and check for success
     if ($stmt->execute()) {
@@ -156,7 +159,7 @@ $thai_months = [
                     type: 'POST',
                     data: {
                         user_id: userId,
-                        count_id: countId,
+                        id_count: countId,
                         status: status
                     },
                     success: function(response) {
