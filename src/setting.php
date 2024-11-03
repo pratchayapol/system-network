@@ -16,10 +16,12 @@ if ($conn->connect_error) {
 }
 
 // Query ข้อมูลผู้ใช้งาน
-$conn = new mysqli($servername, $username, $password, $dbname);
-$sql = "SELECT * FROM account WHERE `user_id` LIKE '$user_id'"; // ตรวจสอบให้แน่ใจว่าคุณมีฟิลด์ picture_url ในฐานข้อมูล
+$sql = "SELECT * FROM account WHERE `user_id` = '$user_id'"; // ตรวจสอบให้แน่ใจว่าคุณมีฟิลด์ picture_url ในฐานข้อมูล
 $result_user = $conn->query($sql);
 
+// Query ค่าอินเตอร์เน็ต
+$sql_fees = "SELECT `m-y`, `count`, `status` FROM count_net WHERE `user_id` = '$user_id'";
+$result_fees = $conn->query($sql_fees);
 ?>
 
 <!DOCTYPE html>
@@ -47,47 +49,48 @@ $result_user = $conn->query($sql);
         </div>
     </header>
 
-
     <main class="py-10">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <h2 class="text-2xl font-bold text-gray-900">จัดการค่าอินเตอร์เน็ต รายบุคคล</h2>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-2xl font-bold text-gray-900">จัดการค่าอินเตอร์เน็ต รายบุคคล</h2>
 
-        <?php if ($result_user->num_rows > 0): ?>
-            <?php while ($row = $result_user->fetch_assoc()): ?>
-                <div class="mb-4">
-                    <h2 class="text-xl font-semibold">Name: <?php echo htmlspecialchars($row['display_name']); ?></h2>
-                    <img src="<?php echo htmlspecialchars($row['picture_url']); ?>" alt="Profile Picture" class="w-10 h-10 rounded-full">
-                </div>
-            <?php endwhile; ?>
-        <?php else: ?>
-            <p>No user data found.</p>
-        <?php endif; ?>
+            <?php if ($result_user->num_rows > 0): ?>
+                <?php while ($row = $result_user->fetch_assoc()): ?>
+                    <div class="mb-4">
+                        <h2 class="text-xl font-semibold">Name: <?php echo htmlspecialchars($row['display_name']); ?></h2>
+                        <img src="<?php echo htmlspecialchars($row['picture_url']); ?>" alt="Profile Picture" class="w-10 h-10 rounded-full">
+                    </div>
+                <?php endwhile; ?>
+            <?php else: ?>
+                <p>No user data found.</p>
+            <?php endif; ?>
 
-        <h2 class="text-2xl font-bold mt-8 mb-4">Internet Fees (Last 12 Months)</h2>
-        <table class="min-w-full bg-white border border-gray-300">
-            <thead>
-                <tr>
-                    <th class="border px-4 py-2">Month</th>
-                    <th class="border px-4 py-2">Amount</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php if ($result_fees->num_rows > 0): ?>
-                    <?php while ($row = $result_fees->fetch_assoc()): ?>
-                        <tr>
-                            <td class="border px-4 py-2"><?php echo htmlspecialchars($row['month']); ?></td>
-                            <td class="border px-4 py-2"><?php echo htmlspecialchars($row['amount']); ?></td>
-                        </tr>
-                    <?php endwhile; ?>
-                <?php else: ?>
+            <h2 class="text-2xl font-bold mt-8 mb-4">รายการค่าอินเตอร์เน็ตในแต่ละเดือน</h2>
+            <table class="min-w-full bg-white border border-gray-300">
+                <thead>
                     <tr>
-                        <td colspan="2" class="text-center border px-4 py-2">No data found.</td>
+                        <th class="border px-4 py-2">Month</th>
+                        <th class="border px-4 py-2">Amount</th>
+                        <th class="border px-4 py-2">Status</th>
                     </tr>
-                <?php endif; ?>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    <?php if ($result_fees->num_rows > 0): ?>
+                        <?php while ($row = $result_fees->fetch_assoc()): ?>
+                            <tr>
+                                <td class="border px-4 py-2"><?php echo htmlspecialchars($row['m-y']); ?></td>
+                                <td class="border px-4 py-2"><?php echo htmlspecialchars($row['count']); ?></td>
+                                <td class="border px-4 py-2"><?php echo htmlspecialchars($row['status'] === 'T' ? 'ชำระแล้ว' : 'ยังไม่ชำระ'); ?></td>
+                            </tr>
+                        <?php endwhile; ?>
+                    <?php else: ?>
+                        <tr>
+                            <td colspan="3" class="text-center border px-4 py-2">No data found.</td>
+                        </tr>
+                    <?php endif; ?>
+                </tbody>
+            </table>
         </div>
-                </main>
+    </main>
 </body>
 
 </html>
