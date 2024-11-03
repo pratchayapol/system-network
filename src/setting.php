@@ -34,7 +34,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Execute the statement and check for success
     if ($stmt->execute()) {
-        echo "<script>location.reload();</script>";
+        header("Location: " . $_SERVER['PHP_SELF']); // เปลี่ยนเส้นทางไปยังหน้าเดียวกัน
+    exit(); // จบการทำงานของสคริปต์
     } else {
         echo "Error: " . htmlspecialchars($stmt->error);
     }
