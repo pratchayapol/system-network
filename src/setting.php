@@ -109,8 +109,8 @@ $thai_months = [
                                 <td class="border px-4 py-2 text-center"><?php echo htmlspecialchars($row['count']); ?></td>
                                 <td class="border px-4 py-2 text-center"><?php echo htmlspecialchars($row['status'] === 'T' ? 'ชำระแล้ว' : 'ยังไม่ชำระ'); ?></td>
                                 <td class="border px-4 py-2 text-center"><stripe-buy-button
-  buy-button-id="buy_btn_1QGyS2E67vv8R25celFKpsws"
-  publishable-key="pk_live_51QGy06E67vv8R25caWPN0HvG4c4z9pvUimPJbCMKE4182mgYMMwLfJ1BOeYqKcEr3yrrfFvMAlBjbwwOKSuu8ykM00ViRCbWzY"
+  buy-button-id="buy_btn_1QGz8xE67vv8R25ctuwsz0kq"
+  publishable-key="pk_test_51QGy06E67vv8R25cQMiaTlCKexyszwkicbPv7ABdHXbCDUuQBU4LBHvnc642kcEgAB1pfWk5Xnj0QJF22kAmWfCX00qL06XDvA"
 >
 </stripe-buy-button></td>
                             </tr>
