@@ -46,7 +46,9 @@ $result_user = $conn->query($sql);
             </nav>
         </div>
     </header>
-    <div class="container mx-auto">
+
+    
+    <main class="py-10">
         <h1 class="text-2xl font-bold mb-4">User Settings</h1>
 
         <?php if ($result_user->num_rows > 0): ?>
@@ -83,7 +85,7 @@ $result_user = $conn->query($sql);
                 <?php endif; ?>
             </tbody>
         </table>
-    </div>
+                </main>
 </body>
 
 </html>
