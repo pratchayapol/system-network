@@ -85,9 +85,9 @@ $thai_months = [
             <table class="min-w-full bg-white border border-gray-300">
                 <thead>
                     <tr>
-                        <th class="border px-4 py-2">Month</th>
-                        <th class="border px-4 py-2">Amount</th>
-                        <th class="border px-4 py-2">Status</th>
+                        <th class="border px-4 py-2">ประจำเดือน</th>
+                        <th class="border px-4 py-2">ค่าบริการอินเตอร์เน็ต</th>
+                        <th class="border px-4 py-2">สถานะการชำระ</th>
                     </tr>
                 </thead>
                 <tbody>
