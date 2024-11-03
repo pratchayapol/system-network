@@ -130,7 +130,7 @@ $thai_months = [
                                     <?php endif; ?>
                                 </td>
                                 <td class="border px-4 py-2 text-center">
-                                    <input type="checkbox" class="status-checkbox" data-user-id="<?php echo htmlspecialchars($user_id); ?>" data-count-id="<?php echo $row['id_count']; ?>" <?php echo $row['status'] === 'T' ? 'checked' : ''; ?>>
+                                    <input type="checkbox" class="status-checkbox" data-user-id="<?php echo htmlspecialchars($user_id); ?>" data-count-id="<?php echo $row['id_count']; ?>" <?php echo $row['status'] === 'T' ? 'checked' : ''; ?>
                                 </td>
                             </tr>
                         <?php endwhile; ?>
