@@ -15,6 +15,19 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
+// Prepare and bind the statement
+$stmt = $conn->prepare("UPDATE count_net SET `status` = ? WHERE `user_id` = ? AND `count` = ?");
+$stmt->bind_param("ssi", $status, $user_id, $count_id);
+
+// Execute the statement and check for success
+if ($stmt->execute()) {
+    echo "success";
+}
+
+
+
+
+
 // Query ข้อมูลผู้ใช้งาน
 $sql = "SELECT * FROM account WHERE `user_id` = '$user_id'"; // ตรวจสอบให้แน่ใจว่าคุณมีฟิลด์ picture_url ในฐานข้อมูล
 $result_user = $conn->query($sql);
@@ -130,37 +143,34 @@ $thai_months = [
         </div>
     </main>
 </body>
-
-</html>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    document.querySelectorAll('.status-checkbox').forEach(checkbox => {
-        checkbox.addEventListener('change', function() {
-            const userId = this.getAttribute('data-user-id');
-            const countId = this.getAttribute('data-count-id');
-            const status = this.checked ? 'T' : 'F'; // 'T' for paid, 'F' for unpaid
+    $(document).ready(function() {
+        $('.status-checkbox').change(function() {
+            const userId = $(this).data('user-id');
+            const countId = $(this).data('count-id');
+            const status = this.checked ? 'T' : 'F'; // Assuming 'T' for paid, 'F' for unpaid
 
-            // Make an AJAX request to update the status
-            fetch('update_status.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
+            $.ajax({
+                url: '', // URL to your PHP script
+                type: 'POST',
+                data: {
+                    user_id: userId,
+                    count_id: countId,
+                    status: status
                 },
-                body: JSON.stringify({ user_id: userId, count_id: countId, status: status })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    console.log('Status updated successfully');
-                } else {
-                    console.error('Error updating status');
+                success: function(response) {
+                    console.log('Update successful:', response);
+                    // You can show a success message or refresh data here if needed
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error('Update failed:', textStatus, errorThrown);
                 }
-            })
-            .catch(error => console.error('Error:', error));
+            });
         });
     });
 </script>
-
-
+</html>
 <?php
 // ปิดการเชื่อมต่อฐานข้อมูล
 $conn->close();
