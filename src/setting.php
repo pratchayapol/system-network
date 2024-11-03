@@ -46,7 +46,7 @@ $sql = "SELECT * FROM account WHERE `user_id` = '$user_id'";
 $result_user = $conn->query($sql);
 
 // Query internet fees
-$sql_fees = "SELECT `m-y`, `slip`, `count`, `status` FROM count_net WHERE `user_id` = '$user_id' ORDER BY `m-y` DESC";
+$sql_fees = "SELECT `id_count`, `m-y`, `slip`, `count`, `status` FROM count_net WHERE `user_id` = '$user_id' ORDER BY `m-y` DESC";
 $result_fees = $conn->query($sql_fees);
 
 // Thai month array
