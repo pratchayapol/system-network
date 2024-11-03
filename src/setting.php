@@ -2,70 +2,68 @@
 $user_id = $_GET['user_id'];
 
 // Database connection
-$servername = "192.168.1.202:3341"; // ชื่อโฮสต์ของฐานข้อมูล
-$username = "root"; // ชื่อผู้ใช้ฐานข้อมูล
-$password = "adminpcn"; // รหัสผ่านฐานข้อมูล
-$dbname = "system_network"; // ชื่อฐานข้อมูล
+$servername = "192.168.1.202:3341"; // Database host
+$username = "root"; // Database username
+$password = "adminpcn"; // Database password
+$dbname = "system_network"; // Database name
 
-// เชื่อมต่อกับฐานข้อมูล
+// Connect to the database
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// ตรวจสอบการเชื่อมต่อ
+// Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-// Prepare and bind the statement
-$stmt = $conn->prepare("UPDATE count_net SET `status` = ? WHERE `user_id` = ? AND `count` = ?");
-$stmt->bind_param("ssi", $status, $user_id, $count_id);
+    // Prepare and bind the statement
+    $stmt = $conn->prepare("UPDATE count_net SET `status` = ? WHERE `user_id` = ? AND `count` = ?");
+    
+    if ($stmt === false) {
+        die("Prepare failed: " . htmlspecialchars($conn->error));
+    }
 
-// Execute the statement and check for success
-if ($stmt->execute()) {
-    echo "success";
+    $stmt->bind_param("ssi", $status, $user_id, $count_id);
+    
+    // Set status and count_id based on POST data
+    $status = $_POST['status'];
+    $count_id = (int)$_POST['count_id']; // Ensure count_id is an integer
+
+    // Execute the statement and check for success
+    if ($stmt->execute()) {
+        echo "success";
+    } else {
+        echo "Error: " . htmlspecialchars($stmt->error);
+    }
+    $stmt->close(); // Close statement after execution
 }
-}
 
-
-
-
-// Query ข้อมูลผู้ใช้งาน
-$sql = "SELECT * FROM account WHERE `user_id` = '$user_id'"; // ตรวจสอบให้แน่ใจว่าคุณมีฟิลด์ picture_url ในฐานข้อมูล
+// Query user data
+$sql = "SELECT * FROM account WHERE `user_id` = '$user_id'"; 
 $result_user = $conn->query($sql);
 
-// Query ค่าอินเตอร์เน็ต
-$sql_fees = "SELECT `m-y`, `slip`,`count`, `status` FROM count_net WHERE `user_id` = '$user_id' ORDER BY `count_net`.`m-y` DESC ";
+// Query internet fees
+$sql_fees = "SELECT `m-y`, `slip`, `count`, `status` FROM count_net WHERE `user_id` = '$user_id' ORDER BY `m-y` DESC";
 $result_fees = $conn->query($sql_fees);
 
-// สร้างอาร์เรย์เพื่อแปลงเดือนเป็นชื่อภาษาไทย
+// Thai month array
 $thai_months = [
-    1 => 'มกราคม',
-    2 => 'กุมภาพันธ์',
-    3 => 'มีนาคม',
-    4 => 'เมษายน',
-    5 => 'พฤษภาคม',
-    6 => 'มิถุนายน',
-    7 => 'กรกฎาคม',
-    8 => 'สิงหาคม',
-    9 => 'กันยายน',
-    10 => 'ตุลาคม',
-    11 => 'พฤศจิกายน',
-    12 => 'ธันวาคม'
+    1 => 'มกราคม', 2 => 'กุมภาพันธ์', 3 => 'มีนาคม',
+    4 => 'เมษายน', 5 => 'พฤษภาคม', 6 => 'มิถุนายน',
+    7 => 'กรกฎาคม', 8 => 'สิงหาคม', 9 => 'กันยายน',
+    10 => 'ตุลาคม', 11 => 'พฤศจิกายน', 12 => 'ธันวาคม'
 ];
 
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Settings Page</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
-
 </head>
-
 <body class="bg-gray-100">
     <header class="bg-white shadow">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -108,71 +106,73 @@ $thai_months = [
                     </tr>
                 </thead>
                 <tbody>
-    <?php if ($result_fees->num_rows > 0): ?>
-        <?php while ($row = $result_fees->fetch_assoc()): ?>
-            <tr>
-                <?php
-                // Convert `m-y` to Thai format
-                $date_parts = explode('-', $row['m-y']);
-                $year = $date_parts[0] + 543;
-                $month = (int)$date_parts[1];
-                $month_name = $thai_months[$month];
-                ?>
-                <td class="border px-4 py-2 text-center"><?php echo htmlspecialchars($month_name . ' ' . $year); ?></td>
-                <td class="border px-4 py-2 text-center"><?php echo htmlspecialchars($row['count']); ?></td>
-                <td class="border px-4 py-2 text-center"><?php echo htmlspecialchars($row['status'] === 'T' ? 'ชำระแล้ว' : 'ยังไม่ชำระ'); ?></td>
-                <td class="border px-4 py-2 text-center">
-                    <?php if ($row['slip'] === ''): ?>
-                        ยังไม่มีหลักฐานการชำระ
+                    <?php if ($result_fees->num_rows > 0): ?>
+                        <?php while ($row = $result_fees->fetch_assoc()): ?>
+                            <tr>
+                                <?php
+                                // Convert `m-y` to Thai format
+                                $date_parts = explode('-', $row['m-y']);
+                                $year = $date_parts[0] + 543; // Convert to Buddhist calendar
+                                $month = (int)$date_parts[1];
+                                $month_name = $thai_months[$month];
+                                ?>
+                                <td class="border px-4 py-2 text-center"><?php echo htmlspecialchars($month_name . ' ' . $year); ?></td>
+                                <td class="border px-4 py-2 text-center"><?php echo htmlspecialchars($row['count']); ?></td>
+                                <td class="border px-4 py-2 text-center"><?php echo htmlspecialchars($row['status'] === 'T' ? 'ชำระแล้ว' : 'ยังไม่ชำระ'); ?></td>
+                                <td class="border px-4 py-2 text-center">
+                                    <?php if ($row['slip'] === ''): ?>
+                                        ยังไม่มีหลักฐานการชำระ
+                                    <?php else: ?>
+                                        <center><img src="<?php echo htmlspecialchars($row['slip']); ?>" alt="" class="w-20 h-20"></center>
+                                    <?php endif; ?>
+                                </td>
+                                <td class="border px-4 py-2 text-center">
+                                    <input type="checkbox" class="status-checkbox" data-user-id="<?php echo htmlspecialchars($user_id); ?>" data-count-id="<?php echo htmlspecialchars($row['count']); ?>" <?php echo $row['status'] === 'T' ? 'checked' : ''; ?>>
+                                </td>
+                            </tr>
+                        <?php endwhile; ?>
                     <?php else: ?>
-                        <center><img src="<?php echo htmlspecialchars($row['slip']); ?>" alt="" class="w-20 h-20"></center>
+                        <tr>
+                            <td colspan="5" class="text-center border px-4 py-2">No data found.</td>
+                        </tr>
                     <?php endif; ?>
-                </td>
-                <td class="border px-4 py-2 text-center">
-                    <input type="checkbox" class="status-checkbox" data-user-id="<?php echo htmlspecialchars($user_id); ?>" data-count-id="<?php echo htmlspecialchars($row['count']); ?>" <?php echo $row['status'] === 'T' ? 'checked' : ''; ?>>
-                </td>
-            </tr>
-        <?php endwhile; ?>
-    <?php else: ?>
-        <tr>
-            <td colspan="5" class="text-center border px-4 py-2">No data found.</td>
-        </tr>
-    <?php endif; ?>
-</tbody>
-
+                </tbody>
             </table>
         </div>
     </main>
-</body>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    $(document).ready(function() {
-        $('.status-checkbox').change(function() {
-            const userId = $(this).data('user-id');
-            const countId = $(this).data('count-id');
-            const status = this.checked ? 'T' : 'F'; // Assuming 'T' for paid, 'F' for unpaid
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.status-checkbox').change(function() {
+                const userId = $(this).data('user-id');
+                const countId = $(this).data('count-id');
+                const status = this.checked ? 'T' : 'F'; // 'T' for paid, 'F' for unpaid
 
-            $.ajax({
-                url: '', // URL to your PHP script
-                type: 'POST',
-                data: {
-                    user_id: userId,
-                    count_id: countId,
-                    status: status
-                },
-                success: function(response) {
-                    console.log('Update successful:', response);
-                    // You can show a success message or refresh data here if needed
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    console.error('Update failed:', textStatus, errorThrown);
-                }
+                // Change the checkbox state immediately
+                this.disabled = true; // Disable checkbox during the update
+
+                $.ajax({
+                    url: '', // Update this to the URL of your PHP script
+                    type: 'POST',
+                    data: {
+                        user_id: userId,
+                        count_id: countId,
+                        status: status
+                    },
+                    success: function(response) {
+                        console.log('Update successful:', response);
+                        // Optionally show a success message
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.error('Update failed:', textStatus, errorThrown);
+                        // Optionally show an error message
+                    },
+                    complete: function() {
+                        $('.status-checkbox').prop('disabled', false); // Re-enable all checkboxes after the request completes
+                    }
+                });
             });
         });
-    });
-</script>
+    </script>
+</body>
 </html>
-<?php
-// ปิดการเชื่อมต่อฐานข้อมูล
-$conn->close();
-?>
