@@ -54,14 +54,14 @@
                     if ($result->num_rows > 0) {
                         while ($row = $result->fetch_assoc()) {
                             echo "<tr>";
-                            echo "<td class='py-2 px-4 border-b'>" . $row['id'] . "</td>";
-                            echo "<td class='py-2 px-4 border-b'>" . $row['display_name'] . "</td>";
-                            echo "<td class='py-2 px-4 border-b'>" . $row['status_message'] . "</td>";
-                            echo "<td class='py-2 px-4 border-b'>";
+                            echo "<td class='py-2 px-4 border-b text-center'>" . $row['id'] . "</td>";
+                            echo "<td class='py-2 px-4 border-b text-center'>" . $row['display_name'] . "</td>";
+                            echo "<td class='py-2 px-4 border-b text-center'>" . $row['status_message'] . "</td>";
+                            echo "<td class='py-2 px-4 border-b text-center'>";
                             echo "<img src='" . $row['picture_url'] . "' alt='Profile Picture' class='w-10 h-10 rounded-full'>";
-                            echo "<td class='py-2 px-4 border-b'>";
-                            echo "<a href='setting.php?user_id=" . $row['user_id'] . "' class='bg-blue-500 text-white px-3 py-1 rounded'>ตั้งค่า</a>"; // ปุ่มใหม่
                             echo "</td>";
+                            echo "<td class='py-2 px-4 border-b text-center'>";
+                            echo "<a href='setting.php?user_id=" . $row['user_id'] . "' class='bg-blue-500 text-white px-3 py-1 rounded'>ตั้งค่า</a>";
                             echo "</td>";
                             echo "</tr>";
                         }
