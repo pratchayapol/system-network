@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         die("Prepare failed: " . htmlspecialchars($conn->error));
     }
 
-    $stmt->bind_param("ssi", $status, $user_id, $c);
+    $stmt->bind_param("sss", $status, $user_id, $c);
 
 
     // Execute the statement and check for success
