@@ -112,7 +112,7 @@ $thai_months = [
                                 <?php
                                 } else {
                                     ?>
-                                    <td class="border px-4 py-2 text-center"><center><img src="<?php echo htmlspecialchars($row['slip']); ?>" alt="" class="w-10 h-10 rounded-full"></center></td>
+                                    <td class="border px-4 py-2 text-center"><center><img src="<?php echo htmlspecialchars($row['slip']); ?>" alt="" class="w-10 h-10"></center></td>
                                 <?php
 
                                 }
