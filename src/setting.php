@@ -101,9 +101,9 @@ $thai_months = [
                                 $month = (int)$date_parts[1]; // เปลี่ยนเดือนเป็นตัวเลข
                                 $month_name = $thai_months[$month]; // ใช้ชื่อเดือนภาษาไทย
                                 ?>
-                                <td class="border px-4 py-2"><?php echo htmlspecialchars($month_name . ' ' . $year); ?></td>
-                                <td class="border px-4 py-2"><?php echo htmlspecialchars($row['count']); ?></td>
-                                <td class="border px-4 py-2"><?php echo htmlspecialchars($row['status'] === 'T' ? 'ชำระแล้ว' : 'ยังไม่ชำระ'); ?></td>
+                                <td class="border px-4 py-2 text-center"><?php echo htmlspecialchars($month_name . ' ' . $year); ?></td>
+                                <td class="border px-4 py-2 text-center"><?php echo htmlspecialchars($row['count']); ?></td>
+                                <td class="border px-4 py-2 text-center"><?php echo htmlspecialchars($row['status'] === 'T' ? 'ชำระแล้ว' : 'ยังไม่ชำระ'); ?></td>
                             </tr>
                         <?php endwhile; ?>
                     <?php else: ?>
