@@ -14,9 +14,8 @@
                     <h1 class="text-xl font-bold text-gray-900">เว็บไซต์ของเรา</h1>
                 </div>
                 <div class="flex space-x-4">
-                    <a href="home.php" class="text-gray-600 hover:text-gray-900">Home</a>
-                    <a href="account.php" class="text-gray-600 hover:text-gray-900">สมาชิก</a>
-                    <a href="setting.php" class="text-gray-600 hover:text-gray-900">จัดการยอดชำระค่าอินเตอร์เน็ต</a>
+                    <a href="home" class="text-gray-600 hover:text-gray-900">Home</a>
+                    <a href="account" class="text-gray-600 hover:text-gray-900">สมาชิก</a>
                 </div>
             </nav>
         </div>
