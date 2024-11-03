@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Execute the statement and check for success
     if ($stmt->execute()) {
-        echo "success";
+        echo "<script>location.reload();</script>";
     } else {
         echo "Error: " . htmlspecialchars($stmt->error);
     }
