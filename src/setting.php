@@ -20,7 +20,7 @@ $sql = "SELECT * FROM account WHERE `user_id` = '$user_id'"; // ตรวจส�
 $result_user = $conn->query($sql);
 
 // Query ค่าอินเตอร์เน็ต
-$sql_fees = "SELECT `m-y`, `count`, `status` FROM count_net WHERE `user_id` = '$user_id'";
+$sql_fees = "SELECT `m-y`, `count`, `status` FROM count_net WHERE `user_id` = '$user_id' ORDER BY `count_net`.`m-y` DESC ";
 $result_fees = $conn->query($sql_fees);
 ?>
 
