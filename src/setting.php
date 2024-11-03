@@ -15,6 +15,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 // Prepare and bind the statement
 $stmt = $conn->prepare("UPDATE count_net SET `status` = ? WHERE `user_id` = ? AND `count` = ?");
 $stmt->bind_param("ssi", $status, $user_id, $count_id);
@@ -23,7 +24,7 @@ $stmt->bind_param("ssi", $status, $user_id, $count_id);
 if ($stmt->execute()) {
     echo "success";
 }
-
+}
 
 
 
