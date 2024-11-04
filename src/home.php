@@ -351,8 +351,8 @@ $thai_months = [
             }
         }
     </script>
-    <!-- SweetAlert JavaScript -->
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+ <!-- SweetAlert JS -->
+ <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </body>
 
 </html>
