@@ -90,8 +90,8 @@ $thai_months = [
     <main class="py-10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="bg-white p-6 rounded-lg shadow-md">
-                <h2 class="text-2xl font-bold text-blue-800">ยินดีต้อนรับสู่หน้าแรก</h2>
-                <p class="mt-4 text-gray-700">นี่คือเนื้อหาของหน้าแรกของระบบจัดการค่าบริการอินเตอร์เน็ต PCNONE</p>
+                <h2 class="text-2xl font-bold text-blue-800 text-center">ยินดีต้อนรับสู่ระบบจัดการค่าบริการอินเตอร์เน็ต</h2>
+                <center><p class="mt-4 text-gray-700"> รอผู้ดูแลระบบอัพเดทข้อมูล </p></center>
             </div>
         </div>
 
