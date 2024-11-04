@@ -1,4 +1,6 @@
 <?php
+date_default_timezone_set('Asia/Bangkok'); // ตั้งค่าช่องเวลาเป็น Bangkok
+$current_time = date("Y-m-d H:i:s");
 $user_id = $_GET['user_id'];
 
 // Database connection
