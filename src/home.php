@@ -233,10 +233,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                             <?php if ($row['slip'] === null): ?>
                                                 <form action="" method="post" enctype="multipart/form-data">
                                                     <td class="border px-4 py-2 text-center">
-                                                        <center><input type="hidden" name="id_count" value="<?php echo htmlspecialchars($row['id_count']); ?>">
-                                                        <input type="file" id="imageInput" name="image" accept="image/*" onchange="previewImage(event)">
-                                                        <img id="imagePreview" class="image-preview" alt="Image Preview">
-                                                        <button type="submit">อัปโหลด</button></center>
+                                                        <input type="hidden" name="id_count" value="<?php echo htmlspecialchars($row['id_count']); ?>">
+                                                        <label for="imageInput" class="block mb-2 text-sm font-medium text-gray-700">
+                                                            เลือกรูปภาพ
+                                                        </label>
+                                                        <input type="file" id="imageInput" name="image" accept="image/*" onchange="previewImage(event)" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border file:border-gray-300 file:cursor-pointer hover:file:bg-gray-100">
+                                                        <img id="imagePreview" class="image-preview mt-4 w-32 h-32 object-cover rounded-md border border-gray-300" alt="Image Preview" style="display: none;">
+                                                        <button type="submit" class="mt-4 inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                                            อัปโหลด
+                                                        </button>
                                                     </td>
                                                 </form>
                                             <?php else: ?>
