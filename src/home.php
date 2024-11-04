@@ -112,7 +112,7 @@ $thai_months = [
                         confirmButtonText: 'ตกลง'
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            location.reload(); // รีเฟรชหน้าเมื่อกดตกลง
+                            window.location = /home;
                         }
                     });
                   </script></div>";
@@ -125,7 +125,7 @@ $thai_months = [
                         confirmButtonText: 'ตกลง'
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            location.reload(); // รีเฟรชหน้าเมื่อกดตกลง
+                            window.location = /home;
                         }
                     });
                   </script></div>";
@@ -139,7 +139,7 @@ $thai_months = [
                     confirmButtonText: 'ตกลง'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        location.reload(); // รีเฟรชหน้าเมื่อกดตกลง
+                        window.location = /home;
                     }
                 });
               </script></div>";
@@ -154,7 +154,7 @@ $thai_months = [
                     confirmButtonText: 'ตกลง'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        location.reload(); // รีเฟรชหน้าเมื่อกดตกลง
+                        window.location = /home;
                     }
                 });
               </script></div>";
