@@ -128,6 +128,27 @@ if (isset($_GET['code']) && isset($_GET['state'])) {
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("sssss", $user_id, $display_name, $status_message, $picture_url, $urole);
 
+
+            $count1 = "100"; // ตัวอย่าง count
+            $status = "F"; // ตัวอย่าง status
+
+            // เพิ่มข้อมูลจนถึงปี พ.ศ. 3000
+            for ($year = 2565; $year <= 3000; $year++) { // 2565 คือปี พ.ศ. ปัจจุบัน
+                for ($month = 1; $month <= 12; $month++) {
+                    // สร้างวันที่เป็นรูปแบบ m-y
+                    $month_year = sprintf("%02d-%04d", $month, $year);
+
+                    // สร้างคำสั่ง SQL
+                    $sql = "INSERT INTO count_net (user_id, `m-y`, count, status) VALUES ($user_id, '$month_year', $count1, $status)";
+
+                    // ส่งคำสั่ง SQL ไปยังฐานข้อมูล
+                    if ($conn->query($sql) === TRUE) {
+                        echo "New record created successfully for $month_year\n";
+                    } else {
+                        echo "Error: " . $sql . "\n" . $conn->error;
+                    }
+                }
+            }
             if ($stmt->execute()) {
                 // ถ้าสำเร็จ ให้แสดง popup และนำไปยัง /home.php
                 echo '<script>
