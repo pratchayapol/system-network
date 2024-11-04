@@ -83,6 +83,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         title: 'สำเร็จ!',
                         text: 'อัปโหลดและบันทึกข้อมูลเรียบร้อยแล้ว',
                         confirmButtonText: 'ตกลง'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            location.reload(); // รีเฟรชหน้าเมื่อกดตกลง
+                        }
                     });
                   </script>";
                 } else {
@@ -92,6 +96,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         title: 'เกิดข้อผิดพลาด!',
                         text: 'เกิดข้อผิดพลาดในการบันทึกข้อมูล: " . $conn->error . "',
                         confirmButtonText: 'ตกลง'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            location.reload(); // รีเฟรชหน้าเมื่อกดตกลง
+                        }
                     });
                   </script>";
                 }
@@ -102,6 +110,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     title: 'เกิดข้อผิดพลาด!',
                     text: 'ไม่สามารถย้ายไฟล์ไปยังโฟลเดอร์ได้',
                     confirmButtonText: 'ตกลง'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        location.reload(); // รีเฟรชหน้าเมื่อกดตกลง
+                    }
                 });
               </script>";
             }
@@ -113,6 +125,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     title: 'ข้อผิดพลาด!',
                     text: '$error',
                     confirmButtonText: 'ตกลง'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        location.reload(); // รีเฟรชหน้าเมื่อกดตกลง
+                    }
                 });
               </script>";
             }
