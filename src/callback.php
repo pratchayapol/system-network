@@ -131,21 +131,20 @@ if (isset($_GET['code']) && isset($_GET['state'])) {
 
 
             if ($stmt->execute()) {
-                // ถ้าสำเร็จ ให้แสดง popup และนำไปยัง /home.php
                 $count1 = "100"; // ตัวอย่าง count
                 $status = "F"; // ตัวอย่าง status
-
-                // เพิ่มข้อมูลจนถึงปี พ.ศ. 3000
-                for ($year = 2565; $year <= 3000; $year++) { // 2565 คือปี พ.ศ. ปัจจุบัน
+            
+                // เพิ่มข้อมูลจนถึงปี ค.ศ. 3000
+                for ($year = 2023; $year <= 3000; $year++) { // 2023 คือปี ค.ศ. ปัจจุบัน
                     for ($month = 1; $month <= 12; $month++) {
-                        // สร้างวันที่เป็นรูปแบบ m-y
-                        $month_year = sprintf("%02d-%04d", $month, $year);
-
+                        // สร้างวันที่เป็นรูปแบบ YYYY-MM-DD
+                        $date = sprintf("%04d-%02d-01", $year, $month); // วันที่เริ่มต้นที่ 1 ของเดือน
+            
                         // สร้างคำสั่ง SQL
-                        $sql1 = "INSERT INTO count_net (user_id, `m-y`, count, status) VALUES ('$user_id', '$month_year', '$count', '$status')";
+                        $sql1 = "INSERT INTO count_net (user_id, `m-y`, count, status) VALUES ('$user_id', '$date', '$count1', '$status')";
                         // ส่งคำสั่ง SQL ไปยังฐานข้อมูล
                         if ($conn->query($sql1) === TRUE) {
-                            echo "New record created successfully for $month_year\n";
+                            echo "New record created successfully for $date\n";
                         } else {
                             echo "Error: " . $sql1 . "\n" . $conn->error;
                         }
