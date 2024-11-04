@@ -6,7 +6,7 @@
     <title>หน้าแรก</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body class="bg-gradient-to-b from-blue-50 to-blue-200 min-h-screen flex items-center justify-center">
+<body class="bg-gradient-to-b from-blue-50 to-blue-200">
     <header class="bg-blue-600 shadow-lg">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <nav class="flex items-center justify-between h-16">
