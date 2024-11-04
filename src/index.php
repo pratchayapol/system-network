@@ -28,10 +28,12 @@ $line_login_url = "https://access.line.me/oauth2/v2.1/authorize?response_type=co
 
 <body class="bg-gradient-to-b from-blue-50 to-blue-200 min-h-screen flex items-center justify-center">
     <div class="p-6 bg-white rounded-lg shadow-md max-w-md w-full">
-        <h5 class="text-2xl font-bold text-blue-800 mb-4 text-center">ระบบจัดการค่าบริการอินเตอร์เน็ต PCNONE</h5>
-        <a href="<?= $line_login_url ?>" class="block w-full text-center py-2 px-4 bg-green-500 text-white font-semibold rounded hover:bg-green-600">
-            Sign in LINE
-        </a>
+        <center><img src="PCN1.png" alt=""><br>
+            <h5 class="text-2xl font-bold text-blue-800 mb-4 text-center">ระบบจัดการค่าบริการอินเตอร์เน็ต</h5>
+            <a href="<?= $line_login_url ?>" class="block w-full text-center py-2 px-4 bg-green-500 text-white font-semibold rounded hover:bg-green-600">
+                Sign in LINE
+            </a>
+        </center>
     </div>
 </body>
 
