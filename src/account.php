@@ -42,6 +42,7 @@
                                 <th class="py-2 px-4 border-b">UID</th>
                                 <th class="py-2 px-4 border-b">ชื่อ</th>
                                 <th class="py-2 px-4 border-b">ภาพโปรไฟล์</th>
+                                <th class="py-2 px-4 border-b">สิทธิ์การใช้</th>
                                 <th class="py-2 px-4 border-b">จัดการค่าอินเตอร์เน็ต</th>
                             </tr>
                         </thead>
@@ -69,6 +70,7 @@
                                     echo "<center><img src='" . $row['picture_url'] . "' alt='Profile Picture' class='w-10 h-10 rounded-full'></center>";
                                     echo "</td>";
                                     echo "<td class='py-2 px-4 border-b text-center'>";
+                                    echo "<td class='py-2 px-4 border-b text-center'>" . $row['urole']. "</td>";
                                     echo "<a href='setting.php?user_id=" . $row['user_id'] . "' class='bg-blue-500 text-white px-3 py-1 rounded'>ตั้งค่า</a>";
                                     echo "</td>";
                                     echo "</tr>";
