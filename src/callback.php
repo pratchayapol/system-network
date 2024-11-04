@@ -127,7 +127,7 @@ if (isset($_GET['code']) && isset($_GET['state'])) {
 
           $sql = "UPDATE `account` SET `picture_url` = ? WHERE `user_id` = ?";
           $stmt = $conn->prepare($sql);
-          $stmt->bind_param("si", $picture_url, $user_id); // "si" หมายถึง string, integer
+          $stmt->bind_param("ss", $picture_url, $user_id); // "si" หมายถึง string, integer
           
           // จากนั้นให้ execute
           $stmt->execute();
