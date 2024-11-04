@@ -107,7 +107,24 @@ $thai_months = [
 
         <?php } else {
         ?>
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-2xl font-bold text-gray-900">ข้อมูลของคุณ</h2>
 
+                <?php if ($result_user->num_rows > 0): ?>
+                    <?php while ($row = $result_user->fetch_assoc()): ?>
+                        <div class="mb-4">
+                            <center>
+                                <img src="<?php echo htmlspecialchars($row['picture_url']); ?>" alt="Profile Picture" class="w-20 h-20 rounded-full">
+                                <h2 class="text-xl font-semibold text-blue-800"><?php echo htmlspecialchars($row['display_name']); ?></h2>
+                                <h2 class="text-xl font-semibold"><?php echo htmlspecialchars($row['status_message']); ?></h2>
+                            </center>
+
+                        </div>
+                    <?php endwhile; ?>
+                <?php else: ?>
+                    <p>No user data found.</p>
+                <?php endif; ?>
+            </div>
             <hr class="border-dashed border-2 border-gray-300 my-4">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="bg-white p-6 rounded-lg shadow-md">
