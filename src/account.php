@@ -32,7 +32,7 @@
     <main class="py-10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="bg-white p-6 rounded-lg shadow-md">
-                <h2 class="text-2xl font-bold text-gray-900">รายชื่อสมาชิก</h2>
+                <h2 class="text-2xl font-bold text-blue-800">รายชื่อสมาชิก</h2>
                 <div class="overflow-x-auto"> <!-- คอนเทนเนอร์ที่เพิ่มเข้ามา -->
                     <table class="min-w-full mt-4 bg-white border border-gray-300 table-auto">
                         <thead>

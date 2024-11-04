@@ -83,16 +83,16 @@ $thai_months = [
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300&display=swap" rel="stylesheet">
 </head>
 
-<body class="bg-gray-100">
-    <header class="bg-white shadow">
+<body class="bg-gradient-to-b from-blue-50 to-blue-200 min-h-screen">
+    <header class="bg-blue-600 shadow-lg">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <nav class="flex items-center justify-between h-16">
                 <div class="flex items-center">
-                    <h1 class="text-xl font-bold text-gray-900">ระบบจัดการค่าบริการอินเตอร์เน็ต PCNONE</h1>
+                    <h1 class="text-xl font-bold text-white">ระบบจัดการค่าบริการอินเตอร์เน็ต PCNONE</h1>
                 </div>
                 <div class="flex space-x-4">
-                    <a href="home" class="text-gray-600 hover:text-gray-900">Home</a>
-                    <a href="account" class="text-gray-600 hover:text-gray-900">สมาชิก</a>
+                    <a href="home" class="text-white hover:text-yellow-300">Home</a>
+                    <a href="account" class="text-white hover:text-yellow-300">สมาชิก</a>
                 </div>
             </nav>
         </div>
@@ -100,19 +100,21 @@ $thai_months = [
 
     <main class="py-10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-2xl font-bold text-gray-900">จัดการค่าอินเตอร์เน็ต รายบุคคล</h2>
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-2xl font-bold text-gray-900">จัดการค่าอินเตอร์เน็ต รายบุคคล</h2>
 
-            <?php if ($result_user->num_rows > 0): ?>
-                <?php while ($row = $result_user->fetch_assoc()): ?>
-                    <div class="mb-4">
-                        <h2 class="text-xl font-semibold">Name: <?php echo htmlspecialchars($row['display_name']); ?></h2>
-                        <img src="<?php echo htmlspecialchars($row['picture_url']); ?>" alt="Profile Picture" class="w-10 h-10 rounded-full">
-                    </div>
-                <?php endwhile; ?>
-            <?php else: ?>
-                <p>No user data found.</p>
-            <?php endif; ?>
-
+                <?php if ($result_user->num_rows > 0): ?>
+                    <?php while ($row = $result_user->fetch_assoc()): ?>
+                        <div class="mb-4">
+                            <h2 class="text-xl font-semibold">Name: <?php echo htmlspecialchars($row['display_name']); ?></h2>
+                            <img src="<?php echo htmlspecialchars($row['picture_url']); ?>" alt="Profile Picture" class="w-10 h-10 rounded-full">
+                        </div>
+                    <?php endwhile; ?>
+                <?php else: ?>
+                    <p>No user data found.</p>
+                <?php endif; ?>
+            </div>
+            
             <h2 class="text-2xl font-bold mt-8 mb-4">รายการค่าอินเตอร์เน็ตในแต่ละเดือน</h2>
             <table class="min-w-full bg-white border border-gray-300">
                 <thead>
@@ -159,42 +161,42 @@ $thai_months = [
             </table>
         </div>
     </main>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('.status-checkbox').change(function() {
-                const userId = $(this).data('user-id');
-                const countId = $(this).data('count-id');
-                const status = this.checked ? 'T' : 'F'; // 'T' for paid, 'F' for unpaid
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.status-checkbox').change(function() {
+            const userId = $(this).data('user-id');
+            const countId = $(this).data('count-id');
+            const status = this.checked ? 'T' : 'F'; // 'T' for paid, 'F' for unpaid
 
-                // Change the checkbox state immediately
-                this.disabled = true; // Disable checkbox during the update
+            // Change the checkbox state immediately
+            this.disabled = true; // Disable checkbox during the update
 
-                $.ajax({
-                    url: '', // Update this to the URL of your PHP script
-                    type: 'POST',
-                    data: {
-                        id_user: userId,
-                        id_count: countId,
-                        status: status
-                    },
-                    success: function(response) {
-                        console.log('Update successful:', response);
-                        // Refresh the page after the successful update
-                        location.reload(); // This will reload the current page
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {
-                        console.error('Update failed:', textStatus, errorThrown);
-                        // Optionally show an error message
-                    },
-                    complete: function() {
-                        $('.status-checkbox').prop('disabled', false); // Re-enable all checkboxes after the request completes
-                    }
-                });
+            $.ajax({
+                url: '', // Update this to the URL of your PHP script
+                type: 'POST',
+                data: {
+                    id_user: userId,
+                    id_count: countId,
+                    status: status
+                },
+                success: function(response) {
+                    console.log('Update successful:', response);
+                    // Refresh the page after the successful update
+                    location.reload(); // This will reload the current page
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error('Update failed:', textStatus, errorThrown);
+                    // Optionally show an error message
+                },
+                complete: function() {
+                    $('.status-checkbox').prop('disabled', false); // Re-enable all checkboxes after the request completes
+                }
             });
         });
-    </script>
+    });
+</script>
 
-</body>
 
 </html>
