@@ -240,7 +240,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                                     </td>
                                                 </form>
                                             <?php else: ?>
-                                                <center>อัพโหลดสำเร็จ</center>
+                                                <td class="border px-4 py-2 text-center">
+                                                    <center>อัพโหลดสำเร็จ</center>
+                                                </td>
                                             <?php endif; ?>
 
                                             <td class="border px-4 py-2 text-center"><?php echo htmlspecialchars($month_name . ' ' . $year); ?></td>
