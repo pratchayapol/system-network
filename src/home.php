@@ -105,19 +105,27 @@ $thai_months = [
                     $sql = "UPDATE `count_net` SET `slip` = '$file_name' WHERE `count_net`.`id_count` = '$id_count';";
                     if ($conn->query($sql) === TRUE) {
                         echo "<div>
-                        <script>
-                            swal({
-                                icon: 'success',
-                                title: 'สำเร็จ!',
-                                text: 'อัปโหลดและบันทึกข้อมูลเรียบร้อยแล้ว',
-                                confirmButtonText: 'ตกลง'
-                            }).then((result) => {
-                                if (result.isConfirmed) {
-                                    window.location.href = 'https://www.google.com';
-                                }
-                            });
-                        </script>
-                      </div>";
+        <script>
+            swal({
+                icon: 'success',
+                title: 'สำเร็จ!',
+                text: 'อัปโหลดและบันทึกข้อมูลเรียบร้อยแล้ว',
+                buttons: {
+                    confirm: {
+                        text: 'ตกลง',
+                        value: true,
+                        visible: true,
+                        className: '',
+                        closeModal: true // ให้ปิด modal โดยอัตโนมัติ
+                    }
+                }
+            }).then((willRedirect) => {
+                if (willRedirect) {
+                    window.location.href = 'https://system-network.pcnone.com/home'; // เปลี่ยนไปที่หน้า /home
+                }
+            });
+        </script>
+      </div>";
                     } else {
                         echo "<div><script>
                     swal({
