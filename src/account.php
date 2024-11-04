@@ -6,18 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>สมาชิก</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+    <!-- fonts-->
+    <link rel="stylesheet" href="../css/fonts.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300&display=swap" rel="stylesheet">
 </head>
 
-<body class="bg-gray-100">
-    <header class="bg-white shadow">
+<body class="bg-gradient-to-b from-blue-50 to-blue-200 min-h-screen">
+    <header class="bg-blue-600 shadow-lg">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <nav class="flex items-center justify-between h-16">
                 <div class="flex items-center">
-                    <h1 class="text-xl font-bold text-gray-900">ระบบจัดการค่าบริการอินเตอร์เน็ต PCNONE</h1>
+                    <h1 class="text-xl font-bold text-white">ระบบจัดการค่าบริการอินเตอร์เน็ต PCNONE</h1>
                 </div>
                 <div class="flex space-x-4">
-                    <a href="home" class="text-gray-600 hover:text-gray-900">Home</a>
-                    <a href="account" class="text-gray-600 hover:text-gray-900">สมาชิก</a>
+                    <a href="home" class="text-white hover:text-yellow-300">Home</a>
+                    <a href="account" class="text-white hover:text-yellow-300">สมาชิก</a>
                 </div>
             </nav>
         </div>
