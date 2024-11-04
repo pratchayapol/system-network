@@ -95,9 +95,6 @@ $thai_months = [
             </div>
         </div>
 
-
-
-
         <?php if ($row_login['urole'] === "admin") {
 
         ?>
@@ -156,11 +153,11 @@ $thai_months = [
                         <table class="min-w-full bg-white border border-gray-300">
                             <thead>
                                 <tr>
+                                    <th class="border px-4 py-2">แนบสลิปโอนเงิน</th>
                                     <th class="border px-4 py-2">ประจำเดือน</th>
                                     <th class="border px-4 py-2">ค่าบริการอินเตอร์เน็ต</th>
                                     <th class="border px-4 py-2">สถานะการชำระ</th>
                                     <th class="border px-4 py-2">หลักฐานการชำระเงิน</th>
-                                    <th class="border px-4 py-2">checkbox</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -184,6 +181,7 @@ $thai_months = [
                                         }
                                         ?>
                                         <tr class="<?php echo $row_class; ?>">
+                                        <td class="border px-4 py-2 text-center"><?php echo htmlspecialchars($month_name . ' ' . $year); ?></td>
                                             <td class="border px-4 py-2 text-center"><?php echo htmlspecialchars($month_name . ' ' . $year); ?></td>
                                             <td class="border px-4 py-2 text-center"><?php echo htmlspecialchars($row['count']); ?></td>
                                             <td class="border px-4 py-2 text-center"><?php echo htmlspecialchars($row['status'] === 'T' ? 'ชำระแล้ว' : ($row['slip'] !== null ? 'รอตรวจสอบ' : 'ยังไม่ชำระ')); ?></td>
@@ -193,9 +191,6 @@ $thai_months = [
                                                 <?php else: ?>
                                                     <center><img src="<?php echo htmlspecialchars($row['slip']); ?>" alt="" class="w-20 h-20"></center>
                                                 <?php endif; ?>
-                                            </td>
-                                            <td class="border px-4 py-2 text-center">
-                                                <input type="checkbox" class="status-checkbox" data-user-id="<?php echo htmlspecialchars($user_id); ?>" data-count-id="<?php echo $row['id_count']; ?>" <?php echo $row['status'] === 'T' ? 'checked' : ''; ?>>
                                             </td>
                                         </tr>
                                     <?php endwhile; ?>
