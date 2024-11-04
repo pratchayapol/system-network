@@ -108,7 +108,8 @@ $thai_months = [
                         <div class="mb-4">
                             <center>
                                 <img src="<?php echo htmlspecialchars($row['picture_url']); ?>" alt="Profile Picture" class="w-20 h-20 rounded-full">
-                                <h2 class="text-xl font-semibold">Name: <?php echo htmlspecialchars($row['display_name']); ?></h2>
+                                <h2 class="text-xl font-semibold text-blue-800"><?php echo htmlspecialchars($row['display_name']); ?></h2>
+                                <h2 class="text-xl font-semibold"><?php echo htmlspecialchars($row['status_message']); ?></h2>
                             </center>
 
                         </div>
