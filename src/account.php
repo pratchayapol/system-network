@@ -1,4 +1,6 @@
 <?php
+session_start();
+$user_id_login = $_SESSION['user_id'];
 // ดึงข้อมูลจากฐานข้อมูลและแสดงผลที่นี่
 // Database connection
 $servername = "192.168.1.202:3341"; // ชื่อโฮสต์ของฐานข้อมูล
@@ -10,8 +12,11 @@ $dbname = "system_network"; // ชื่อฐานข้อมูล
 $conn = new mysqli($servername, $username, $password, $dbname);
 $sql = "SELECT * FROM account"; // ตรวจสอบให้แน่ใจว่าคุณมีฟิลด์ picture_url ในฐานข้อมูล
 $result = $conn->query($sql);
-$result1 = $conn->query($sql);
-$row1 = $result1->fetch_assoc();
+
+
+$sql_login = "SELECT * FROM account WHERE `user_id` = '$user_id_login'"; // ตรวจสอบให้แน่ใจว่าคุณมีฟิลด์ picture_url ในฐานข้อมูล
+$result_login = $conn->query($sql_login);
+$row_login = $result_login->fetch_assoc();
 ?>
 <!DOCTYPE html>
 <html lang="th">
@@ -37,7 +42,7 @@ $row1 = $result1->fetch_assoc();
                     <h1 class="text-xl font-bold text-white">ระบบจัดการค่าบริการอินเตอร์เน็ต PCNONE</h1>
                 </div>
                 <div class="flex space-x-4">
-                    <?php if ($row1['urole'] === "admin") {
+                    <?php if ($row_login['urole'] === "admin") {
 
                     ?>
                         <a href="home" class="text-white hover:text-yellow-300">Home</a>

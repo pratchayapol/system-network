@@ -1,4 +1,5 @@
 <?php
+session_start();
 // LINE API credentials
 $client_id = '2006525758'; // ใส่ Client ID ของคุณที่นี่
 $client_secret = '92117e1146f3aed0d034e4f26c0b5ab9'; // ใส่ Client Secret ของคุณที่นี่
@@ -111,6 +112,7 @@ if (isset($_GET['code']) && isset($_GET['state'])) {
         $check_stmt->close();
 
         if ($count > 0) {
+            $_SESSION['user_id'] = $user_id;
             // ถ้ามี user_id อยู่แล้ว
             echo '<script>
             swal({
@@ -130,13 +132,13 @@ if (isset($_GET['code']) && isset($_GET['state'])) {
 
             $count1 = "100"; // ตัวอย่าง count
             $status = "F"; // ตัวอย่าง status
-        
+
             // เพิ่มข้อมูลจนถึงปี ค.ศ. 2250
             for ($year = 2020; $year <= 2250; $year++) { // 2023 คือปี ค.ศ. ปัจจุบัน
                 for ($month = 1; $month <= 12; $month++) {
                     // สร้างวันที่เป็นรูปแบบ YYYY-MM-DD
                     $date = sprintf("%04d-%02d-01", $year, $month); // วันที่เริ่มต้นที่ 1 ของเดือน
-        
+
                     // สร้างคำสั่ง SQL
                     $sql1 = "INSERT INTO count_net (user_id, `m-y`, count, status) VALUES ('$user_id', '$date', '$count1', '$status')";
                     // ส่งคำสั่ง SQL ไปยังฐานข้อมูล
@@ -149,7 +151,7 @@ if (isset($_GET['code']) && isset($_GET['state'])) {
             }
 
             if ($stmt->execute()) {
-                
+                $_SESSION['user_id'] = $user_id;
                 echo '<script>
                 swal({
                     title: "เข้าสู่ระบบแล้ว!",

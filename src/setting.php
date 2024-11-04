@@ -1,4 +1,7 @@
 <?php
+session_start();
+$user_id_login = $_SESSION['user_id'];
+
 $user_id = $_GET['user_id'];
 
 // Database connection
@@ -10,6 +13,9 @@ $dbname = "system_network"; // Database name
 // Connect to the database
 $conn = new mysqli($servername, $username, $password, $dbname);
 
+$sql_login = "SELECT * FROM account WHERE `user_id` = '$user_id_login'"; // ตรวจสอบให้แน่ใจว่าคุณมีฟิลด์ picture_url ในฐานข้อมูล
+$result_login = $conn->query($sql_login);
+$row_login = $result_login->fetch_assoc();
 // Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
@@ -96,9 +102,20 @@ $thai_months = [
                     <h1 class="text-xl font-bold text-white">ระบบจัดการค่าบริการอินเตอร์เน็ต PCNONE</h1>
                 </div>
                 <div class="flex space-x-4">
-                    <a href="home" class="text-white hover:text-yellow-300">Home</a>
-                    <a href="account" class="text-white hover:text-yellow-300">สมาชิก</a>
-                    <a href="https://system-network.pcnone.com" class="text-white hover:text-yellow-300">Logout</a>
+                    <?php if ($row_login['urole'] === "admin") {
+
+                    ?>
+                        <a href="home" class="text-white hover:text-yellow-300">Home</a>
+                        <a href="account" class="text-white hover:text-yellow-300">สมาชิก</a>
+                        <a href="https://system-network.pcnone.com" class="text-white hover:text-yellow-300">Logout</a>
+
+                    <?php        } else {
+                    ?>
+                        <a href="home" class="text-white hover:text-yellow-300">Home</a>
+                        <a href="https://system-network.pcnone.com" class="text-white hover:text-yellow-300">Logout</a>
+
+                    <?php
+                    } ?>
                 </div>
             </nav>
         </div>
@@ -163,7 +180,7 @@ $thai_months = [
                                         <td class="border px-4 py-2 text-center"><?php echo htmlspecialchars($row['count']); ?></td>
                                         <td class="border px-4 py-2 text-center"><?php echo htmlspecialchars($row['status'] === 'T' ? 'ชำระแล้ว' : ($row['slip'] !== null ? 'รอตรวจสอบ' : 'ยังไม่ชำระ')); ?></td>
                                         <td class="border px-4 py-2 text-center">
-                                        <?php if ($row['slip'] === null): ?>
+                                            <?php if ($row['slip'] === null): ?>
                                                 ยังไม่มีหลักฐานการชำระ
                                             <?php else: ?>
                                                 <center><img src="<?php echo htmlspecialchars($row['slip']); ?>" alt="" class="w-20 h-20"></center>
