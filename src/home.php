@@ -235,7 +235,32 @@ $thai_months = [
                 <h2 class="text-2xl font-bold text-blue-800 text-center">ยินดีต้อนรับสู่ระบบจัดการค่าบริการอินเตอร์เน็ต</h2>
                 <center>
                     <p class="mt-4 text-gray-700"> ช่องทางการชำระค่าบริการ </p>
-                    <p class="mt-4 text-gray-700"> เลขบัญชี 9898093609 ธนาคารกรุงไทย นายปรัชญาพล  จำปาลาด </p>
+                    <p class="mt-4 text-gray-700"> เลขบัญชี 112-8-90804-4 ธนาคารกสิกรไทย นายปรัชญาพล  จำปาลาด </p>
+                    <hr class="border-dashed border-2 border-gray-300 my-4">
+                    <p class="mt-4 text-gray-700"> QR CODE </p>
+                    <center>
+                                                        <img src="slip/QRC_K+.jpg" alt="" class="w-20 h-20 cursor-pointer" onclick="openModal123(this.src)">
+                                                    </center>
+
+                                                    <!-- Modal -->
+                                                    <div id="imageModal123" class="fixed inset-0 z-50 hidden bg-black bg-opacity-75 flex justify-center items-center">
+                                                        <div class="relative">
+                                                            <button class="absolute top-2 right-2 text-white text-2xl" onclick="closeModal()">&times;</button>
+                                                            <img id="modalImage123" src="" alt="" class="max-w-full max-h-full">
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- JavaScript to Open/Close Modal -->
+                                                    <script>
+                                                        function openModal123(imageSrc) {
+                                                            document.getElementById('modalImage123').src = imageSrc;
+                                                            document.getElementById('imageModal123').classList.remove('hidden'); // แสดง modal
+                                                        }
+
+                                                        function closeModal() {
+                                                            document.getElementById('imageModal').classList.add('hidden'); // ปิด modal
+                                                        }
+                                                    </script>
                 </center>
             </div>
         </div>
