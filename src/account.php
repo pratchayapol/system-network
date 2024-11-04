@@ -10,7 +10,8 @@ $dbname = "system_network"; // ชื่อฐานข้อมูล
 $conn = new mysqli($servername, $username, $password, $dbname);
 $sql = "SELECT * FROM account"; // ตรวจสอบให้แน่ใจว่าคุณมีฟิลด์ picture_url ในฐานข้อมูล
 $result = $conn->query($sql);
-$row1 = $result->fetch_assoc();
+$result1 = $conn->query($sql);
+$row1 = $result1->fetch_assoc();
 ?>
 <!DOCTYPE html>
 <html lang="th">
