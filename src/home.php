@@ -23,6 +23,7 @@
                 <div class="flex space-x-4">
                     <a href="home" class="text-white hover:text-yellow-300">Home</a>
                     <a href="account" class="text-white hover:text-yellow-300">สมาชิก</a>
+                    <a href="system-network.pcnone.com" class="text-white hover:text-yellow-300">Logout</a>
                 </div>
             </nav>
         </div>
