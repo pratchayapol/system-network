@@ -18,7 +18,7 @@ $line_login_url = "https://access.line.me/oauth2/v2.1/authorize?response_type=co
     <title>Login ระบบจัดการค่าบริการอินเตอร์เน็ต PCNONE</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body class="flex items-center justify-center min-h-screen bg-gray-100">
+<body class="bg-gradient-to-b from-blue-50 to-blue-200">
     <div class="p-6 bg-white rounded shadow-md">
         <h1 class="text-2xl font-bold mb-4">ระบบจัดการค่าบริการอินเตอร์เน็ต</h1>
         <a href="<?= $line_login_url ?>" class="block w-full text-center py-2 px-4 bg-green-500 text-white font-semibold rounded hover:bg-green-600">
