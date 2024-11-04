@@ -118,7 +118,7 @@ $thai_months = [
                     <p>No user data found.</p>
                 <?php endif; ?>
             </div>
-
+            <hr class="border-dashed border-2 border-gray-300 my-4">
             <div class="bg-white p-6 rounded-lg shadow-md">
                 <h2 class="text-2xl font-bold mt-8 mb-4">รายการค่าอินเตอร์เน็ตในแต่ละเดือน</h2>
                 <div class="overflow-x-auto">
