@@ -44,6 +44,102 @@ $thai_months = [
 ];
 
 ?>
+
+<?php
+
+    // ตรวจสอบว่ามีการส่งข้อมูลผ่าน POST
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+        $id_count = $_POST['id_count'];
+
+        // ตรวจสอบว่ามีการอัปโหลดไฟล์
+        if (isset($_FILES['image'])) {
+            $errors = [];
+            $file_name = $_FILES['image']['name'];
+            $file_tmp = $_FILES['image']['tmp_name'];
+            $file_type = $_FILES['image']['type'];
+            $file_size = $_FILES['image']['size'];
+
+            // กำหนดตำแหน่งเก็บไฟล์
+            $upload_directory = "slip/";
+
+            // ตรวจสอบชนิดไฟล์
+            $allowed_types = ['image/jpeg', 'image/png', 'image/gif'];
+            if (!in_array($file_type, $allowed_types)) {
+                $errors[] = "ชนิดไฟล์ไม่ถูกต้อง";
+            }
+
+            // ตรวจสอบขนาดไฟล์
+            if ($file_size > 10 * 1024 * 1024) { // จำกัดขนาดไฟล์ไม่เกิน 10MB
+                $errors[] = "ไฟล์ใหญ่เกินไป ต้องไม่เกิน 10 MB";
+            }
+
+            // ถ้าไม่มีข้อผิดพลาด
+            if (empty($errors)) {
+                // ย้ายไฟล์ไปยังโฟลเดอร์
+                if (move_uploaded_file($file_tmp, $upload_directory . $file_name)) {
+                    // บันทึกชื่อภาพลงฐานข้อมูล
+                    $sql = "UPDATE `count_net` SET `slip` = '$file_name' WHERE `count_net`.`id_count` = '$id_count';";
+                    if ($conn->query($sql) === TRUE) {
+                        echo "<script>
+                    swal({
+                        icon: 'success',
+                        title: 'สำเร็จ!',
+                        text: 'อัปโหลดและบันทึกข้อมูลเรียบร้อยแล้ว',
+                        confirmButtonText: 'ตกลง'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            location.reload(); // รีเฟรชหน้าเมื่อกดตกลง
+                        }
+                    });
+                  </script>";
+                    } else {
+                        echo "<script>
+                    swal({
+                        icon: 'error',
+                        title: 'เกิดข้อผิดพลาด!',
+                        text: 'เกิดข้อผิดพลาดในการบันทึกข้อมูล: " . $conn->error . "',
+                        confirmButtonText: 'ตกลง'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            location.reload(); // รีเฟรชหน้าเมื่อกดตกลง
+                        }
+                    });
+                  </script>";
+                    }
+                } else {
+                    echo "<script>
+                swal({
+                    icon: 'error',
+                    title: 'เกิดข้อผิดพลาด!',
+                    text: 'ไม่สามารถย้ายไฟล์ไปยังโฟลเดอร์ได้',
+                    confirmButtonText: 'ตกลง'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        location.reload(); // รีเฟรชหน้าเมื่อกดตกลง
+                    }
+                });
+              </script>";
+                }
+            } else {
+                foreach ($errors as $error) {
+                    echo "<script>
+                swal({
+                    icon: 'warning',
+                    title: 'ข้อผิดพลาด!',
+                    text: '$error',
+                    confirmButtonText: 'ตกลง'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        location.reload(); // รีเฟรชหน้าเมื่อกดตกลง
+                    }
+                });
+              </script>";
+                }
+            }
+        }
+    }
+    ?>
 <!DOCTYPE html>
 <html lang="th">
 
@@ -237,101 +333,7 @@ $thai_months = [
     </main>
 
 
-    <?php
-
-    // ตรวจสอบว่ามีการส่งข้อมูลผ่าน POST
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-        $id_count = $_POST['id_count'];
-
-        // ตรวจสอบว่ามีการอัปโหลดไฟล์
-        if (isset($_FILES['image'])) {
-            $errors = [];
-            $file_name = $_FILES['image']['name'];
-            $file_tmp = $_FILES['image']['tmp_name'];
-            $file_type = $_FILES['image']['type'];
-            $file_size = $_FILES['image']['size'];
-
-            // กำหนดตำแหน่งเก็บไฟล์
-            $upload_directory = "slip/";
-
-            // ตรวจสอบชนิดไฟล์
-            $allowed_types = ['image/jpeg', 'image/png', 'image/gif'];
-            if (!in_array($file_type, $allowed_types)) {
-                $errors[] = "ชนิดไฟล์ไม่ถูกต้อง";
-            }
-
-            // ตรวจสอบขนาดไฟล์
-            if ($file_size > 10 * 1024 * 1024) { // จำกัดขนาดไฟล์ไม่เกิน 10MB
-                $errors[] = "ไฟล์ใหญ่เกินไป ต้องไม่เกิน 10 MB";
-            }
-
-            // ถ้าไม่มีข้อผิดพลาด
-            if (empty($errors)) {
-                // ย้ายไฟล์ไปยังโฟลเดอร์
-                if (move_uploaded_file($file_tmp, $upload_directory . $file_name)) {
-                    // บันทึกชื่อภาพลงฐานข้อมูล
-                    $sql = "UPDATE `count_net` SET `slip` = '$file_name' WHERE `count_net`.`id_count` = '$id_count';";
-                    if ($conn->query($sql) === TRUE) {
-                        echo "<script>
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'สำเร็จ!',
-                        text: 'อัปโหลดและบันทึกข้อมูลเรียบร้อยแล้ว',
-                        confirmButtonText: 'ตกลง'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            location.reload(); // รีเฟรชหน้าเมื่อกดตกลง
-                        }
-                    });
-                  </script>";
-                    } else {
-                        echo "<script>
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'เกิดข้อผิดพลาด!',
-                        text: 'เกิดข้อผิดพลาดในการบันทึกข้อมูล: " . $conn->error . "',
-                        confirmButtonText: 'ตกลง'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            location.reload(); // รีเฟรชหน้าเมื่อกดตกลง
-                        }
-                    });
-                  </script>";
-                    }
-                } else {
-                    echo "<script>
-                Swal.fire({
-                    icon: 'error',
-                    title: 'เกิดข้อผิดพลาด!',
-                    text: 'ไม่สามารถย้ายไฟล์ไปยังโฟลเดอร์ได้',
-                    confirmButtonText: 'ตกลง'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        location.reload(); // รีเฟรชหน้าเมื่อกดตกลง
-                    }
-                });
-              </script>";
-                }
-            } else {
-                foreach ($errors as $error) {
-                    echo "<script>
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'ข้อผิดพลาด!',
-                    text: '$error',
-                    confirmButtonText: 'ตกลง'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        location.reload(); // รีเฟรชหน้าเมื่อกดตกลง
-                    }
-                });
-              </script>";
-                }
-            }
-        }
-    }
-    ?>
+    
     <script>
         function previewImage(event) {
             const input = event.target;
