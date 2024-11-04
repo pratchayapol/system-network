@@ -10,7 +10,7 @@ $dbname = "system_network"; // ชื่อฐานข้อมูล
 $conn = new mysqli($servername, $username, $password, $dbname);
 $sql = "SELECT * FROM account"; // ตรวจสอบให้แน่ใจว่าคุณมีฟิลด์ picture_url ในฐานข้อมูล
 $result = $conn->query($sql);
-$row = $result->fetch_assoc();
+$row1 = $result->fetch_assoc();
 ?>
 <!DOCTYPE html>
 <html lang="th">
@@ -36,7 +36,7 @@ $row = $result->fetch_assoc();
                     <h1 class="text-xl font-bold text-white">ระบบจัดการค่าบริการอินเตอร์เน็ต PCNONE</h1>
                 </div>
                 <div class="flex space-x-4">
-                    <?php if ($row['urole'] === "admin") {
+                    <?php if ($row1['urole'] === "admin") {
 
                     ?>
                         <a href="home" class="text-white hover:text-yellow-300">Home</a>
