@@ -102,6 +102,7 @@ $thai_months = [
 
         ?>
             <br>
+
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="bg-white p-6 rounded-lg shadow-md">
                     <h2 class="text-2xl font-bold text-gray-900">ข้อมูลของคุณ</h2>
@@ -123,10 +124,9 @@ $thai_months = [
                 </div>
             </div>
 
-
         <?php } else {
         ?>
-
+            <br>
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="bg-white p-6 rounded-lg shadow-md">
                     <h2 class="text-2xl font-bold text-gray-900">ข้อมูลของคุณ</h2>
