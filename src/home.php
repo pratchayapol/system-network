@@ -77,16 +77,44 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // บันทึกชื่อภาพลงฐานข้อมูล
                 $sql = "UPDATE `count_net` SET `slip` = '$file_name' WHERE `count_net`.`id_count` = '$id_count';";
                 if ($conn->query($sql) === TRUE) {
-                    echo "อัปโหลดและบันทึกข้อมูลเรียบร้อยแล้ว";
+                    echo "<script>
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'สำเร็จ!',
+                        text: 'อัปโหลดและบันทึกข้อมูลเรียบร้อยแล้ว',
+                        confirmButtonText: 'ตกลง'
+                    });
+                  </script>";
                 } else {
-                    echo "เกิดข้อผิดพลาดในการบันทึกข้อมูล: " . $conn->error;
+                    echo "<script>
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'เกิดข้อผิดพลาด!',
+                        text: 'เกิดข้อผิดพลาดในการบันทึกข้อมูล: " . $conn->error . "',
+                        confirmButtonText: 'ตกลง'
+                    });
+                  </script>";
                 }
             } else {
-                echo "ไม่สามารถย้ายไฟล์ไปยังโฟลเดอร์ได้";
+                echo "<script>
+                Swal.fire({
+                    icon: 'error',
+                    title: 'เกิดข้อผิดพลาด!',
+                    text: 'ไม่สามารถย้ายไฟล์ไปยังโฟลเดอร์ได้',
+                    confirmButtonText: 'ตกลง'
+                });
+              </script>";
             }
         } else {
             foreach ($errors as $error) {
-                echo $error . "<br>";
+                echo "<script>
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'ข้อผิดพลาด!',
+                    text: '$error',
+                    confirmButtonText: 'ตกลง'
+                });
+              </script>";
             }
         }
     }
@@ -100,6 +128,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>หน้าแรก</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- SweetAlert JavaScript -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
     <!-- fonts-->
     <link rel="stylesheet" href="../css/fonts.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
