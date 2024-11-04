@@ -104,18 +104,20 @@ $thai_months = [
                     // บันทึกชื่อภาพลงฐานข้อมูล
                     $sql = "UPDATE `count_net` SET `slip` = '$file_name' WHERE `count_net`.`id_count` = '$id_count';";
                     if ($conn->query($sql) === TRUE) {
-                        echo "<div><script>
-                    swal({
-                        icon: 'success',
-                        title: 'สำเร็จ!',
-                        text: 'อัปโหลดและบันทึกข้อมูลเรียบร้อยแล้ว',
-                        confirmButtonText: 'ตกลง'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            window.location.href = 'https://system-network.pcnone.com/home'
-                        }
-                    });
-                  </script></div>";
+                        echo "<div>
+                        <script>
+                            swal({
+                                icon: 'success',
+                                title: 'สำเร็จ!',
+                                text: 'อัปโหลดและบันทึกข้อมูลเรียบร้อยแล้ว',
+                                confirmButtonText: 'ตกลง'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    window.location.href = 'https://www.google.com';
+                                }
+                            });
+                        </script>
+                      </div>";
                     } else {
                         echo "<div><script>
                     swal({
@@ -125,7 +127,7 @@ $thai_months = [
                         confirmButtonText: 'ตกลง'
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            window.location.href = 'https://system-network.pcnone.com/home';
+                            window.location.href = 'https://www.google.com';
                         }
                     });
                   </script></div>";
