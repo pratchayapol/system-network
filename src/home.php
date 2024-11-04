@@ -239,7 +239,7 @@ $thai_months = [
                     <hr class="border-dashed border-2 border-gray-300 my-4">
                     <p class="mt-4 text-gray-700"> QR CODE </p>
                     <center>
-                                                        <img src="QRC_K+.jpg" alt="" class="w-20 h-20 cursor-pointer" onclick="openModal123(this.src)">
+                                                        <img src="QRC_K+.jpg" alt="" class="cursor-pointer" onclick="openModal123(this.src)" width="500px">
                                                     </center>
 
                                                     <!-- Modal -->
