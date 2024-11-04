@@ -104,111 +104,100 @@ $thai_months = [
                     // บันทึกชื่อภาพลงฐานข้อมูล
                     $sql = "UPDATE `count_net` SET `slip` = '$file_name' WHERE `count_net`.`id_count` = '$id_count';";
                     if ($conn->query($sql) === TRUE) {
-                        // หากการบันทึกข้อมูลสำเร็จ
                         echo "<div>
-                                <script>
-                                    swal({
-                                        icon: 'success',
-                                        title: 'สำเร็จ!',
-                                        text: 'อัปโหลดและบันทึกข้อมูลเรียบร้อยแล้ว',
-                                        buttons: {
-                                            confirm: {
-                                                text: 'ตกลง',
-                                                value: true,
-                                                visible: true,
-                                                className: '',
-                                                closeModal: true
-                                            }
-                                        }
-                                    }).then((willRedirect) => {
-                                        if (willRedirect) {
-                                            window.location.href = 'https://system-network.pcnone.com/home'; // เปลี่ยนไปที่หน้า /home
-                                        }
-                                    });
-                                </script>
-                              </div>";
+        <script>
+            swal({
+                icon: 'success',
+                title: 'สำเร็จ!',
+                text: 'อัปโหลดและบันทึกข้อมูลเรียบร้อยแล้ว',
+                buttons: {
+                    confirm: {
+                        text: 'ตกลง',
+                        value: true,
+                        visible: true,
+                        className: '',
+                        closeModal: true // ให้ปิด modal โดยอัตโนมัติ
+                    }
+                }
+            }).then((willRedirect) => {
+                if (willRedirect) {
+                    window.location.href = 'https://system-network.pcnone.com/home'; // เปลี่ยนไปที่หน้า /home
+                }
+            });
+        </script>
+      </div>";
                     } else {
-                        // หากเกิดข้อผิดพลาดในการบันทึกข้อมูล
                         echo "<div>
-                                <script>
-                                    swal({
-                                        icon: 'error',
-                                        title: 'เกิดข้อผิดพลาด!',
-                                        text: 'เกิดข้อผิดพลาดในการบันทึกข้อมูล: " . $conn->error . "',
-                                        buttons: {
-                                            confirm: {
-                                                text: 'ตกลง',
-                                                value: true,
-                                                visible: true,
-                                                className: '',
-                                                closeModal: true
-                                            }
-                                        }
-                                    }).then((result) => {
-                                        if (result.isConfirmed) {
-                                            window.location.href = 'https://system-network.pcnone.com/home'; // เปลี่ยนไปที่หน้า Google
-                                        }
-                                    });
-                                </script>
-                              </div>";
+        <script>
+            swal({
+                icon: 'error',
+                title: 'เกิดข้อผิดพลาด!',
+                text: 'เกิดข้อผิดพลาดในการบันทึกข้อมูล: " . $conn->error . "',
+                buttons: {
+                    confirm: {
+                        text: 'ตกลง',
+                        value: true,
+                        visible: true,
+                        className: '',
+                        closeModal: true // ให้ปิด modal โดยอัตโนมัติ
                     }
-
-                    // ตรวจสอบข้อผิดพลาดการย้ายไฟล์
-                    if ($fileMoveSuccess) { // เปลี่ยนเป็นเงื่อนไขที่เหมาะสมสำหรับการตรวจสอบการย้ายไฟล์
-                        // ทำการย้ายไฟล์สำเร็จ
-                    } else {
-                        // หากไม่สามารถย้ายไฟล์ได้
-                        echo "<div>
-                                <script>
-                                    swal({
-                                        icon: 'error',
-                                        title: 'เกิดข้อผิดพลาด!',
-                                        text: 'ไม่สามารถย้ายไฟล์ไปยังโฟลเดอร์ได้',
-                                        buttons: {
-                                            confirm: {
-                                                text: 'ตกลง',
-                                                value: true,
-                                                visible: true,
-                                                className: '',
-                                                closeModal: true
-                                            }
-                                        }
-                                    }).then((result) => {
-                                        if (result.isConfirmed) {
-                                            window.location.href = 'https://system-network.pcnone.com/home'; // เปลี่ยนไปที่หน้า /home
-                                        }
-                                    });
-                                </script>
-                              </div>";
+                }
+            }).then((willRedirect) => {
+                if (willRedirect) {
+                    window.location.href = 'https://system-network.pcnone.com/home'; // เปลี่ยนไปที่หน้า /home
+                }
+            });
+        </script>
+      </div>";
                     }
-
-                    // ตรวจสอบข้อผิดพลาดจากตัวแปร $errors
-                    if (!empty($errors)) {
-                        foreach ($errors as $error) {
-                            echo "<div>
-                                    <script>
-                                        swal({
-                                            icon: 'warning',
-                                            title: 'ข้อผิดพลาด!',
-                                            text: '$error',
-                                            buttons: {
-                                                confirm: {
-                                                    text: 'ตกลง',
-                                                    value: true,
-                                                    visible: true,
-                                                    className: '',
-                                                    closeModal: true
-                                                }
-                                            }
-                                        }).then((result) => {
-                                            if (result.isConfirmed) {
-                                                window.location.href = 'https://system-network.pcnone.com/home'; // เปลี่ยนไปที่หน้า /home
-                                            }
-                                        });
-                                    </script>
-                                  </div>";
-                        }
-                    }
+                } else {
+                    echo "<div>
+                    <script>
+                        swal({
+                            icon: 'error',
+                            title: 'เกิดข้อผิดพลาด!',
+                            text: 'ไม่สามารถย้ายไฟล์ไปยังโฟลเดอร์ได้',
+                            buttons: {
+                                confirm: {
+                                    text: 'ตกลง',
+                                    value: true,
+                                    visible: true,
+                                    className: '',
+                                    closeModal: true // ให้ปิด modal โดยอัตโนมัติ
+                                }
+                            }
+                        }).then((willRedirect) => {
+                            if (willRedirect) {
+                                window.location.href = 'https://system-network.pcnone.com/home'; // เปลี่ยนไปที่หน้า /home
+                            }
+                        });
+                    </script>
+                  </div>";
+                }
+            } else {
+                foreach ($errors as $error) {
+                    echo "<div>
+                    <script>
+                        swal({
+                            icon: 'error',
+                            title: 'เกิดข้อผิดพลาด!',
+                            text: '$error',
+                            buttons: {
+                                confirm: {
+                                    text: 'ตกลง',
+                                    value: true,
+                                    visible: true,
+                                    className: '',
+                                    closeModal: true // ให้ปิด modal โดยอัตโนมัติ
+                                }
+                            }
+                        }).then((willRedirect) => {
+                            if (willRedirect) {
+                                window.location.href = 'https://system-network.pcnone.com/home'; // เปลี่ยนไปที่หน้า /home
+                            }
+                        });
+                    </script>
+                  </div>";
                 }
             }
         }
