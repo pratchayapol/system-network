@@ -107,7 +107,7 @@ $thai_months = [
                     <?php while ($row = $result_user->fetch_assoc()): ?>
                         <div class="mb-4">
                             <center>
-                                <img src="<?php echo htmlspecialchars($row['picture_url']); ?>" alt="Profile Picture" class="w-25 h-25 rounded-full">
+                                <img src="<?php echo htmlspecialchars($row['picture_url']); ?>" alt="Profile Picture" class="w-20 h-20 rounded-full">
                                 <h2 class="text-xl font-semibold">Name: <?php echo htmlspecialchars($row['display_name']); ?></h2>
                             </center>
 
