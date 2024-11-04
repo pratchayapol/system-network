@@ -358,7 +358,7 @@ $thai_months = [
                                                     </center>
 
                                                     <!-- Modal -->
-                                                    <div id="imageModal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-75 justify-center items-center">
+                                                    <div id="imageModal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-75 flex justify-center items-center">
                                                         <div class="relative">
                                                             <button class="absolute top-2 right-2 text-white text-2xl" onclick="closeModal()">&times;</button>
                                                             <img id="modalImage" src="" alt="" class="max-w-full max-h-full">
