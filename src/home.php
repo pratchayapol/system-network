@@ -230,14 +230,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                         }
                                         ?>
                                         <tr class="<?php echo $row_class; ?>">
-                                            <form action="" method="post" enctype="multipart/form-data">
-                                                <td class="border px-4 py-2 text-center">
-                                                    <input type="hidden" name="id_count" value="<?php echo htmlspecialchars($row['id_count']); ?>">
-                                                    <input type="file" id="imageInput" name="image" accept="image/*" onchange="previewImage(event)">
-                                                    <img id="imagePreview" class="image-preview" alt="Image Preview">
-                                                    <button type="submit">อัปโหลด</button>
-                                                </td>
-                                            </form>
+                                            <?php if ($row['slip'] === null): ?>
+                                                <form action="" method="post" enctype="multipart/form-data">
+                                                    <td class="border px-4 py-2 text-center">
+                                                        <input type="hidden" name="id_count" value="<?php echo htmlspecialchars($row['id_count']); ?>">
+                                                        <input type="file" id="imageInput" name="image" accept="image/*" onchange="previewImage(event)">
+                                                        <img id="imagePreview" class="image-preview" alt="Image Preview">
+                                                        <button type="submit">อัปโหลด</button>
+                                                    </td>
+                                                </form>
+                                            <?php else: ?>
+                                                <center>อัพโหลดสำเร็จ</center>
+                                            <?php endif; ?>
+
                                             <td class="border px-4 py-2 text-center"><?php echo htmlspecialchars($month_name . ' ' . $year); ?></td>
                                             <td class="border px-4 py-2 text-center"><?php echo htmlspecialchars($row['count']); ?></td>
                                             <td class="border px-4 py-2 text-center"><?php echo htmlspecialchars($row['status'] === 'T' ? 'ชำระแล้ว' : ($row['slip'] !== null ? 'รอตรวจสอบ' : 'ยังไม่ชำระ')); ?></td>
