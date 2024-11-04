@@ -234,7 +234,8 @@ $thai_months = [
             <div class="bg-white p-6 rounded-lg shadow-md">
                 <h2 class="text-2xl font-bold text-blue-800 text-center">ยินดีต้อนรับสู่ระบบจัดการค่าบริการอินเตอร์เน็ต</h2>
                 <center>
-                    <p class="mt-4 text-gray-700"> รอผู้ดูแลระบบอัพเดทข้อมูล </p>
+                    <p class="mt-4 text-gray-700"> ช่องทางการชำระค่าบริการ </p>
+                    <p class="mt-4 text-gray-700"> เลขบัญชี 9898093609 ธนาคารกรุงไทย นายปรัชญาพล  จำปาลาด </p>
                 </center>
             </div>
         </div>
