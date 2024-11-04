@@ -109,63 +109,65 @@ $thai_months = [
         ?>
 
             <hr class="border-dashed border-2 border-gray-300 my-4">
-            <div class="bg-white p-6 rounded-lg shadow-md">
-                <h2 class="text-2xl font-bold mt-8 mb-4">รายการค่าอินเตอร์เน็ตในแต่ละเดือน</h2>
-                <div class="overflow-x-auto">
-                    <table class="min-w-full bg-white border border-gray-300">
-                        <thead>
-                            <tr>
-                                <th class="border px-4 py-2">ประจำเดือน</th>
-                                <th class="border px-4 py-2">ค่าบริการอินเตอร์เน็ต</th>
-                                <th class="border px-4 py-2">สถานะการชำระ</th>
-                                <th class="border px-4 py-2">หลักฐานการชำระเงิน</th>
-                                <th class="border px-4 py-2">checkbox</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php if ($result_fees->num_rows > 0): ?>
-                                <?php while ($row = $result_fees->fetch_assoc()): ?>
-                                    <?php
-                                    // Convert `m-y` to Thai format
-                                    $date_parts = explode('-', $row['m-y']);
-                                    $year = $date_parts[0] + 543; // Convert to Buddhist calendar
-                                    $month = (int)$date_parts[1];
-                                    $month_name = $thai_months[$month];
-
-                                    // Define the row class based on the status
-                                    $row_class = '';
-                                    if ($row['status'] === 'T') {
-                                        $row_class = 'bg-green-100'; // ชำระแล้ว
-                                    } elseif ($row['slip'] !== '') {
-                                        $row_class = 'bg-yellow-100'; // รอตรวจสอบ
-                                    } else {
-                                        $row_class = 'bg-red-100'; // ยังไม่ชำระ
-                                    }
-                                    ?>
-                                    <tr class="<?php echo $row_class; ?>">
-                                        <td class="border px-4 py-2 text-center"><?php echo htmlspecialchars($month_name . ' ' . $year); ?></td>
-                                        <td class="border px-4 py-2 text-center"><?php echo htmlspecialchars($row['count']); ?></td>
-                                        <td class="border px-4 py-2 text-center"><?php echo htmlspecialchars($row['status'] === 'T' ? 'ชำระแล้ว' : ($row['slip'] !== null ? 'รอตรวจสอบ' : 'ยังไม่ชำระ')); ?></td>
-                                        <td class="border px-4 py-2 text-center">
-                                            <?php if ($row['slip'] === null): ?>
-                                                ยังไม่มีหลักฐานการชำระ
-                                            <?php else: ?>
-                                                <center><img src="<?php echo htmlspecialchars($row['slip']); ?>" alt="" class="w-20 h-20"></center>
-                                            <?php endif; ?>
-                                        </td>
-                                        <td class="border px-4 py-2 text-center">
-                                            <input type="checkbox" class="status-checkbox" data-user-id="<?php echo htmlspecialchars($user_id); ?>" data-count-id="<?php echo $row['id_count']; ?>" <?php echo $row['status'] === 'T' ? 'checked' : ''; ?>>
-                                        </td>
-                                    </tr>
-                                <?php endwhile; ?>
-                            <?php else: ?>
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h2 class="text-2xl font-bold mt-8 mb-4">รายการค่าอินเตอร์เน็ตในแต่ละเดือน</h2>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full bg-white border border-gray-300">
+                            <thead>
                                 <tr>
-                                    <td colspan="5" class="text-center border px-4 py-2">No data found.</td>
+                                    <th class="border px-4 py-2">ประจำเดือน</th>
+                                    <th class="border px-4 py-2">ค่าบริการอินเตอร์เน็ต</th>
+                                    <th class="border px-4 py-2">สถานะการชำระ</th>
+                                    <th class="border px-4 py-2">หลักฐานการชำระเงิน</th>
+                                    <th class="border px-4 py-2">checkbox</th>
                                 </tr>
-                            <?php endif; ?>
-                        </tbody>
+                            </thead>
+                            <tbody>
+                                <?php if ($result_fees->num_rows > 0): ?>
+                                    <?php while ($row = $result_fees->fetch_assoc()): ?>
+                                        <?php
+                                        // Convert `m-y` to Thai format
+                                        $date_parts = explode('-', $row['m-y']);
+                                        $year = $date_parts[0] + 543; // Convert to Buddhist calendar
+                                        $month = (int)$date_parts[1];
+                                        $month_name = $thai_months[$month];
 
-                    </table>
+                                        // Define the row class based on the status
+                                        $row_class = '';
+                                        if ($row['status'] === 'T') {
+                                            $row_class = 'bg-green-100'; // ชำระแล้ว
+                                        } elseif ($row['slip'] !== '') {
+                                            $row_class = 'bg-yellow-100'; // รอตรวจสอบ
+                                        } else {
+                                            $row_class = 'bg-red-100'; // ยังไม่ชำระ
+                                        }
+                                        ?>
+                                        <tr class="<?php echo $row_class; ?>">
+                                            <td class="border px-4 py-2 text-center"><?php echo htmlspecialchars($month_name . ' ' . $year); ?></td>
+                                            <td class="border px-4 py-2 text-center"><?php echo htmlspecialchars($row['count']); ?></td>
+                                            <td class="border px-4 py-2 text-center"><?php echo htmlspecialchars($row['status'] === 'T' ? 'ชำระแล้ว' : ($row['slip'] !== null ? 'รอตรวจสอบ' : 'ยังไม่ชำระ')); ?></td>
+                                            <td class="border px-4 py-2 text-center">
+                                                <?php if ($row['slip'] === null): ?>
+                                                    ยังไม่มีหลักฐานการชำระ
+                                                <?php else: ?>
+                                                    <center><img src="<?php echo htmlspecialchars($row['slip']); ?>" alt="" class="w-20 h-20"></center>
+                                                <?php endif; ?>
+                                            </td>
+                                            <td class="border px-4 py-2 text-center">
+                                                <input type="checkbox" class="status-checkbox" data-user-id="<?php echo htmlspecialchars($user_id); ?>" data-count-id="<?php echo $row['id_count']; ?>" <?php echo $row['status'] === 'T' ? 'checked' : ''; ?>>
+                                            </td>
+                                        </tr>
+                                    <?php endwhile; ?>
+                                <?php else: ?>
+                                    <tr>
+                                        <td colspan="5" class="text-center border px-4 py-2">No data found.</td>
+                                    </tr>
+                                <?php endif; ?>
+                            </tbody>
+
+                        </table>
+                    </div>
                 </div>
             </div>
 
