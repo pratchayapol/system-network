@@ -39,8 +39,8 @@
                         <thead>
                             <tr>
                                 <th class="py-2 px-4 border-b">ID</th>
+                                <th class="py-2 px-4 border-b">UID</th>
                                 <th class="py-2 px-4 border-b">ชื่อ</th>
-                                <th class="py-2 px-4 border-b">อีเมล</th>
                                 <th class="py-2 px-4 border-b">ภาพโปรไฟล์</th>
                                 <th class="py-2 px-4 border-b">จัดการค่าอินเตอร์เน็ต</th>
                             </tr>
@@ -63,8 +63,8 @@
                                 while ($row = $result->fetch_assoc()) {
                                     echo "<tr>";
                                     echo "<td class='py-2 px-4 border-b text-center'>" . $row['id'] . "</td>";
-                                    echo "<td class='py-2 px-4 border-b text-center'>" . $row['display_name'] . "</td>";
-                                    echo "<td class='py-2 px-4 border-b text-center'>" . $row['status_message'] . "</td>";
+                                    echo "<td class='py-2 px-4 border-b text-center'>" . $row['user_id']. "</td>";
+                                    echo "<td class='py-2 px-4 border-b text-center'>" . $row['display_name'].' '.$row['status_message'] . "</td>";
                                     echo "<td class='py-2 px-4 border-b text-center'>";
                                     echo "<center><img src='" . $row['picture_url'] . "' alt='Profile Picture' class='w-10 h-10 rounded-full'></center>";
                                     echo "</td>";
