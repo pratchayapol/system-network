@@ -106,15 +106,18 @@ $thai_months = [
                 <?php if ($result_user->num_rows > 0): ?>
                     <?php while ($row = $result_user->fetch_assoc()): ?>
                         <div class="mb-4">
-                            <h2 class="text-xl font-semibold">Name: <?php echo htmlspecialchars($row['display_name']); ?></h2>
-                            <img src="<?php echo htmlspecialchars($row['picture_url']); ?>" alt="Profile Picture" class="w-10 h-10 rounded-full">
+                            <center>
+                                <img src="<?php echo htmlspecialchars($row['picture_url']); ?>" alt="Profile Picture" class="w-10 h-10 rounded-full">
+                                <h2 class="text-xl font-semibold">Name: <?php echo htmlspecialchars($row['display_name']); ?></h2>
+                            </center>
+
                         </div>
                     <?php endwhile; ?>
                 <?php else: ?>
                     <p>No user data found.</p>
                 <?php endif; ?>
             </div>
-            
+
             <h2 class="text-2xl font-bold mt-8 mb-4">รายการค่าอินเตอร์เน็ตในแต่ละเดือน</h2>
             <table class="min-w-full bg-white border border-gray-300">
                 <thead>
