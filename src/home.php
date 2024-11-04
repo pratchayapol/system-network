@@ -6,16 +6,16 @@
     <title>หน้าแรก</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body class="bg-gray-100">
-    <header class="bg-white shadow">
+<body class="bg-gradient-to-b from-blue-50 to-blue-200">
+    <header class="bg-blue-600 shadow-lg">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <nav class="flex items-center justify-between h-16">
                 <div class="flex items-center">
-                    <h1 class="text-xl font-bold text-gray-900">ระบบจัดการค่าบริการอินเตอร์เน็ต PCNONE</h1>
+                    <h1 class="text-xl font-bold text-white">ระบบจัดการค่าบริการอินเตอร์เน็ต PCNONE</h1>
                 </div>
                 <div class="flex space-x-4">
-                    <a href="home" class="text-gray-600 hover:text-gray-900">Home</a>
-                    <a href="account" class="text-gray-600 hover:text-gray-900">สมาชิก</a>
+                    <a href="home" class="text-white hover:text-yellow-300">Home</a>
+                    <a href="account" class="text-white hover:text-yellow-300">สมาชิก</a>
                 </div>
             </nav>
         </div>
@@ -23,8 +23,10 @@
 
     <main class="py-10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-2xl font-bold text-gray-900">ยินดีต้อนรับสู่หน้าแรก</h2>
-            <p class="mt-4 text-gray-600">นี่คือเนื้อหาของหน้าแรกของระบบจัดการค่าบริการอินเตอร์เน็ต PCNONE</p>
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-2xl font-bold text-blue-800">ยินดีต้อนรับสู่หน้าแรก</h2>
+                <p class="mt-4 text-gray-700">นี่คือเนื้อหาของหน้าแรกของระบบจัดการค่าบริการอินเตอร์เน็ต PCNONE</p>
+            </div>
         </div>
     </main>
 </body>
