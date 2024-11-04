@@ -81,7 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // บันทึกชื่อภาพลงฐานข้อมูล
                 $sql = "UPDATE `count_net` SET `slip` = '$file_name' WHERE `count_net`.`id_count` = '$id_count';";
                 if ($conn->query($sql) === TRUE) {
-                    echo "<script>
+                    echo "<div><script>
                     swal({
                         icon: 'success',
                         title: 'สำเร็จ!',
@@ -92,9 +92,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             location.reload(); // รีเฟรชหน้าเมื่อกดตกลง
                         }
                     });
-                  </script>";
+                  </script></div>";
                 } else {
-                    echo "<script>
+                    echo "<div><script>
                     swal({
                         icon: 'error',
                         title: 'เกิดข้อผิดพลาด!',
@@ -105,10 +105,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             location.reload(); // รีเฟรชหน้าเมื่อกดตกลง
                         }
                     });
-                  </script>";
+                  </script></div>";
                 }
             } else {
-                echo "<script>
+                echo "<div><script>
                 swal({
                     icon: 'error',
                     title: 'เกิดข้อผิดพลาด!',
@@ -119,11 +119,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         location.reload(); // รีเฟรชหน้าเมื่อกดตกลง
                     }
                 });
-              </script>";
+              </script></div>";
             }
         } else {
             foreach ($errors as $error) {
-                echo "<script>
+                echo "<div><script>
                 swal({
                     icon: 'warning',
                     title: 'ข้อผิดพลาด!',
@@ -134,7 +134,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         location.reload(); // รีเฟรชหน้าเมื่อกดตกลง
                     }
                 });
-              </script>";
+              </script></div>";
             }
         }
     }
