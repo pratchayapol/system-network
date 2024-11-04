@@ -245,7 +245,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                                 <?php if ($row['slip'] === null): ?>
                                                     ยังไม่มีหลักฐานการชำระ
                                                 <?php else: ?>
-                                                    <center><img src="<?php echo htmlspecialchars($row['slip']); ?>" alt="" class="w-20 h-20"></center>
+                                                    <center><img src="/src/slip/<?php echo $row['slip']; ?>" alt="" class="w-20 h-20"></center>
                                                 <?php endif; ?>
                                             </td>
                                         </tr>
