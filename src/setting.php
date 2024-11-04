@@ -50,7 +50,7 @@ $result_user = $conn->query($sql);
 $sql_fees = "SELECT `id_count`, `m-y`, `slip`, `count`, `status` 
              FROM count_net 
              WHERE `user_id` = '$user_id' 
-             AND `created_at` >= DATE_SUB(NOW(), INTERVAL 12 MONTH) 
+             AND `m-y` >= DATE_SUB(NOW(), INTERVAL 12 MONTH) 
              ORDER BY `m-y` DESC";
 $result_fees = $conn->query($sql_fees);
 
