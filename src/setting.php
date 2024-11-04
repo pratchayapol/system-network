@@ -135,17 +135,27 @@ $thai_months = [
                         <tbody>
                             <?php if ($result_fees->num_rows > 0): ?>
                                 <?php while ($row = $result_fees->fetch_assoc()): ?>
-                                    <tr>
-                                        <?php
-                                        // Convert `m-y` to Thai format
-                                        $date_parts = explode('-', $row['m-y']);
-                                        $year = $date_parts[0] + 543; // Convert to Buddhist calendar
-                                        $month = (int)$date_parts[1];
-                                        $month_name = $thai_months[$month];
-                                        ?>
+                                    <?php
+                                    // Convert `m-y` to Thai format
+                                    $date_parts = explode('-', $row['m-y']);
+                                    $year = $date_parts[0] + 543; // Convert to Buddhist calendar
+                                    $month = (int)$date_parts[1];
+                                    $month_name = $thai_months[$month];
+
+                                    // Define the row class based on the status
+                                    $row_class = '';
+                                    if ($row['status'] === 'T') {
+                                        $row_class = 'bg-green-100'; // ชำระแล้ว
+                                    } elseif ($row['slip'] !== '') {
+                                        $row_class = 'bg-yellow-100'; // รอตรวจสอบ
+                                    } else {
+                                        $row_class = 'bg-red-100'; // ยังไม่ชำระ
+                                    }
+                                    ?>
+                                    <tr class="<?php echo $row_class; ?>">
                                         <td class="border px-4 py-2 text-center"><?php echo htmlspecialchars($month_name . ' ' . $year); ?></td>
                                         <td class="border px-4 py-2 text-center"><?php echo htmlspecialchars($row['count']); ?></td>
-                                        <td class="border px-4 py-2 text-center"><?php echo htmlspecialchars($row['status'] === 'T' ? 'ชำระแล้ว' : 'ยังไม่ชำระ'); ?></td>
+                                        <td class="border px-4 py-2 text-center"><?php echo htmlspecialchars($row['status'] === 'T' ? 'ชำระแล้ว' : ($row['slip'] !== '' ? 'รอตรวจสอบ' : 'ยังไม่ชำระ')); ?></td>
                                         <td class="border px-4 py-2 text-center">
                                             <?php if ($row['slip'] === ''): ?>
                                                 ยังไม่มีหลักฐานการชำระ
@@ -154,8 +164,8 @@ $thai_months = [
                                             <?php endif; ?>
                                         </td>
                                         <td class="border px-4 py-2 text-center">
-                                            <input type="checkbox" class="status-checkbox" data-user-id="<?php echo htmlspecialchars($user_id); ?>" data-count-id="<?php echo $row['id_count']; ?>" <?php echo $row['status'] === 'T' ? 'checked' : ''; ?>
-                                                </td>
+                                            <input type="checkbox" class="status-checkbox" data-user-id="<?php echo htmlspecialchars($user_id); ?>" data-count-id="<?php echo $row['id_count']; ?>" <?php echo $row['status'] === 'T' ? 'checked' : ''; ?>>
+                                        </td>
                                     </tr>
                                 <?php endwhile; ?>
                             <?php else: ?>
@@ -164,6 +174,7 @@ $thai_months = [
                                 </tr>
                             <?php endif; ?>
                         </tbody>
+
                     </table>
                 </div>
             </div>
