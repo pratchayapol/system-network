@@ -1,6 +1,4 @@
 <?php
-date_default_timezone_set('Asia/Bangkok'); // ตั้งค่าช่องเวลาเป็น Bangkok
-$current_time = date("Y-m-d H:i:s");
 $user_id = $_GET['user_id'];
 
 // Database connection
@@ -49,38 +47,11 @@ $sql = "SELECT * FROM account WHERE `user_id` = '$user_id'";
 $result_user = $conn->query($sql);
 
 // Query internet fees
-// คำนวณวันที่เริ่มต้นและสิ้นสุด
-$current_year = date('Y'); // ปีปัจจุบัน
-$current_month = date('m'); // เดือนปัจจุบัน
-
-// คำนวณปีและเดือนของ 12 เดือนที่ผ่านมา
-$start_year = $current_year;
-$start_month = $current_month - 12;
-if ($start_month <= 0) {
-    $start_month += 12;
-    $start_year -= 1;
-}
-
-// คำนวณเดือนถัดไป
-$next_month = $current_month + 1;
-$next_year = $current_year;
-if ($next_month > 12) {
-    $next_month = 1;
-    $next_year += 1;
-}
-
-// สร้าง SQL query
-$sql_fees = "
-    SELECT `id_count`, `m-y`, `slip`, `count`, `status` 
-    FROM count_net 
-    WHERE `user_id` = '$user_id' 
-    AND (
-        (`m-y` >= '$start_year-$start_month' AND `m-y` <= '$current_year-$current_month')
-        OR
-        (`m-y` = '$next_year-$next_month')
-    )
-    ORDER BY `m-y` DESC
-";
+$sql_fees = "SELECT `id_count`, `m-y`, `slip`, `count`, `status` 
+             FROM count_net 
+             WHERE `user_id` = '$user_id' 
+             AND `created_at` >= DATE_SUB(NOW(), INTERVAL 12 MONTH) 
+             ORDER BY `m-y` DESC";
 $result_fees = $conn->query($sql_fees);
 
 // Thai month array
