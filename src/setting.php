@@ -51,7 +51,7 @@ $sql_fees = "SELECT `id_count`, `m-y`, `slip`, `count`, `status`
              FROM count_net 
              WHERE `user_id` = '$user_id' 
              AND `m-y` >= DATE_SUB(NOW(), INTERVAL 12 MONTH) 
-             ORDER BY `m-y` DESC";
+             ORDER BY `m-y` ASC";
 $result_fees = $conn->query($sql_fees);
 
 // Thai month array
