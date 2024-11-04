@@ -245,7 +245,7 @@ $thai_months = [
                                                     <!-- Modal -->
                                                     <div id="imageModal123" class="fixed inset-0 z-50 hidden bg-black bg-opacity-75 flex justify-center items-center">
                                                         <div class="relative">
-                                                            <button class="absolute top-2 right-2 text-white text-2xl" onclick="closeModal()">&times;</button>
+                                                            <button class="absolute top-2 right-2 text-white text-2xl" onclick="closeModal123()">&times;</button>
                                                             <img id="modalImage123" src="" alt="" class="max-w-full max-h-full">
                                                         </div>
                                                     </div>
@@ -257,8 +257,8 @@ $thai_months = [
                                                             document.getElementById('imageModal123').classList.remove('hidden'); // แสดง modal
                                                         }
 
-                                                        function closeModal() {
-                                                            document.getElementById('imageModal').classList.add('hidden'); // ปิด modal
+                                                        function closeModal123() {
+                                                            document.getElementById('imageModal123').classList.add('hidden'); // ปิด modal
                                                         }
                                                     </script>
                 </center>
