@@ -135,7 +135,7 @@ if (isset($_GET['code']) && isset($_GET['state'])) {
                 $status = "F"; // ตัวอย่าง status
             
                 // เพิ่มข้อมูลจนถึงปี ค.ศ. 2250
-                for ($year = 2023; $year <= 2250; $year++) { // 2023 คือปี ค.ศ. ปัจจุบัน
+                for ($year = 2020; $year <= 2250; $year++) { // 2023 คือปี ค.ศ. ปัจจุบัน
                     for ($month = 1; $month <= 12; $month++) {
                         // สร้างวันที่เป็นรูปแบบ YYYY-MM-DD
                         $date = sprintf("%04d-%02d-01", $year, $month); // วันที่เริ่มต้นที่ 1 ของเดือน
