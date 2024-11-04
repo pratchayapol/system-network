@@ -328,7 +328,7 @@ $thai_months = [
                                             <?php if ($row['slip'] === null): ?>
                                                 <form action="" method="post" enctype="multipart/form-data">
                                                     <td class="border px-4 py-2 text-center">
-                                                    
+
                                                         <input type="hidden" name="id_count" value="<?php echo htmlspecialchars($row['id_count']); ?>">
                                                         <label for="imageInput" class="block mb-2 text-sm font-medium text-gray-700">
                                                             เลือกรูปภาพ
@@ -353,7 +353,29 @@ $thai_months = [
                                                 <?php if ($row['slip'] === null): ?>
                                                     ยังไม่มีหลักฐานการชำระ
                                                 <?php else: ?>
-                                                    <center><img src="slip/<?php echo $row['slip']; ?>" alt="" class="w-20 h-20"></center>
+                                                    <center>
+                                                        <img src="slip/<?php echo $row['slip']; ?>" alt="" class="w-20 h-20 cursor-pointer" onclick="openModal(this.src)">
+                                                    </center>
+
+                                                    <!-- Modal -->
+                                                    <div id="imageModal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-75 justify-center items-center">
+                                                        <div class="relative">
+                                                            <button class="absolute top-2 right-2 text-white text-2xl" onclick="closeModal()">&times;</button>
+                                                            <img id="modalImage" src="" alt="" class="max-w-full max-h-full">
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- JavaScript to Open/Close Modal -->
+                                                    <script>
+                                                        function openModal(imageSrc) {
+                                                            document.getElementById('modalImage').src = imageSrc;
+                                                            document.getElementById('imageModal').classList.remove('hidden'); // แสดง modal
+                                                        }
+
+                                                        function closeModal() {
+                                                            document.getElementById('imageModal').classList.add('hidden'); // ปิด modal
+                                                        }
+                                                    </script>
                                                 <?php endif; ?>
                                             </td>
                                         </tr>
