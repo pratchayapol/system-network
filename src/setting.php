@@ -17,14 +17,14 @@ if ($conn->connect_error) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Prepare and bind the statement
-    
-    
+
+
     // Set status and count_id based on POST data
     $status = $_POST['status'];
     $c = $_POST['id_count'];
 
     $stmt = $conn->prepare("UPDATE count_net SET `status` = ? WHERE `user_id` = ? AND `id_count` = ?");
-    
+
     if ($stmt === false) {
         die("Prepare failed: " . htmlspecialchars($conn->error));
     }
@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Execute the statement and check for success
     if ($stmt->execute()) {
         header("Location: " . $_SERVER['PHP_SELF']); // เปลี่ยนเส้นทางไปยังหน้าเดียวกัน
-    exit(); // จบการทำงานของสคริปต์
+        exit(); // จบการทำงานของสคริปต์
     } else {
         echo "Error: " . htmlspecialchars($stmt->error);
     }
@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 // Query user data
-$sql = "SELECT * FROM account WHERE `user_id` = '$user_id'"; 
+$sql = "SELECT * FROM account WHERE `user_id` = '$user_id'";
 $result_user = $conn->query($sql);
 
 // Query internet fees
@@ -52,22 +52,37 @@ $result_fees = $conn->query($sql_fees);
 
 // Thai month array
 $thai_months = [
-    1 => 'มกราคม', 2 => 'กุมภาพันธ์', 3 => 'มีนาคม',
-    4 => 'เมษายน', 5 => 'พฤษภาคม', 6 => 'มิถุนายน',
-    7 => 'กรกฎาคม', 8 => 'สิงหาคม', 9 => 'กันยายน',
-    10 => 'ตุลาคม', 11 => 'พฤศจิกายน', 12 => 'ธันวาคม'
+    1 => 'มกราคม',
+    2 => 'กุมภาพันธ์',
+    3 => 'มีนาคม',
+    4 => 'เมษายน',
+    5 => 'พฤษภาคม',
+    6 => 'มิถุนายน',
+    7 => 'กรกฎาคม',
+    8 => 'สิงหาคม',
+    9 => 'กันยายน',
+    10 => 'ตุลาคม',
+    11 => 'พฤศจิกายน',
+    12 => 'ธันวาคม'
 ];
 
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Settings Page</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <!-- fonts-->
+    <link rel="stylesheet" href="../css/fonts.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300&display=swap" rel="stylesheet">
 </head>
+
 <body class="bg-gray-100">
     <header class="bg-white shadow">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -132,7 +147,7 @@ $thai_months = [
                                 </td>
                                 <td class="border px-4 py-2 text-center">
                                     <input type="checkbox" class="status-checkbox" data-user-id="<?php echo htmlspecialchars($user_id); ?>" data-count-id="<?php echo $row['id_count']; ?>" <?php echo $row['status'] === 'T' ? 'checked' : ''; ?>
-                                </td>
+                                        </td>
                             </tr>
                         <?php endwhile; ?>
                     <?php else: ?>
@@ -146,39 +161,40 @@ $thai_months = [
     </main>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-    $(document).ready(function() {
-        $('.status-checkbox').change(function() {
-            const userId = $(this).data('user-id');
-            const countId = $(this).data('count-id');
-            const status = this.checked ? 'T' : 'F'; // 'T' for paid, 'F' for unpaid
+        $(document).ready(function() {
+            $('.status-checkbox').change(function() {
+                const userId = $(this).data('user-id');
+                const countId = $(this).data('count-id');
+                const status = this.checked ? 'T' : 'F'; // 'T' for paid, 'F' for unpaid
 
-            // Change the checkbox state immediately
-            this.disabled = true; // Disable checkbox during the update
+                // Change the checkbox state immediately
+                this.disabled = true; // Disable checkbox during the update
 
-            $.ajax({
-                url: '', // Update this to the URL of your PHP script
-                type: 'POST',
-                data: {
-                    id_user: userId,
-                    id_count: countId,
-                    status: status
-                },
-                success: function(response) {
-                    console.log('Update successful:', response);
-                    // Refresh the page after the successful update
-                    location.reload(); // This will reload the current page
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    console.error('Update failed:', textStatus, errorThrown);
-                    // Optionally show an error message
-                },
-                complete: function() {
-                    $('.status-checkbox').prop('disabled', false); // Re-enable all checkboxes after the request completes
-                }
+                $.ajax({
+                    url: '', // Update this to the URL of your PHP script
+                    type: 'POST',
+                    data: {
+                        id_user: userId,
+                        id_count: countId,
+                        status: status
+                    },
+                    success: function(response) {
+                        console.log('Update successful:', response);
+                        // Refresh the page after the successful update
+                        location.reload(); // This will reload the current page
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.error('Update failed:', textStatus, errorThrown);
+                        // Optionally show an error message
+                    },
+                    complete: function() {
+                        $('.status-checkbox').prop('disabled', false); // Re-enable all checkboxes after the request completes
+                    }
+                });
             });
         });
-    });
-</script>
+    </script>
 
 </body>
+
 </html>

@@ -12,18 +12,20 @@ $line_login_url = "https://access.line.me/oauth2/v2.1/authorize?response_type=co
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login ระบบจัดการค่าบริการอินเตอร์เน็ต PCNONE</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 
-        <!-- fonts-->
-        <link rel="stylesheet" href="../css/fonts.css">
+    <!-- fonts-->
+    <link rel="stylesheet" href="../css/fonts.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300&display=swap" rel="stylesheet">
 </head>
+
 <body class="bg-gradient-to-b from-blue-50 to-blue-200 min-h-screen flex items-center justify-center">
     <div class="p-6 bg-white rounded-lg shadow-md max-w-md w-full">
         <h1 class="text-2xl font-bold text-blue-800 mb-4">ระบบจัดการค่าบริการอินเตอร์เน็ต</h1>
@@ -32,4 +34,5 @@ $line_login_url = "https://access.line.me/oauth2/v2.1/authorize?response_type=co
         </a>
     </div>
 </body>
+
 </html>
