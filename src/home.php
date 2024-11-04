@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $file_size = $_FILES['image']['size'];
 
         // กำหนดตำแหน่งเก็บไฟล์
-        $upload_directory = "src/slip/";
+        $upload_directory = "slip/";
 
         // ตรวจสอบชนิดไฟล์
         $allowed_types = ['image/jpeg', 'image/png', 'image/gif'];
