@@ -139,13 +139,13 @@ if (isset($_GET['code']) && isset($_GET['state'])) {
                     $month_year = sprintf("%02d-%04d", $month, $year);
 
                     // สร้างคำสั่ง SQL
-                    $sql = "INSERT INTO count_net (user_id, `m-y`, count, status) VALUES ($user_id, '$month_year', $count1, $status)";
+                    $sql1 = "INSERT INTO count_net (user_id, `m-y`, count, status) VALUES ($user_id, '$month_year', $count1, $status)";
 
                     // ส่งคำสั่ง SQL ไปยังฐานข้อมูล
-                    if ($conn->query($sql) === TRUE) {
+                    if ($conn->query($sql1) === TRUE) {
                         echo "New record created successfully for $month_year\n";
                     } else {
-                        echo "Error: " . $sql . "\n" . $conn->error;
+                        echo "Error: " . $sql1 . "\n" . $conn->error;
                     }
                 }
             }
