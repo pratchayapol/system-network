@@ -79,7 +79,7 @@ $thai_months = [
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Settings Page</title>
+    <title>จัดการค่าอินเตอร์เน็ต</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
     <!-- fonts-->
     <link rel="stylesheet" href="../css/fonts.css">

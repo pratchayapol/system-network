@@ -1,3 +1,17 @@
+<?php
+// ดึงข้อมูลจากฐานข้อมูลและแสดงผลที่นี่
+// Database connection
+$servername = "192.168.1.202:3341"; // ชื่อโฮสต์ของฐานข้อมูล
+$username = "root"; // ชื่อผู้ใช้ฐานข้อมูล
+$password = "adminpcn"; // รหัสผ่านฐานข้อมูล
+$dbname = "system_network"; // ชื่อฐานข้อมูล
+
+// เชื่อมต่อกับฐานข้อมูล
+$conn = new mysqli($servername, $username, $password, $dbname);
+$sql = "SELECT * FROM account"; // ตรวจสอบให้แน่ใจว่าคุณมีฟิลด์ picture_url ในฐานข้อมูล
+$result = $conn->query($sql);
+$row = $result->fetch_assoc();
+?>
 <!DOCTYPE html>
 <html lang="th">
 
@@ -22,9 +36,22 @@
                     <h1 class="text-xl font-bold text-white">ระบบจัดการค่าบริการอินเตอร์เน็ต PCNONE</h1>
                 </div>
                 <div class="flex space-x-4">
-                    <a href="home" class="text-white hover:text-yellow-300">Home</a>
-                    <a href="account" class="text-white hover:text-yellow-300">สมาชิก</a>
-                    <a href="https://system-network.pcnone.com" class="text-white hover:text-yellow-300">Logout</a>
+                    <?php if ($row['urole'] === "admin") {
+
+                    ?>
+                        <a href="home" class="text-white hover:text-yellow-300">Home</a>
+                        <a href="account" class="text-white hover:text-yellow-300">สมาชิก</a>
+                        <a href="https://system-network.pcnone.com" class="text-white hover:text-yellow-300">Logout</a>
+
+                    <?php        } else {
+                    ?>
+                        <a href="home" class="text-white hover:text-yellow-300">Home</a>
+                        <a href="https://system-network.pcnone.com" class="text-white hover:text-yellow-300">Logout</a>
+
+                    <?php
+                    } ?>
+
+
                 </div>
             </nav>
         </div>
@@ -48,28 +75,17 @@
                         </thead>
                         <tbody>
                             <?php
-                            // ดึงข้อมูลจากฐานข้อมูลและแสดงผลที่นี่
-                            // Database connection
-                            $servername = "192.168.1.202:3341"; // ชื่อโฮสต์ของฐานข้อมูล
-                            $username = "root"; // ชื่อผู้ใช้ฐานข้อมูล
-                            $password = "adminpcn"; // รหัสผ่านฐานข้อมูล
-                            $dbname = "system_network"; // ชื่อฐานข้อมูล
-
-                            // เชื่อมต่อกับฐานข้อมูล
-                            $conn = new mysqli($servername, $username, $password, $dbname);
-                            $sql = "SELECT * FROM account"; // ตรวจสอบให้แน่ใจว่าคุณมีฟิลด์ picture_url ในฐานข้อมูล
-                            $result = $conn->query($sql);
 
                             if ($result->num_rows > 0) {
                                 while ($row = $result->fetch_assoc()) {
                                     echo "<tr>";
                                     echo "<td class='py-2 px-4 border-b text-center'>" . $row['id'] . "</td>";
-                                    echo "<td class='py-2 px-4 border-b text-center'>" . $row['user_id']. "</td>";
-                                    echo "<td class='py-2 px-4 border-b text-center'>" . $row['display_name'].' '.$row['status_message'] . "</td>";
+                                    echo "<td class='py-2 px-4 border-b text-center'>" . $row['user_id'] . "</td>";
+                                    echo "<td class='py-2 px-4 border-b text-center'>" . $row['display_name'] . ' ' . $row['status_message'] . "</td>";
                                     echo "<td class='py-2 px-4 border-b text-center'>";
                                     echo "<center><img src='" . $row['picture_url'] . "' alt='Profile Picture' class='w-10 h-10 rounded-full'></center>";
                                     echo "</td>";
-                                    echo "<td class='py-2 px-4 border-b text-center'>" . $row['urole']. "</td>";
+                                    echo "<td class='py-2 px-4 border-b text-center'>" . $row['urole'] . "</td>";
                                     echo "<td class='py-2 px-4 border-b text-center'>";
                                     echo "<a href='setting.php?user_id=" . $row['user_id'] . "' class='bg-blue-500 text-white px-3 py-1 rounded'>ตั้งค่า</a>";
                                     echo "</td>";
