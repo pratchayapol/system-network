@@ -107,12 +107,12 @@ $thai_months = [
                     ?>
                         <a href="home" class="text-white hover:text-yellow-300">Home</a>
                         <a href="account" class="text-white hover:text-yellow-300">สมาชิก</a>
-                        <a href="https://system-network.pcnone.com" class="text-white hover:text-yellow-300">Logout</a>
+                        <a href="logout" class="text-white hover:text-yellow-300">Logout</a>
 
                     <?php        } else {
                     ?>
                         <a href="home" class="text-white hover:text-yellow-300">Home</a>
-                        <a href="https://system-network.pcnone.com" class="text-white hover:text-yellow-300">Logout</a>
+                        <a href="logout" class="text-white hover:text-yellow-300">Logout</a>
 
                     <?php
                     } ?>
