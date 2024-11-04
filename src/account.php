@@ -33,54 +33,54 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="bg-white p-6 rounded-lg shadow-md">
                 <h2 class="text-2xl font-bold text-gray-900">รายชื่อสมาชิก</h2>
-                <div class="overflow-x-auto"> <!-- คอนเทนเนอร์ที่เพิ่มเข้ามา -->
-                    <table class="min-w-full mt-4 bg-white border border-gray-300">
-                        <thead>
-                            <tr>
-                                <th class="py-2 px-4 border-b">ID</th>
-                                <th class="py-2 px-4 border-b">ชื่อ</th>
-                                <th class="py-2 px-4 border-b">อีเมล</th>
-                                <th class="py-2 px-4 border-b">ภาพโปรไฟล์</th>
-                                <th class="py-2 px-4 border-b">จัดการค่าอินเตอร์เน็ต</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            // ดึงข้อมูลจากฐานข้อมูลและแสดงผลที่นี่
-                            // Database connection
-                            $servername = "192.168.1.202:3341"; // ชื่อโฮสต์ของฐานข้อมูล
-                            $username = "root"; // ชื่อผู้ใช้ฐานข้อมูล
-                            $password = "adminpcn"; // รหัสผ่านฐานข้อมูล
-                            $dbname = "system_network"; // ชื่อฐานข้อมูล
 
-                            // เชื่อมต่อกับฐานข้อมูล
-                            $conn = new mysqli($servername, $username, $password, $dbname);
-                            $sql = "SELECT * FROM account"; // ตรวจสอบให้แน่ใจว่าคุณมีฟิลด์ picture_url ในฐานข้อมูล
-                            $result = $conn->query($sql);
+                <table class="min-w-full mt-4 bg-white border border-gray-300 table-auto">
+                    <thead>
+                        <tr>
+                            <th class="py-2 px-4 border-b">ID</th>
+                            <th class="py-2 px-4 border-b">ชื่อ</th>
+                            <th class="py-2 px-4 border-b">อีเมล</th>
+                            <th class="py-2 px-4 border-b">ภาพโปรไฟล์</th>
+                            <th class="py-2 px-4 border-b">จัดการค่าอินเตอร์เน็ต</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        // ดึงข้อมูลจากฐานข้อมูลและแสดงผลที่นี่
+                        // Database connection
+                        $servername = "192.168.1.202:3341"; // ชื่อโฮสต์ของฐานข้อมูล
+                        $username = "root"; // ชื่อผู้ใช้ฐานข้อมูล
+                        $password = "adminpcn"; // รหัสผ่านฐานข้อมูล
+                        $dbname = "system_network"; // ชื่อฐานข้อมูล
 
-                            if ($result->num_rows > 0) {
-                                while ($row = $result->fetch_assoc()) {
-                                    echo "<tr>";
-                                    echo "<td class='py-2 px-4 border-b text-center'>" . $row['id'] . "</td>";
-                                    echo "<td class='py-2 px-4 border-b text-center'>" . $row['display_name'] . "</td>";
-                                    echo "<td class='py-2 px-4 border-b text-center'>" . $row['status_message'] . "</td>";
-                                    echo "<td class='py-2 px-4 border-b text-center'>";
-                                    echo "<center><img src='" . $row['picture_url'] . "' alt='Profile Picture' class='w-10 h-10 rounded-full'></center>";
-                                    echo "</td>";
-                                    echo "<td class='py-2 px-4 border-b text-center'>";
-                                    echo "<a href='setting.php?user_id=" . $row['user_id'] . "' class='bg-blue-500 text-white px-3 py-1 rounded'>ตั้งค่า</a>";
-                                    echo "</td>";
-                                    echo "</tr>";
-                                }
-                            } else {
-                                echo "<tr><td colspan='4' class='py-2 px-4 border-b text-center'>ไม่มีสมาชิก</td></tr>";
+                        // เชื่อมต่อกับฐานข้อมูล
+                        $conn = new mysqli($servername, $username, $password, $dbname);
+                        $sql = "SELECT * FROM account"; // ตรวจสอบให้แน่ใจว่าคุณมีฟิลด์ picture_url ในฐานข้อมูล
+                        $result = $conn->query($sql);
+
+                        if ($result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {
+                                echo "<tr>";
+                                echo "<td class='py-2 px-4 border-b text-center'>" . $row['id'] . "</td>";
+                                echo "<td class='py-2 px-4 border-b text-center'>" . $row['display_name'] . "</td>";
+                                echo "<td class='py-2 px-4 border-b text-center'>" . $row['status_message'] . "</td>";
+                                echo "<td class='py-2 px-4 border-b text-center'>";
+                                echo "<center><img src='" . $row['picture_url'] . "' alt='Profile Picture' class='w-10 h-10 rounded-full'></center>";
+                                echo "</td>";
+                                echo "<td class='py-2 px-4 border-b text-center'>";
+                                echo "<a href='setting.php?user_id=" . $row['user_id'] . "' class='bg-blue-500 text-white px-3 py-1 rounded'>ตั้งค่า</a>";
+                                echo "</td>";
+                                echo "</tr>";
                             }
+                        } else {
+                            echo "<tr><td colspan='4' class='py-2 px-4 border-b text-center'>ไม่มีสมาชิก</td></tr>";
+                        }
 
-                            $conn->close();
-                            ?>
-                        </tbody>
-                    </table>
-                </div>
+                        $conn->close();
+                        ?>
+                    </tbody>
+                </table>
+
             </div>
         </div>
     </main>
