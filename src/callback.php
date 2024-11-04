@@ -124,6 +124,14 @@ if (isset($_GET['code']) && isset($_GET['state'])) {
                 window.location = "/home";
             });
           </script>';
+
+          $sql = "UPDATE `account` SET `picture_url` = ? WHERE `user_id` = ?";
+          $stmt = $conn->prepare($sql);
+          $stmt->bind_param("si", $picture_url, $user_id); // "si" หมายถึง string, integer
+          
+          // จากนั้นให้ execute
+          $stmt->execute();
+
         } else {
             // ถ้าไม่มี user_id ให้ทำการ insert
             $sql = "INSERT INTO account (user_id, display_name, status_message, picture_url, urole) VALUES (?, ?, ?, ?, ?)";
