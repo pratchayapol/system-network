@@ -99,6 +99,7 @@ if (isset($_GET['code']) && isset($_GET['state'])) {
         $display_name = $user_profile['displayName'];
         $status_message = $user_profile['statusMessage'];
         $picture_url = $user_profile['pictureUrl'];
+        $urole = "user";
 
         // ตรวจสอบว่า user_id มีอยู่ในฐานข้อมูลหรือไม่
         $check_sql = "SELECT COUNT(*) FROM account WHERE user_id = ?";
@@ -123,9 +124,9 @@ if (isset($_GET['code']) && isset($_GET['state'])) {
           </script>';
         } else {
             // ถ้าไม่มี user_id ให้ทำการ insert
-            $sql = "INSERT INTO account (user_id, display_name, status_message, picture_url) VALUES (?, ?, ?, ?)";
+            $sql = "INSERT INTO account (user_id, display_name, status_message, picture_url, urole) VALUES (?, ?, ?, ?, ?)";
             $stmt = $conn->prepare($sql);
-            $stmt->bind_param("ssss", $user_id, $display_name, $status_message, $picture_url);
+            $stmt->bind_param("sssss", $user_id, $display_name, $status_message, $picture_url, $urole);
 
             if ($stmt->execute()) {
                 // ถ้าสำเร็จ ให้แสดง popup และนำไปยัง /home.php
