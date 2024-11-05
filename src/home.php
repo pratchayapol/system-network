@@ -261,9 +261,9 @@ $thai_months = [
                             document.getElementById('imageModal123').classList.add('hidden'); // ปิด modal
                         }
                     </script>
-                    <p class="mt-4 text-gray-700"> ส่วนลด แพ็คเกจ 1 ปี 1200 ลด 3% = 1140 บาท </p>
-                    <p class="mt-4 text-gray-700"> ส่วนลด แพ็คเกจ 2 ปี 2400 ลด 5% = 2280 บาท </p>
-                    <p class="mt-4 text-gray-700"> ส่วนลด แพ็คเกจ 3 ปี 3600 ลด 7% = 3348 บาท </p>
+                    <p class="mt-4 text-gray-700"> ส่วนลด แพ็คเกจ 1 ปี 1,200 ลด 3% = 1,140 บาท </p>
+                    <p class="mt-4 text-gray-700"> ส่วนลด แพ็คเกจ 2 ปี 2,400 ลด 5% = 2,280 บาท </p>
+                    <p class="mt-4 text-gray-700"> ส่วนลด แพ็คเกจ 3 ปี 3,600 ลด 7% = 3,348 บาท </p>
                 </center>
             </div>
         </div>
