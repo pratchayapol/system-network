@@ -389,7 +389,7 @@ $thai_months = [
                                                     ยังไม่มีหลักฐานการชำระ
                                                 <?php else: ?>
                                                     <center>
-                                                        <img src="slip/<?php echo $row['slip']; ?>" alt="" class="w-20 h-20 cursor-pointer" onclick="openModal(this.src)">
+                                                        <img src="slip/<?php echo $row['slip']; ?>" alt="" class="cursor-pointer" width="250px" onclick="openModal(this.src)">
                                                     </center>
 
                                                     <!-- Modal -->
