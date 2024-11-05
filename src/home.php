@@ -423,21 +423,8 @@ $thai_months = [
 
         <?php
         } ?>
-        <?php
-        $url = "https://kuma-roiet.pcnone.com/status/pcnnet";
-        $ch = curl_init($url); // เริ่มต้น cURL
+        <iframe src="https://kuma-roiet.pcnone.com/status/pcnnet" width="100%" height="600px" frameborder="0"></iframe>
 
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // ให้ cURL คืนค่าผลลัพธ์เป็นข้อมูลที่ได้
-        $response = curl_exec($ch); // ดึงข้อมูลจาก URL
-
-        if ($response === false) {
-            echo "cURL error: " . curl_error($ch);
-        } else {
-            echo $response; // แสดงผลข้อมูลที่ดึงมา
-        }
-
-        curl_close($ch); // ปิดการเชื่อมต่อ cURL
-        ?>
 
     </main>
 
