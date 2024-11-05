@@ -423,8 +423,17 @@ $thai_months = [
 
         <?php
         } ?>
+        <?php
+        $url = "https://kuma-roiet.pcnone.com/status/pcnnet";
+        $response = file_get_contents($url); // ดึงข้อมูลจาก URL
 
-<iframe src="https://kuma-roiet.pcnone.com/status/pcnnet" width="100%" height="600" style="border: none;"></iframe>
+        if ($response === FALSE) {
+            echo "ไม่สามารถโหลดข้อมูลจาก URL ได้";
+        } else {
+            echo $response; // แสดงผลข้อมูลที่ดึงมา
+        }
+        ?>
+
     </main>
 
 
