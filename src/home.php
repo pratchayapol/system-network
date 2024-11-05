@@ -423,9 +423,6 @@ $thai_months = [
 
         <?php
         } ?>
-        <iframe src="https://kuma-roiet.pcnone.com/status/pcnnet" width="100%" height="600px" frameborder="0"></iframe>
-
-
     </main>
 
 
