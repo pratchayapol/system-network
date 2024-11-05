@@ -235,32 +235,35 @@ $thai_months = [
                 <h2 class="text-2xl font-bold text-blue-800 text-center">ยินดีต้อนรับสู่ระบบจัดการค่าบริการอินเตอร์เน็ต</h2>
                 <center>
                     <p class="mt-4 text-gray-700"> ช่องทางการชำระค่าบริการ </p>
-                    <p class="mt-4 text-gray-700"> เลขบัญชี 112-8-90804-4 ธนาคารกสิกรไทย นายปรัชญาพล  จำปาลาด </p>
+                    <p class="mt-4 text-gray-700"> เลขบัญชี 112-8-90804-4 ธนาคารกสิกรไทย นายปรัชญาพล จำปาลาด </p>
                     <hr class="border-dashed border-2 border-gray-300 my-4">
                     <p class="mt-4 text-gray-700"> QR CODE </p>
                     <center>
-                                                        <img src="QRC_K+.jpg" alt="" class="cursor-pointer" onclick="openModal123(this.src)" width="350px">
-                                                    </center>
+                        <img src="QRC_K+.jpg" alt="" class="cursor-pointer" onclick="openModal123(this.src)" width="350px">
+                    </center>
 
-                                                    <!-- Modal -->
-                                                    <div id="imageModal123" class="fixed inset-0 z-50 hidden bg-black bg-opacity-75 flex justify-center items-center">
-                                                        <div class="relative">
-                                                            <button class="absolute top-2 right-2 text-white text-2xl" onclick="closeModal123()">&times;</button>
-                                                            <img id="modalImage123" src="" alt="" class="max-w-full max-h-full">
-                                                        </div>
-                                                    </div>
+                    <!-- Modal -->
+                    <div id="imageModal123" class="fixed inset-0 z-50 hidden bg-black bg-opacity-75 flex justify-center items-center">
+                        <div class="relative">
+                            <button class="absolute top-2 right-2 text-white text-2xl" onclick="closeModal123()">&times;</button>
+                            <img id="modalImage123" src="" alt="" class="max-w-full max-h-full">
+                        </div>
+                    </div>
 
-                                                    <!-- JavaScript to Open/Close Modal -->
-                                                    <script>
-                                                        function openModal123(imageSrc) {
-                                                            document.getElementById('modalImage123').src = imageSrc;
-                                                            document.getElementById('imageModal123').classList.remove('hidden'); // แสดง modal
-                                                        }
+                    <!-- JavaScript to Open/Close Modal -->
+                    <script>
+                        function openModal123(imageSrc) {
+                            document.getElementById('modalImage123').src = imageSrc;
+                            document.getElementById('imageModal123').classList.remove('hidden'); // แสดง modal
+                        }
 
-                                                        function closeModal123() {
-                                                            document.getElementById('imageModal123').classList.add('hidden'); // ปิด modal
-                                                        }
-                                                    </script>
+                        function closeModal123() {
+                            document.getElementById('imageModal123').classList.add('hidden'); // ปิด modal
+                        }
+                    </script>
+                    <p class="mt-4 text-gray-700"> ส่วนลด แพ็คเกจ 1 ปี 1200 ลด 3% = 1140 บาท </p>
+                    <p class="mt-4 text-gray-700"> ส่วนลด แพ็คเกจ 2 ปี 2400 ลด 5% = 2280 บาท </p>
+                    <p class="mt-4 text-gray-700"> ส่วนลด แพ็คเกจ 3 ปี 3600 ลด 7% = 3348 บาท </p>
                 </center>
             </div>
         </div>
