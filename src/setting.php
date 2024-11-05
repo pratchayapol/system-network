@@ -192,9 +192,9 @@ $thai_months = [
 
                                                 <!-- Modal -->
                                                 <div id="imageModal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-75 flex justify-center items-center">
-                                                    <div class="relative">
+                                                    <div class="relative max-w-full max-h-full p-4">
                                                         <button class="absolute top-2 right-2 text-white text-2xl" onclick="closeModal()">&times;</button>
-                                                        <img id="modalImage" src="" alt="" class="max-w-full max-h-full">
+                                                        <img id="modalImage" src="" alt="" class="max-w-screen max-h-screen object-contain rounded">
                                                     </div>
                                                 </div>
 
@@ -202,11 +202,11 @@ $thai_months = [
                                                 <script>
                                                     function openModal(imageSrc) {
                                                         document.getElementById('modalImage').src = imageSrc;
-                                                        document.getElementById('imageModal').classList.remove('hidden'); // แสดง modal
+                                                        document.getElementById('imageModal').classList.remove('hidden'); // Show modal
                                                     }
 
                                                     function closeModal() {
-                                                        document.getElementById('imageModal').classList.add('hidden'); // ปิด modal
+                                                        document.getElementById('imageModal').classList.add('hidden'); // Hide modal
                                                     }
                                                 </script>
                                             <?php endif; ?>
