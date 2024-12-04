@@ -3,7 +3,7 @@ session_start();
 // LINE API credentials
 $client_id = '2006525758'; // ใส่ Client ID ของคุณที่นี่
 $client_secret = '92117e1146f3aed0d034e4f26c0b5ab9'; // ใส่ Client Secret ของคุณที่นี่
-$redirect_uri = 'https://system-network.pcnone.com/callback.php'; // URL ที่ LINE จะเรียกกลับ
+$redirect_uri = 'https://main-system-network.pcnone.com/callback.php'; // URL ที่ LINE จะเรียกกลับ
 
 // Database connection
 $servername = "192.168.1.203:3341"; // ชื่อโฮสต์ของฐานข้อมูล
