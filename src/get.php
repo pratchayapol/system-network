@@ -20,7 +20,25 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
+?>
+<html>
 
+<head>
+    <!-- SweetAlert CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/sweetalert/dist/sweetalert.css">
+    <!-- SweetAlert JavaScript -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <!-- fonts-->
+    <link rel="stylesheet" href="../css/fonts.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300&display=swap" rel="stylesheet">
+</head>
+
+</html>
+
+<?php
 if (!isset($_GET['imageUrl']) || !isset($_GET['name']) || !isset($_GET['email'])) {
     die("Error: Missing required parameters.");
 } else {
@@ -85,5 +103,20 @@ if (!isset($_GET['imageUrl']) || !isset($_GET['name']) || !isset($_GET['email'])
                 }
             }
         }
+    }
+    if ($stmt->execute()) {
+        $_SESSION['user_id'] = $user_id;
+        echo '<script>
+        swal({
+            title: "เข้าสู่ระบบแล้ว!",
+            text: "ยินดีต้อนรับ, ' . htmlspecialchars($display_name) . '!",
+            icon: "success",
+            button: "ตกลง",
+        }).then(function() {
+            window.location = "/home";
+        });
+      </script>';
+    } else {
+        echo "Error: " . $stmt->error;
     }
 }
