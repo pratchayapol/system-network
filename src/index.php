@@ -1,13 +1,6 @@
 <?php
 session_start();
-$client_id = '2006525758';
-$redirect_uri = 'https://main-system-network.pcnone.com/callback.php';
-$state = bin2hex(random_bytes(16)); // สำหรับตรวจสอบ CSRF
-
-$_SESSION['state'] = $state;
-
-$scope = 'openid email profile'; // ระบุ scope ที่ต้องการ
-$line_login_url = "https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=$client_id&redirect_uri=$redirect_uri&state=$state&scope=" . urlencode($scope);
+$line_login_url = 'https://liff.line.me/2006525758-JyqOV7wz';
 
 ?>
 <!DOCTYPE html>
