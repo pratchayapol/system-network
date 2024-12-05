@@ -76,7 +76,7 @@ if (isset($_GET['code']) && isset($_GET['state'])) {
         $access_token = $result['access_token'];
 
         // ดึงข้อมูลโปรไฟล์ผู้ใช้
-        $user_profile_url = 'https://api.line.me/oauth2/v2.1/verify';
+        $user_profile_url = 'https://api.line.me/v2/profile';
         $headers = [
             'Authorization: Bearer ' . $access_token,
         ];
@@ -95,6 +95,30 @@ if (isset($_GET['code']) && isset($_GET['state'])) {
         print_r($user_profile);
         echo '</pre>';
 
+
+        // ใช้ access token ดึงข้อมูลเพิ่มเติม
+        $user_profile_url = "https://api.line.me/oauth2/v2.1/verify";
+        $headers = [
+            "Authorization: Bearer " . $access_token,
+        ];
+
+        $context = stream_context_create([
+            "http" => [
+                "header" => implode("\r\n", $headers),
+                "method" => "GET",
+            ],
+        ]);
+
+        $response = file_get_contents($user_profile_url, false, $context);
+        $user_profile = json_decode($response, true);
+
+        // ตรวจสอบและแสดงอีเมล
+        if (isset($user_profile['email'])) {
+            $email = $user_profile['email'];
+            echo "Email: " . htmlspecialchars($email);
+        } else {
+            echo "Email not available.";
+        }
         // แทรกข้อมูลลงในฐานข้อมูล
         // $user_id = $user_profile['userId'];
         // $display_name = $user_profile['displayName'];
@@ -125,13 +149,12 @@ if (isset($_GET['code']) && isset($_GET['state'])) {
             });
           </script>';
 
-          $sql = "UPDATE `account` SET `picture_url` = ? WHERE `user_id` = ?";
-          $stmt = $conn->prepare($sql);
-          $stmt->bind_param("ss", $picture_url, $user_id); // "si" หมายถึง string, integer
-          
-          // จากนั้นให้ execute
-          $stmt->execute();
+            $sql = "UPDATE `account` SET `picture_url` = ? WHERE `user_id` = ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("ss", $picture_url, $user_id); // "si" หมายถึง string, integer
 
+            // จากนั้นให้ execute
+            $stmt->execute();
         } else {
             // ถ้าไม่มี user_id ให้ทำการ insert
             $sql = "INSERT INTO account (user_id, display_name, status_message, picture_url, urole) VALUES (?, ?, ?, ?, ?)";
