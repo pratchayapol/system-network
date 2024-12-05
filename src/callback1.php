@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LIFF Integration</title>
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
 </head>
+
 <body>
     <h1>LINE Login with LIFF</h1>
     <div id="user-info">
@@ -13,7 +15,7 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             // Initialize LIFF
             liff.init({
                 liffId: "2006525758-JyqOV7wz", // ใส่ LIFF ID ของคุณ
@@ -37,7 +39,7 @@
                             pictureUrl: profile.pictureUrl,
                             email: idToken.email || "ไม่ทราบอีเมล"
                         };
-
+                        console.log(userData)
                         // ส่งข้อมูลไปยัง PHP
                         // fetch('process.php', {
                         //     method: 'POST',
@@ -64,4 +66,5 @@
         });
     </script>
 </body>
+
 </html>
