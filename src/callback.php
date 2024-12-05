@@ -1,3 +1,6 @@
+<?php
+header('Content-Type: application/json'); // กำหนดว่า response เป็น JSON
+?>
 <!DOCTYPE html>
 <html lang="en">
 
