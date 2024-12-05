@@ -16,7 +16,7 @@
         document.addEventListener('DOMContentLoaded', function () {
             // Initialize LIFF
             liff.init({
-                liffId: "YOUR_LIFF_ID", // ใส่ LIFF ID ของคุณ
+                liffId: "2006525758-JyqOV7wz", // ใส่ LIFF ID ของคุณ
                 withLoginOnExternalBrowser: true,
                 loginConfig: {
                     redirectUri: "https://your-redirect-uri.com",
