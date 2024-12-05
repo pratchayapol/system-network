@@ -41,25 +41,25 @@
                         };
                         console.log(userData)
                         // ส่งข้อมูลไปยัง PHP
-                        // fetch('process.php', {
-                        //     method: 'POST',
-                        //     headers: {
-                        //         'Content-Type': 'application/json',
-                        //     },
-                        //     body: JSON.stringify(userData),
-                        // })
-                        // .then(response => response.json())
-                        // .then(data => {
-                        //     console.log('Success:', data);
-                        //     document.getElementById('user-info').innerHTML = `
-                        //         <p><strong>Name:</strong> ${data.displayName}</p>
-                        //         <p><strong>Email:</strong> ${data.email}</p>
-                        //         <p><img src="${data.pictureUrl}" alt="Profile Picture" style="width:100px; height:auto;"></p>
-                        //     `;
-                        // })
-                        // .catch(error => {
-                        //     console.error('Error:', error);
-                        // });
+                        fetch('process.php', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(userData),
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log('Success:', data);
+                            document.getElementById('user-info').innerHTML = `
+                                <p><strong>Name:</strong> ${data.displayName}</p>
+                                <p><strong>Email:</strong> ${data.email}</p>
+                                <p><img src="${data.pictureUrl}" alt="Profile Picture" style="width:100px; height:auto;"></p>
+                            `;
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
                     }).catch(err => console.error('Error getting profile:', err));
                 }
             }).catch(err => console.error('LIFF Initialization failed:', err));
