@@ -1,5 +1,6 @@
 <?php
 session_start();
+header('Content-Type: application/json'); // กำหนดว่า response เป็น JSON
 // Database connection
 $servername = "192.168.1.203:3341"; // ชื่อโฮสต์ของฐานข้อมูล
 $username = "root"; // ชื่อผู้ใช้ฐานข้อมูล
