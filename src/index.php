@@ -1,7 +1,7 @@
 <?php
 session_start();
 $client_id = '2006525758';
-$redirect_uri = 'https://system-network.pcnone.com/callback.php';
+$redirect_uri = 'https://main-system-network.pcnone.com/callback.php';
 $state = bin2hex(random_bytes(16)); // สำหรับตรวจสอบ CSRF
 
 $_SESSION['state'] = $state;
