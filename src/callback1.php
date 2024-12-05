@@ -19,7 +19,7 @@
                 liffId: "2006525758-JyqOV7wz", // ใส่ LIFF ID ของคุณ
                 withLoginOnExternalBrowser: true,
                 loginConfig: {
-                    redirectUri: "https://your-redirect-uri.com",
+                    redirectUri: "https://main-system-network.pcnone.com/callback1.php",
                     scopes: ["profile", "email"], // ขออีเมล
                 }
             }).then(() => {
