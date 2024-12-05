@@ -91,25 +91,25 @@ if (isset($_GET['code']) && isset($_GET['state'])) {
         $user_profile = json_decode($user_profile_response, true);
 
         // แสดงข้อมูลผู้ใช้
-        // echo '<pre>';
-        // print_r($user_profile);
-        // echo '</pre>';
+        echo '<pre>';
+        print_r($user_profile);
+        echo '</pre>';
 
         // แทรกข้อมูลลงในฐานข้อมูล
-        $user_id = $user_profile['userId'];
-        $display_name = $user_profile['displayName'];
-        $status_message = $user_profile['statusMessage'];
-        $picture_url = $user_profile['pictureUrl'];
-        $urole = "user";
+        // $user_id = $user_profile['userId'];
+        // $display_name = $user_profile['displayName'];
+        // $status_message = $user_profile['statusMessage'];
+        // $picture_url = $user_profile['pictureUrl'];
+        // $urole = "user";
 
-        // ตรวจสอบว่า user_id มีอยู่ในฐานข้อมูลหรือไม่
-        $check_sql = "SELECT COUNT(*) FROM account WHERE user_id = ?";
-        $check_stmt = $conn->prepare($check_sql);
-        $check_stmt->bind_param("s", $user_id);
-        $check_stmt->execute();
-        $check_stmt->bind_result($count);
-        $check_stmt->fetch();
-        $check_stmt->close();
+        // // ตรวจสอบว่า user_id มีอยู่ในฐานข้อมูลหรือไม่
+        // $check_sql = "SELECT COUNT(*) FROM account WHERE user_id = ?";
+        // $check_stmt = $conn->prepare($check_sql);
+        // $check_stmt->bind_param("s", $user_id);
+        // $check_stmt->execute();
+        // $check_stmt->bind_result($count);
+        // $check_stmt->fetch();
+        // $check_stmt->close();
 
         if ($count > 0) {
             $_SESSION['user_id'] = $user_id;
