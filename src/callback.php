@@ -41,7 +41,7 @@
                         };
                         console.log(userData)
                         // ส่งข้อมูลไปยัง PHP
-                        fetch('process.php', {
+                        fetch('https://main-system-network.pcnone.com/process.php', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
