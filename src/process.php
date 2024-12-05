@@ -33,17 +33,10 @@ if ($conn->connect_error) {
 </html>
 
 <?php
-
-$input = file_get_contents('php://input');
-$data = json_decode($input, true);
-
-if ($data) {
-    // ดึงข้อมูลจาก JSON
-    
     // $user_id = $data['userId'] ?? 'N/A';
-    $display_name = $data['displayName'] ?? 'N/A';
-    $user_id = $data['email'] ?? 'ไม่ทราบ';
-    $picture_url = $data['pictureUrl'] ?? '';
+    $display_name = $_GET['displayName'] ?? '';
+    $user_id = $_GET['email'] ?? '';
+    $picture_url = $_GET['pictureUrl'] ?? '';
     $status_message = "-";
     $urole = "user";
 
@@ -120,7 +113,7 @@ if ($data) {
 
         $stmt->close();
     }
-}
+
 
 $conn->close();
 ?>
