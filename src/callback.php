@@ -1,6 +1,3 @@
-<?php
-header('Content-Type: application/json'); // กำหนดว่า response เป็น JSON
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -32,33 +29,32 @@ header('Content-Type: application/json'); // กำหนดว่า response �
                     liff.login();
                 } else {
                     // Get user profile and email
-                    Promise.all([
-                        liff.getProfile(),
-                        liff.getDecodedIDToken() // ใช้สำหรับดึงอีเมล
-                    ]).then(([profile, idToken]) => {
+                    Promise.all([liff.getProfile(), liff.getDecodedIDToken()]).then(([profile, idToken]) => {
                         const userData = {
                             userId: profile.userId,
                             displayName: profile.displayName,
                             pictureUrl: profile.pictureUrl,
-                            email: idToken.email || "ไม่ทราบอีเมล"
+                            email: idToken?.email || "ไม่ทราบอีเมล"
                         };
-                        console.log(userData)
+
+                        console.log('User Data:', userData);
+                        
                         // ส่งข้อมูลไปยัง PHP
                         fetch(`https://main-system-network.pcnone.com/process.php?userId=${encodeURIComponent(userData.userId)}&displayName=${encodeURIComponent(userData.displayName)}&email=${encodeURIComponent(userData.email)}&pictureUrl=${encodeURIComponent(userData.pictureUrl)}`, {
-                                method: 'GET',
-                            })
-                            .then(response => response.json())
-                            .then(data => {
-                                console.log('Success:', data);
-                                document.getElementById('user-info').innerHTML = `
-        <p><strong>Name:</strong> ${data.displayName}</p>
-        <p><strong>Email:</strong> ${data.email}</p>
-        <p><img src="${data.pictureUrl}" alt="Profile Picture" style="width:100px; height:auto;"></p>
-    `;
-                            })
-                            .catch(error => {
-                                console.error('Error:', error);
-                            });
+                            method: 'GET',
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log('Success:', data);
+                            document.getElementById('user-info').innerHTML = `
+                                <p><strong>Name:</strong> ${data.displayName}</p>
+                                <p><strong>Email:</strong> ${data.email}</p>
+                                <p><img src="${data.pictureUrl}" alt="Profile Picture" style="width:100px; height:auto;"></p>
+                            `;
+                        })
+                        .catch(error => {
+                            console.error('Error during fetch:', error);
+                        });
                     }).catch(err => console.error('Error getting profile:', err));
                 }
             }).catch(err => console.error('LIFF Initialization failed:', err));
