@@ -45,7 +45,7 @@ if (isset($_GET['code']) && isset($_GET['state'])) {
     $state = $_GET['state'];
 
     // เริ่มแลกเปลี่ยน code เป็น access token
-    $url = 'https://api.line.me/oauth2/v2.1/token';
+    $url = 'https://api.line.me/oauth2/v2.1/verify';
     $data = [
         'grant_type' => 'authorization_code',
         'code' => $code,
