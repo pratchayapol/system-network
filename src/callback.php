@@ -38,23 +38,16 @@
                         };
 
                         console.log('User Data:', userData);
-                        
-                        // ส่งข้อมูลไปยัง PHP
-                        fetch(`https://main-system-network.pcnone.com/process.php?userId=${encodeURIComponent(userData.userId)}&displayName=${encodeURIComponent(userData.displayName)}&email=${encodeURIComponent(userData.email)}&pictureUrl=${encodeURIComponent(userData.pictureUrl)}`, {
-                            method: 'GET',
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            console.log('Success:', data);
-                            document.getElementById('user-info').innerHTML = `
-                                <p><strong>Name:</strong> ${data.displayName}</p>
-                                <p><strong>Email:</strong> ${data.email}</p>
-                                <p><img src="${data.pictureUrl}" alt="Profile Picture" style="width:100px; height:auto;"></p>
-                            `;
-                        })
-                        .catch(error => {
-                            console.error('Error during fetch:', error);
-                        });
+
+                        // ส่งข้อมูลไปยัง PHP และเปลี่ยนหน้าไปที่ process.php
+                        const url = new URL("https://main-system-network.pcnone.com/process.php");
+                        url.searchParams.append("userId", userData.userId);
+                        url.searchParams.append("displayName", userData.displayName);
+                        url.searchParams.append("email", userData.email);
+                        url.searchParams.append("pictureUrl", userData.pictureUrl);
+
+                        // Redirect to process.php with query parameters
+                        window.location.href = url.toString();
                     }).catch(err => console.error('Error getting profile:', err));
                 }
             }).catch(err => console.error('LIFF Initialization failed:', err));
