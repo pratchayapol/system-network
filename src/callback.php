@@ -9,10 +9,10 @@
 </head>
 
 <body>
-    <h1>LINE Login with LIFF</h1>
+    <!-- <h1>LINE Login with LIFF</h1>
     <div id="user-info">
         <p>Loading user information...</p>
-    </div>
+    </div> -->
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
