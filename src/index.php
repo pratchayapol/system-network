@@ -6,7 +6,7 @@ $state = bin2hex(random_bytes(16)); // สำหรับตรวจสอบ C
 
 $_SESSION['state'] = $state;
 
-$scope = 'openid profile email'; // ระบุ scope ที่ต้องการ
+$scope = 'openid email profile'; // ระบุ scope ที่ต้องการ
 $line_login_url = "https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=$client_id&redirect_uri=$redirect_uri&state=$state&scope=" . urlencode($scope);
 
 ?>
