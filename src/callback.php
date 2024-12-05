@@ -45,7 +45,7 @@ if (isset($_GET['code']) && isset($_GET['state'])) {
     $state = $_GET['state'];
 
     // เริ่มแลกเปลี่ยน code เป็น access token
-    $url = 'https://api.line.me/oauth2/v2.1/verify';
+    $url = 'https://api.line.me/oauth2/v2.1/token';
     $data = [
         'grant_type' => 'authorization_code',
         'code' => $code,
@@ -76,7 +76,7 @@ if (isset($_GET['code']) && isset($_GET['state'])) {
         $access_token = $result['access_token'];
 
         // ดึงข้อมูลโปรไฟล์ผู้ใช้
-        $user_profile_url = 'https://api.line.me/v2/profile';
+        $user_profile_url = 'https://api.line.me/oauth2/v2.1/verify';
         $headers = [
             'Authorization: Bearer ' . $access_token,
         ];
