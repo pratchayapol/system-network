@@ -5,6 +5,8 @@ services:
       context: .
       dockerfile: ./web/Dockerfile
     restart: unless-stopped
+    depends_on:
+      - mariadb-project
     ports:
       - "8097:80"
     volumes:
