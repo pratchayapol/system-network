@@ -8,7 +8,7 @@ $email = isset($_GET['email']) ? $_GET['email'] : '';
 
 
 // Database connection
-$servername = "192.168.1.203:3341"; // ชื่อโฮสต์ของฐานข้อมูล
+$servername = "mariadb-project:3341"; // ชื่อโฮสต์ของฐานข้อมูล
 $username = "root"; // ชื่อผู้ใช้ฐานข้อมูล
 $password = "adminpcn"; // รหัสผ่านฐานข้อมูล
 $dbname = "system_network"; // ชื่อฐานข้อมูล
