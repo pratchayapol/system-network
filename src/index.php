@@ -55,7 +55,9 @@ $line_login_url = 'https://liff.line.me/2006525758-JyqOV7wz';
                     alt="LINE Logo" class="w-6 h-6 bg-white rounded p-1">
                 Sign in with LINE
             </a>
-
+            <p class="text-gray-600 mt-1 text-sm text-center">
+                พัฒนาโดย นายปรัชญาพล  จำปาลาด สอบถามปัญหาการใช้งาน 0909691701
+            </p>
         </div>
     </div>
     <?php include './loadtab/f.php'; ?>
