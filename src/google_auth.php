@@ -43,7 +43,7 @@ if (isset($_GET['logout'])) {
             <script>
                 document.addEventListener('DOMContentLoaded', async () => {
                     await liff.init({
-                        liffId: "2007460484-WlA3R3By"
+                        liffId: "2006525758-JyqOV7wz"
                     }); // ใส่ LIFF ID
                     if (liff.isLoggedIn()) {
                         await liff.logout();
