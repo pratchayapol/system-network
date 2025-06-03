@@ -59,6 +59,17 @@ services:
     networks:
       - system_network
 
+
+  composer:
+    image: composer:latest
+    container_name: composer
+    volumes:
+      - ./src:/app
+    working_dir: /app
+    command: ["composer", "install", "--no-interaction"]
+    networks:
+      - system_network
+
 networks:
   system_network:
     driver: bridge
