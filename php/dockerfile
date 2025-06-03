@@ -1,33 +1,21 @@
-FROM php:8-fpm
+FROM php:8.2-fpm
 
-LABEL Author="PRATCHAYAPOL <pratchayapol.ja@rmuti.ac.th>" version="latest" org.opencontainers.image.authors="pratchayapol.ja@rmuti.ac.th"
-
-# ติดตั้งส่วนขยาย PHP ที่จำเป็น รวมถึง zip และ git
 RUN apt-get update && apt-get install -y \
-    libcurl4-openssl-dev \
-    libjpeg-dev \
     libpng-dev \
-    libzip-dev \
-    zip \
-    git \
-    && docker-php-ext-install curl sockets zip \
-    && docker-php-ext-install mysqli pdo pdo_mysql
+    libonig-dev \
+    libxml2-dev \
+    zip unzip \
+    locales \
+    tzdata \
+    && docker-php-ext-install pdo pdo_mysql mysqli \
+    && echo "Asia/Bangkok" > /etc/timezone \
+    && ln -sf /usr/share/zoneinfo/Asia/Bangkok /etc/localtime \
+    && dpkg-reconfigure -f noninteractive tzdata \
+    && echo "th_TH.UTF-8 UTF-8" > /etc/locale.gen \
+    && locale-gen th_TH.UTF-8 \
+    && update-locale LANG=th_TH.UTF-8
 
-# คัดลอก Composer
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-
-# ตั้งค่าตัวแปรสิ่งแวดล้อมเพื่อให้ Composer ทำงานได้ในโหมด root
-ENV COMPOSER_ALLOW_SUPERUSER=1
-
-WORKDIR /var/www/html
-
-# คัดลอกไฟล์โปรเจกต์ไปยัง container
-COPY . .
-
-# รันคำสั่ง composer install
-RUN composer install --no-interaction --prefer-dist --no-scripts --no-dev
-
-# Set permissions for /var/www/html (use chmod)
-RUN chmod -R 777 /var/www/html
-
-COPY php.ini /usr/local/etc/php/
+ENV LANG=th_TH.UTF-8 \
+    LANGUAGE=th_TH:th \
+    LC_ALL=th_TH.UTF-8 \
+    TZ=Asia/Bangkok
