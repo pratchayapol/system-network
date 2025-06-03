@@ -49,7 +49,7 @@ if (isset($_GET['logout'])) {
                         await liff.logout();
                     }
                     // redirect หลัง logout สำเร็จ
-                    window.location.href = "https://accounts.google.com/Logout?continue=https://appengine.google.com/_ah/logout?continue=https://riceproduct.pcnone.com";
+                    window.location.href = "https://accounts.google.com/Logout?continue=https://appengine.google.com/_ah/logout?continue=https://system-network.pcnone.com";
                 });
             </script>
         </body>
