@@ -1,5 +1,5 @@
 <?php
-$servername = "100.99.99.105";
+$servername = "localhost";
 $port = 3341;
 $username = "root";
 $password = "adminpcn";
