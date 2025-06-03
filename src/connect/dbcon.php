@@ -1,6 +1,6 @@
 <?php
-$servername = "localhost";
-$port = 3341;
+$servername = "192.168.125.5";
+$port = 3306;
 $username = "root";
 $password = "adminpcn";
 $dbname = "system_network";
