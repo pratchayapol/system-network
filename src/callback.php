@@ -26,7 +26,7 @@ liff.init({ liffId: "2006525758-JyqOV7wz" }).then(() => {
             const name = profile.displayName;
             const imageUrl = profile.pictureUrl;
             const email = liff.getDecodedIDToken().email;
-            const redirectURL = `${location.pathname}2?imageUrl=${encodeURIComponent(imageUrl)}&name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}`;
+            const redirectURL = `callback2?imageUrl=${encodeURIComponent(imageUrl)}&name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}`;
             window.location.href = redirectURL;
         }).catch(err => {
             console.error('getProfile error', err);
