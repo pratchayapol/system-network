@@ -1,122 +1,116 @@
 <?php
 session_start();
 
-// Retrieve query parameters
-$imageUrl = isset($_GET['imageUrl']) ? $_GET['imageUrl'] : '';
-$name = isset($_GET['name']) ? $_GET['name'] : '';
-$email = isset($_GET['email']) ? $_GET['email'] : '';
+// ตรวจสอบว่าได้รับพารามิเตอร์ครบและไม่ว่าง
+if (empty($_GET['imageUrl']) || empty($_GET['name']) || empty($_GET['email'])) {
+    die("Error: Missing required parameters.");
+}
 
+// รับค่าพารามิเตอร์
+$imageUrl = $_GET['imageUrl'];
+$name = $_GET['name'];
+$email = $_GET['email'];
+
+// Validate email
+if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    die("Error: Invalid email format.");
+}
 
 // Database connection
-$servername = "100.99.99.105:3341"; // ชื่อโฮสต์ของฐานข้อมูล
-$username = "root"; // ชื่อผู้ใช้ฐานข้อมูล
-$password = "adminpcn"; // รหัสผ่านฐานข้อมูล
-$dbname = "system_network"; // ชื่อฐานข้อมูล
+$servername = "100.99.99.105:3341";
+$username = "root";
+$password = "adminpcn";
+$dbname = "system_network";
 
-// เชื่อมต่อกับฐานข้อมูล
+// เชื่อมต่อฐานข้อมูล
 $conn = new mysqli($servername, $username, $password, $dbname);
-
-// ตรวจสอบการเชื่อมต่อ
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-?>
-<html>
 
-<head>
-    <!-- SweetAlert CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/sweetalert/dist/sweetalert.css">
-    <!-- SweetAlert JavaScript -->
+// เตรียมตัวแปร
+$user_id = $email;
+$display_name = $name;
+$status_message = '-';
+$picture_url = $imageUrl;
+$urole = "user";
+
+// ตรวจสอบว่าผู้ใช้มีอยู่หรือไม่
+$check_sql = "SELECT COUNT(*) FROM account WHERE user_id = ?";
+$check_stmt = $conn->prepare($check_sql);
+$check_stmt->bind_param("s", $user_id);
+$check_stmt->execute();
+$check_stmt->bind_result($count);
+$check_stmt->fetch();
+$check_stmt->close();
+
+// ถ้ามีอยู่แล้ว → อัปเดตรูปและ redirect
+if ($count > 0) {
+    $_SESSION['user_id'] = $user_id;
+
+    $update_sql = "UPDATE account SET picture_url = ? WHERE user_id = ?";
+    $update_stmt = $conn->prepare($update_sql);
+    $update_stmt->bind_param("ss", $picture_url, $user_id);
+    $update_stmt->execute();
+    $update_stmt->close();
+
+    echo '
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
-    <!-- fonts-->
-    <link rel="stylesheet" href="../css/fonts.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300&display=swap" rel="stylesheet">
-</head>
-
-</html>
-
-<?php
-if (!isset($_GET['imageUrl']) || !isset($_GET['name']) || !isset($_GET['email'])) {
-    die("Error: Missing required parameters.");
-} else {
-    // แทรกข้อมูลลงในฐานข้อมูล
-    $user_id = $email;
-    $display_name = $name;
-    $status_message = '-';
-    $picture_url = $imageUrl;
-    $urole = "user";
-
-    // ตรวจสอบว่า user_id มีอยู่ในฐานข้อมูลหรือไม่
-    $check_sql = "SELECT COUNT(*) FROM account WHERE user_id = ?";
-    $check_stmt = $conn->prepare($check_sql);
-    $check_stmt->bind_param("s", $user_id);
-    $check_stmt->execute();
-    $check_stmt->bind_result($count);
-    $check_stmt->fetch();
-    $check_stmt->close();
-
-    if ($count > 0) {
-        $_SESSION['user_id'] = $user_id;
-        // ถ้ามี user_id อยู่แล้ว
-        echo '<script>
-         swal({
-             title: "ผู้ใช้มีอยู่แล้ว!",
-             text: "คุณได้เข้าสู่ระบบแล้ว, ' . htmlspecialchars($display_name) . '!",
-             icon: "info",
-             button: "ตกลง",
-         }).then(function() {
-             window.location = "/home";
-         });
-       </script>';
-
-        $sql = "UPDATE `account` SET `picture_url` = ? WHERE `user_id` = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("ss", $picture_url, $user_id); // "si" หมายถึง string, integer
-
-        // จากนั้นให้ execute
-        $stmt->execute();
-    } else {
-        // ถ้าไม่มี user_id ให้ทำการ insert
-        $sql = "INSERT INTO account (user_id, display_name, status_message, picture_url, urole) VALUES (?, ?, ?, ?, ?)";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("sssss", $user_id, $display_name, $status_message, $picture_url, $urole);
-
-        $count1 = "100"; // ตัวอย่าง count
-        $status = "F"; // ตัวอย่าง status
-
-        // เพิ่มข้อมูลจนถึงปี ค.ศ. 2080
-        for ($year = 2020; $year <= 2080; $year++) { // 2023 คือปี ค.ศ. ปัจจุบัน
-            for ($month = 1; $month <= 12; $month++) {
-                // สร้างวันที่เป็นรูปแบบ YYYY-MM-DD
-                $date = sprintf("%04d-%02d-01", $year, $month); // วันที่เริ่มต้นที่ 1 ของเดือน
-
-                // สร้างคำสั่ง SQL
-                $sql1 = "INSERT INTO count_net (user_id, `m-y`, count, status) VALUES ('$user_id', '$date', '$count1', '$status')";
-                // ส่งคำสั่ง SQL ไปยังฐานข้อมูล
-                if ($conn->query($sql1) === TRUE) {
-                    // echo "New record created successfully for $date\n";
-                } else {
-                    // echo "Error: " . $sql1 . "\n" . $conn->error;
-                }
-            }
-        }
-    }
-    if ($stmt->execute()) {
-        $_SESSION['user_id'] = $user_id;
-        echo '<script>
+    <script>
         swal({
-            title: "เข้าสู่ระบบแล้ว!",
-            text: "ยินดีต้อนรับ, ' . htmlspecialchars($display_name) . '!",
-            icon: "success",
+            title: "ผู้ใช้มีอยู่แล้ว!",
+            text: "คุณได้เข้าสู่ระบบแล้ว, ' . htmlspecialchars($display_name) . '!",
+            icon: "info",
             button: "ตกลง",
         }).then(function() {
             window.location = "/home";
         });
-      </script>';
+    </script>';
+} else {
+    // แทรกผู้ใช้ใหม่
+    $insert_sql = "INSERT INTO account (user_id, display_name, status_message, picture_url, urole)
+                   VALUES (?, ?, ?, ?, ?)";
+    $insert_stmt = $conn->prepare($insert_sql);
+    $insert_stmt->bind_param("sssss", $user_id, $display_name, $status_message, $picture_url, $urole);
+
+    if ($insert_stmt->execute()) {
+        $_SESSION['user_id'] = $user_id;
+
+        // สร้างข้อมูล count_net ล่วงหน้า
+        $count1 = 100;
+        $status = "F";
+
+        for ($year = 2020; $year <= 2080; $year++) {
+            for ($month = 1; $month <= 12; $month++) {
+                $date = sprintf("%04d-%02d-01", $year, $month);
+                $sql1 = "INSERT INTO count_net (user_id, `m-y`, count, status)
+                         VALUES (?, ?, ?, ?)";
+                $stmt1 = $conn->prepare($sql1);
+                $stmt1->bind_param("ssis", $user_id, $date, $count1, $status);
+                $stmt1->execute();
+                $stmt1->close();
+            }
+        }
+
+        echo '
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <script>
+            swal({
+                title: "เข้าสู่ระบบแล้ว!",
+                text: "ยินดีต้อนรับ, ' . htmlspecialchars($display_name) . '!",
+                icon: "success",
+                button: "ตกลง",
+            }).then(function() {
+                window.location = "/home";
+            });
+        </script>';
     } else {
-        echo "Error: " . $stmt->error;
+        echo "Error: " . $insert_stmt->error;
     }
+
+    $insert_stmt->close();
 }
+
+// ปิดการเชื่อมต่อ
+$conn->close();
+?>
