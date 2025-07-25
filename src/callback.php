@@ -1,41 +1,46 @@
 <?php
 session_start();
 
-// ตรวจสอบว่าได้รับพารามิเตอร์ครบและไม่ว่าง
-if (empty($_GET['imageUrl']) || empty($_GET['name']) || empty($_GET['email'])) {
-    die("Error: Missing required parameters.");
+// DEBUG: แสดงค่าที่รับมาจาก GET (เปิดดูได้ตอน dev)
+echo '<pre>';
+print_r($_GET);
+echo '</pre>';
+
+// รับค่าจาก URL
+$imageUrl = isset($_GET['imageUrl']) ? trim($_GET['imageUrl']) : null;
+$name     = isset($_GET['name']) ? trim($_GET['name']) : null;
+$email    = isset($_GET['email']) ? trim($_GET['email']) : null;
+
+// ตรวจสอบว่าได้รับค่าครบ
+if (!$imageUrl || !$name || !$email) {
+    die("❌ Error: Missing required parameters.");
 }
 
-// รับค่าพารามิเตอร์
-$imageUrl = $_GET['imageUrl'];
-$name = $_GET['name'];
-$email = $_GET['email'];
-
-// Validate email
+// ตรวจสอบรูปแบบ email
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    die("Error: Invalid email format.");
+    die("❌ Error: Invalid email format.");
 }
 
-// Database connection
+// ข้อมูลการเชื่อมต่อฐานข้อมูล
 $servername = "100.99.99.105:3341";
 $username = "root";
 $password = "adminpcn";
 $dbname = "system_network";
 
-// เชื่อมต่อฐานข้อมูล
+// เชื่อมต่อกับฐานข้อมูล
 $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// เตรียมตัวแปร
+// เตรียมข้อมูล
 $user_id = $email;
 $display_name = $name;
 $status_message = '-';
 $picture_url = $imageUrl;
 $urole = "user";
 
-// ตรวจสอบว่าผู้ใช้มีอยู่หรือไม่
+// ตรวจสอบว่าผู้ใช้นี้มีอยู่แล้วหรือไม่
 $check_sql = "SELECT COUNT(*) FROM account WHERE user_id = ?";
 $check_stmt = $conn->prepare($check_sql);
 $check_stmt->bind_param("s", $user_id);
@@ -44,18 +49,22 @@ $check_stmt->bind_result($count);
 $check_stmt->fetch();
 $check_stmt->close();
 
-// ถ้ามีอยู่แล้ว → อัปเดตรูปและ redirect
 if ($count > 0) {
+    // ผู้ใช้มีอยู่แล้ว
     $_SESSION['user_id'] = $user_id;
 
+    // อัปเดตภาพโปรไฟล์
     $update_sql = "UPDATE account SET picture_url = ? WHERE user_id = ?";
     $update_stmt = $conn->prepare($update_sql);
     $update_stmt->bind_param("ss", $picture_url, $user_id);
     $update_stmt->execute();
     $update_stmt->close();
 
+    // แจ้งเตือนด้วย SweetAlert
     echo '
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <html><head>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    </head><body>
     <script>
         swal({
             title: "ผู้ใช้มีอยู่แล้ว!",
@@ -65,9 +74,9 @@ if ($count > 0) {
         }).then(function() {
             window.location = "/home";
         });
-    </script>';
+    </script></body></html>';
 } else {
-    // แทรกผู้ใช้ใหม่
+    // ผู้ใช้ใหม่ → insert ข้อมูล
     $insert_sql = "INSERT INTO account (user_id, display_name, status_message, picture_url, urole)
                    VALUES (?, ?, ?, ?, ?)";
     $insert_stmt = $conn->prepare($insert_sql);
@@ -92,20 +101,23 @@ if ($count > 0) {
             }
         }
 
+        // แจ้งเตือนผู้ใช้ใหม่
         echo '
-        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <html><head>
+            <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        </head><body>
         <script>
             swal({
-                title: "เข้าสู่ระบบแล้ว!",
+                title: "เข้าสู่ระบบสำเร็จ!",
                 text: "ยินดีต้อนรับ, ' . htmlspecialchars($display_name) . '!",
                 icon: "success",
-                button: "ตกลง",
+                button: "ไปยังหน้าหลัก",
             }).then(function() {
                 window.location = "/home";
             });
-        </script>';
+        </script></body></html>';
     } else {
-        echo "Error: " . $insert_stmt->error;
+        echo "❌ Error: " . $insert_stmt->error;
     }
 
     $insert_stmt->close();
