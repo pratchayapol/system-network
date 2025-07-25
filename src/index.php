@@ -34,7 +34,7 @@ $line_login_url = 'https://liff.line.me/2006525758-JyqOV7wz';
 
             <!-- Title -->
             <h1 class="text-xl md:text-2xl font-bold text-gray-800 text-center leading-snug">
-                ระบบชำระค่าบริการ PCNONE
+                ระบบชำระค่าบริการ PCNONE 3355
             </h1>
 
             <!-- Button -->
