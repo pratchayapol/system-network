@@ -121,7 +121,7 @@ $thai_months = [
                 }
             }).then((willRedirect) => {
                 if (willRedirect) {
-                    window.location.href = 'https://main-system-network.pcnone.com/home'; // เปลี่ยนไปที่หน้า /home
+                    window.location.href = 'https://system-network.pcnone.com/home'; // เปลี่ยนไปที่หน้า /home
                 }
             });
         </script>
@@ -144,7 +144,7 @@ $thai_months = [
                 }
             }).then((willRedirect) => {
                 if (willRedirect) {
-                    window.location.href = 'https://main-system-network.pcnone.com/home'; // เปลี่ยนไปที่หน้า /home
+                    window.location.href = 'https://system-network.pcnone.com/home'; // เปลี่ยนไปที่หน้า /home
                 }
             });
         </script>
@@ -168,7 +168,7 @@ $thai_months = [
                             }
                         }).then((willRedirect) => {
                             if (willRedirect) {
-                                window.location.href = 'https://main-system-network.pcnone.com/home'; // เปลี่ยนไปที่หน้า /home
+                                window.location.href = 'https://system-network.pcnone.com/home'; // เปลี่ยนไปที่หน้า /home
                             }
                         });
                     </script>
@@ -193,7 +193,7 @@ $thai_months = [
                             }
                         }).then((willRedirect) => {
                             if (willRedirect) {
-                                window.location.href = 'https://main-system-network.pcnone.com/home'; // เปลี่ยนไปที่หน้า /home
+                                window.location.href = 'https://system-network.pcnone.com/home'; // เปลี่ยนไปที่หน้า /home
                             }
                         });
                     </script>
