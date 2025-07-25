@@ -38,7 +38,7 @@ $line_login_url = 'https://liff.line.me/2006525758-JyqOV7wz';
             </h1>
 
             <!-- Button -->
-            <!-- Google Sign-In Button -->
+            <!-- Google Sign-In Button 
             <a href="google_auth"
                 class="w-full mt-4 px-6 py-3 bg-blue-600 text-white font-medium rounded-lg shadow-md 
           hover:bg-blue-700 hover:shadow-lg transition-all flex items-center justify-center gap-3">
@@ -46,7 +46,7 @@ $line_login_url = 'https://liff.line.me/2006525758-JyqOV7wz';
                     alt="Google Logo" class="w-6 h-6 bg-white rounded p-1">
                 Sign in with Google
             </a>
-
+-->
             <!-- LINE Sign-In Button -->
             <a href="<?= $line_login_url ?>"
                 class="w-full mt-4 px-6 py-3 bg-green-500 text-white font-medium rounded-lg shadow-md 
