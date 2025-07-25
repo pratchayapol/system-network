@@ -60,7 +60,7 @@ if (isset($_GET['logout'])) {
     }
 
 ?>
-<!DOCTYPE html>
+
 <html lang="th">
 
 <head>
