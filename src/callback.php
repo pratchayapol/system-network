@@ -2,7 +2,6 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-var_dump($_GET);
 @session_start();  // ใส่ @ หน้าฟังก์ชัน suppress warning
 
 // รับค่าจาก GET
