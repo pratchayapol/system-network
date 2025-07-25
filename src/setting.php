@@ -5,7 +5,7 @@ $user_id_login = $_SESSION['user_id'];
 $user_id = $_GET['user_id'];
 
 // Database connection
-$servername = "mariadb-project:3341"; // Database host
+$servername = "100.99.99.105:3341"; // Database host
 $username = "root"; // Database username
 $password = "adminpcn"; // Database password
 $dbname = "system_network"; // Database name

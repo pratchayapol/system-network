@@ -113,7 +113,7 @@ if ($count > 0) {
     $stmt->close();
 
     // ถ้าต้องการเพิ่มข้อมูล count_net ให้เปิดคอมเมนต์ตรงนี้
-    /*
+    
     $count1 = 100;
     $status = 'F';
     $sql1 = "INSERT INTO count_net (user_id, `m-y`, count, status) VALUES (?, ?, ?, ?)";
@@ -126,7 +126,7 @@ if ($count > 0) {
         }
     }
     $stmt1->close();
-    */
+    
 
     $_SESSION['user_id'] = $user_id;
 

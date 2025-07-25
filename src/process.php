@@ -1,7 +1,7 @@
 <?php
 session_start();
 // Database connection
-$servername = "mariadb-project:3341"; // ชื่อโฮสต์ของฐานข้อมูล
+$servername = "100.99.99.105:3341"; // ชื่อโฮสต์ของฐานข้อมูล
 $username = "root"; // ชื่อผู้ใช้ฐานข้อมูล
 $password = "adminpcn"; // รหัสผ่านฐานข้อมูล
 $dbname = "system_network"; // ชื่อฐานข้อมูล
