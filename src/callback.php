@@ -1,71 +1,52 @@
 <?php
 session_start();
 
-// DEBUG: แสดงค่าที่รับมาจาก GET (เปิดดูได้ตอน dev)
-echo '<pre>';
-print_r($_GET);
-echo '</pre>';
+// ตรวจสอบว่าได้รับค่าจาก GET หรือยัง
+$imageUrl = isset($_GET['imageUrl']) ? $_GET['imageUrl'] : '';
+$name     = isset($_GET['name']) ? $_GET['name'] : '';
+$email    = isset($_GET['email']) ? $_GET['email'] : '';
 
-// รับค่าจาก URL
-$imageUrl = isset($_GET['imageUrl']) ? trim($_GET['imageUrl']) : null;
-$name     = isset($_GET['name']) ? trim($_GET['name']) : null;
-$email    = isset($_GET['email']) ? trim($_GET['email']) : null;
+// ถ้าไม่ได้รับครบ ให้รอ JavaScript redirect มาก่อน
+if (empty($imageUrl) || empty($name) || empty($email)) {
+    echo "<p style='font-family: sans-serif; color: red;'>⏳ กำลังโหลดข้อมูลผู้ใช้จาก LINE...</p>";
+    // ให้ JavaScript ทำงานด้านล่าง
+} else {
+    // เชื่อมต่อฐานข้อมูล
+    $servername = "100.99.99.105:3341";
+    $username = "root";
+    $password = "adminpcn";
+    $dbname = "system_network";
+    $conn = new mysqli($servername, $username, $password, $dbname);
 
-// ตรวจสอบว่าได้รับค่าครบ
-if (!$imageUrl || !$name || !$email) {
-    die("❌ Error: Missing required parameters.");
-}
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
 
-// ตรวจสอบรูปแบบ email
-if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    die("❌ Error: Invalid email format.");
-}
+    $user_id = $email;
+    $display_name = $name;
+    $status_message = '-';
+    $picture_url = $imageUrl;
+    $urole = "user";
 
-// ข้อมูลการเชื่อมต่อฐานข้อมูล
-$servername = "100.99.99.105:3341";
-$username = "root";
-$password = "adminpcn";
-$dbname = "system_network";
+    // ตรวจสอบว่ามี user_id อยู่ในระบบหรือยัง
+    $check_sql = "SELECT COUNT(*) FROM account WHERE user_id = ?";
+    $check_stmt = $conn->prepare($check_sql);
+    $check_stmt->bind_param("s", $user_id);
+    $check_stmt->execute();
+    $check_stmt->bind_result($count);
+    $check_stmt->fetch();
+    $check_stmt->close();
 
-// เชื่อมต่อกับฐานข้อมูล
-$conn = new mysqli($servername, $username, $password, $dbname);
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+    if ($count > 0) {
+        $_SESSION['user_id'] = $user_id;
 
-// เตรียมข้อมูล
-$user_id = $email;
-$display_name = $name;
-$status_message = '-';
-$picture_url = $imageUrl;
-$urole = "user";
+        // อัปเดตรูปใหม่ (ถ้ามี)
+        $update_sql = "UPDATE account SET picture_url = ? WHERE user_id = ?";
+        $update_stmt = $conn->prepare($update_sql);
+        $update_stmt->bind_param("ss", $picture_url, $user_id);
+        $update_stmt->execute();
 
-// ตรวจสอบว่าผู้ใช้นี้มีอยู่แล้วหรือไม่
-$check_sql = "SELECT COUNT(*) FROM account WHERE user_id = ?";
-$check_stmt = $conn->prepare($check_sql);
-$check_stmt->bind_param("s", $user_id);
-$check_stmt->execute();
-$check_stmt->bind_result($count);
-$check_stmt->fetch();
-$check_stmt->close();
-
-if ($count > 0) {
-    // ผู้ใช้มีอยู่แล้ว
-    $_SESSION['user_id'] = $user_id;
-
-    // อัปเดตภาพโปรไฟล์
-    $update_sql = "UPDATE account SET picture_url = ? WHERE user_id = ?";
-    $update_stmt = $conn->prepare($update_sql);
-    $update_stmt->bind_param("ss", $picture_url, $user_id);
-    $update_stmt->execute();
-    $update_stmt->close();
-
-    // แจ้งเตือนด้วย SweetAlert
-    echo '
-    <html><head>
-        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    </head><body>
-    <script>
+        echo '<script>
         swal({
             title: "ผู้ใช้มีอยู่แล้ว!",
             text: "คุณได้เข้าสู่ระบบแล้ว, ' . htmlspecialchars($display_name) . '!",
@@ -74,26 +55,22 @@ if ($count > 0) {
         }).then(function() {
             window.location = "/home";
         });
-    </script></body></html>';
-} else {
-    // ผู้ใช้ใหม่ → insert ข้อมูล
-    $insert_sql = "INSERT INTO account (user_id, display_name, status_message, picture_url, urole)
-                   VALUES (?, ?, ?, ?, ?)";
-    $insert_stmt = $conn->prepare($insert_sql);
-    $insert_stmt->bind_param("sssss", $user_id, $display_name, $status_message, $picture_url, $urole);
+        </script>';
+    } else {
+        // สร้างบัญชีใหม่
+        $insert_sql = "INSERT INTO account (user_id, display_name, status_message, picture_url, urole) VALUES (?, ?, ?, ?, ?)";
+        $stmt = $conn->prepare($insert_sql);
+        $stmt->bind_param("sssss", $user_id, $display_name, $status_message, $picture_url, $urole);
+        $stmt->execute();
 
-    if ($insert_stmt->execute()) {
-        $_SESSION['user_id'] = $user_id;
-
-        // สร้างข้อมูล count_net ล่วงหน้า
+        // เพิ่มข้อมูลใน count_net
         $count1 = 100;
-        $status = "F";
+        $status = 'F';
 
         for ($year = 2020; $year <= 2080; $year++) {
             for ($month = 1; $month <= 12; $month++) {
                 $date = sprintf("%04d-%02d-01", $year, $month);
-                $sql1 = "INSERT INTO count_net (user_id, `m-y`, count, status)
-                         VALUES (?, ?, ?, ?)";
+                $sql1 = "INSERT INTO count_net (user_id, `m-y`, count, status) VALUES (?, ?, ?, ?)";
                 $stmt1 = $conn->prepare($sql1);
                 $stmt1->bind_param("ssis", $user_id, $date, $count1, $status);
                 $stmt1->execute();
@@ -101,28 +78,58 @@ if ($count > 0) {
             }
         }
 
-        // แจ้งเตือนผู้ใช้ใหม่
-        echo '
-        <html><head>
-            <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-        </head><body>
-        <script>
-            swal({
-                title: "เข้าสู่ระบบสำเร็จ!",
-                text: "ยินดีต้อนรับ, ' . htmlspecialchars($display_name) . '!",
-                icon: "success",
-                button: "ไปยังหน้าหลัก",
-            }).then(function() {
-                window.location = "/home";
-            });
-        </script></body></html>';
-    } else {
-        echo "❌ Error: " . $insert_stmt->error;
+        $_SESSION['user_id'] = $user_id;
+        echo '<script>
+        swal({
+            title: "เข้าสู่ระบบแล้ว!",
+            text: "ยินดีต้อนรับ, ' . htmlspecialchars($display_name) . '!",
+            icon: "success",
+            button: "ตกลง",
+        }).then(function() {
+            window.location = "/home";
+        });
+        </script>';
     }
 
-    $insert_stmt->close();
+    $conn->close();
 }
-
-// ปิดการเชื่อมต่อ
-$conn->close();
 ?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>เข้าสู่ระบบ</title>
+    <!-- SweetAlert -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <!-- LIFF SDK -->
+    <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+
+    <!-- Font Thai -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300&display=swap" rel="stylesheet">
+</head>
+<body style="font-family: 'Noto Sans Thai', sans-serif;">
+
+<script>
+<?php if (empty($imageUrl) || empty($name) || empty($email)): ?>
+// เรียกใช้งาน LIFF
+liff.init({ liffId: "2006525758-JyqOV7wz" }).then(() => {
+    if (!liff.isLoggedIn()) {
+        liff.login();
+    } else {
+        liff.getProfile().then(profile => {
+            const name = profile.displayName;
+            const imageUrl = profile.pictureUrl;
+            const email = liff.getDecodedIDToken().email;
+
+            // redirect ส่งค่ามา login-register.php
+            const redirectURL = `${location.pathname}?imageUrl=${encodeURIComponent(imageUrl)}&name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}`;
+            window.location.href = redirectURL;
+        });
+    }
+});
+<?php endif; ?>
+</script>
+
+</body>
+</html>
